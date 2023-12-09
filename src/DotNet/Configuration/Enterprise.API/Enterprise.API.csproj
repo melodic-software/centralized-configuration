@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Swagger\EmbeddedAssets\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Swagger\EmbeddedAssets\index.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" Version="7.1.0" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="7.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Duende.AccessTokenManagement.OpenIdConnect" Version="2.0.3" />
+    <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
+    <PackageReference Include="IdentityModel" Version="6.2.0" />
+    <PackageReference Include="IdentityModel.AspNetCore.OAuth2Introspection" Version="6.2.0" />
+    <PackageReference Include="Marvin.Cache.Headers" Version="6.1.0" />
+    <PackageReference Include="Melodic.Enterprise.Hosting" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.0.3" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Enterprise.API.Client\Enterprise.API.Client.csproj" />
+    <ProjectReference Include="..\Enterprise.Applications.DotNetCore\Enterprise.Applications.DotNetCore.csproj" />
+    <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Enterprise.Core.Queries\Enterprise.Core.Queries.csproj" />
+    <ProjectReference Include="..\Enterprise.DataShaping\Enterprise.DataShaping.csproj" />
+    <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
+    <ProjectReference Include="..\Enterprise.Library\Enterprise.Library.csproj" />
+    <ProjectReference Include="..\Enterprise.Logging\Enterprise.Logging.csproj" />
+    <ProjectReference Include="..\Enterprise.Middleware\Enterprise.Middleware.csproj" />
+    <ProjectReference Include="..\Enterprise.Monitoring\Enterprise.Monitoring.csproj" />
+    <ProjectReference Include="..\Enterprise.Traceability\Enterprise.Traceability.csproj" />
+  </ItemGroup>
+
+</Project>
