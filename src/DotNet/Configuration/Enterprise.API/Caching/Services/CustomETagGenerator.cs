@@ -10,9 +10,9 @@ public class CustomETagGenerator : IETagGenerator
 {
     private readonly DefaultStrongETagGenerator _defaultStrongETagGenerator;
 
-    public CustomETagGenerator()
+    public CustomETagGenerator(IStoreKeySerializer storeKeySerializer)
     {
-        _defaultStrongETagGenerator = new DefaultStrongETagGenerator();
+        _defaultStrongETagGenerator = new DefaultStrongETagGenerator(storeKeySerializer);
     }
 
     public async Task<ETag> GenerateETag(StoreKey storeKey, string responseBodyContent)
