@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Enterprise.Hosting</name>
+    </assembly>
+    <members>
+        <member name="M:Enterprise.Hosting.Extensions.IHostEnvironmentExtensions.IsLocal(Microsoft.Extensions.Hosting.IHostEnvironment)">
+            <summary>
+            Check if the current environment is the "Local" environment.
+            <see cref="F:Enterprise.Hosting.Constants.EnvironmentConstants.LocalEnvironment"/>
+            </summary>
+            <param name="webHost"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

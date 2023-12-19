@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Configuration.API.Client</name>
+    </assembly>
+    <members>
+        <member name="P:Configuration.API.Client.Models.Input.V1.Abstract.ApplicationManipulationModel.Name">
+            <summary>
+            The name of the application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Input.V1.Abstract.ApplicationManipulationModel.AbbreviatedName">
+            <summary>
+            An optional abbreviated name of the application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Input.V1.Abstract.ApplicationManipulationModel.Description">
+            <summary>
+            An optional brief description of the application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Input.V1.CreateApplicationModel.Id">
+            <summary>
+            The unique identifier of the application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Input.V1.CreateApplicationModel.IsActive">
+            <summary>
+            The active state of the application.
+            </summary>
+        </member>
+        <member name="T:Configuration.API.Client.Models.Output.V1.ApplicationModel">
+            <summary>
+            The model contract for an application resource.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationModel.Id">
+            <summary>
+            The unique identifier for an application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationModel.UniqueName">
+            <summary>
+            The human readable unique name for an application.
+            This is a combination of the name and the application ID.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationModel.Name">
+            <summary>
+            The application name.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationModel.AbbreviatedName">
+            <summary>
+            The optional abbreviated name.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationModel.Description">
+            <summary>
+            An optional description of the application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationModel.IsActive">
+            <summary>
+            The active status of an application.
+            </summary>
+        </member>
+        <member name="T:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel">
+            <summary>
+            The model for a configuration entry resource.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.ConfigurationEntryType">
+            <summary>
+            This is the type of configuration entry?
+            Examples: application setting, connection string, feature toggle (flag).
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.DataType">
+            <summary>
+            An optional attribute that stores information about the data type of the value (string, boolean, etc.).
+            This can be inspected and used to ensure applications process the value properly. 
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.Label">
+            <summary>
+            An optional descriptor used to differentiate configuration entries (outside of environment and application descriptors).
+            Use labels as a way to create multiple versions of a configuration entry.
+            For example, you can input an application version number or a Git commit ID in labels to identify key-values associated with a particular software build.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.DisplayName">
+            <summary>
+            An optional display name for the configuration entry.
+            If one is not provided, the key will be used.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.Key">
+            <summary>
+            Keys serve as case-sensitive, unicode-based string identifiers for key-value pairs and are referenced when storing and retrieving corresponding values.
+            Hierarchical namespaces are created by using a ":" separator (by convention).
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.Value">
+            <summary>
+            The configuration value.
+            </summary>
+        </member>
+        <member name="T:Configuration.API.Client.Models.Output.V1.EnvironmentModel">
+            <summary>
+            The model for a specific application environment.
+            </summary>
+        </member>
+        <member name="T:Configuration.API.Client.Models.Output.V1.HttpConnectionInfoModel">
+            <summary>
+            The model for HTTP connection information.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationModel.Id">
+            <summary>
+            The unique identifier for an application.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationModel.UniqueName">
+            <summary>
+            The human readable unique name for an application.
+            This is a combination of the name and the application ID.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationModel.Name">
+            <summary>
+            The application name.
+            </summary>
+        </member>
+        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationModel.IsActive">
+            <summary>
+            The active status of an application.
+            </summary>
+        </member>
+    </members>
+</doc>

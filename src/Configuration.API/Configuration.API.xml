@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Configuration.API</name>
+    </assembly>
+    <members>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Put(System.Guid,Configuration.API.Client.Models.Input.V1.UpdateApplicationModel,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.CreateApplication})">
+            <summary>
+            Update an application.
+            If an application is not found, an application resource will be created.
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <param name="updateApplicationHandler"></param>
+            <param name="createApplicationHandler"></param>
+            <returns></returns>
+            <response code="404">Application not found.</response>
+            <response code="422">Validation failure.</response>
+            <response code="204">Application updated.</response>
+            <response code="201">Application created.</response>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Patch(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Configuration.API.Client.Models.Input.V1.UpdateApplicationModel},Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplicationById,Configuration.Core.Queries.Model.Application},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.CreateApplication})">
+            <summary>
+            Partially update an application.
+            If an application is not found, an application resource will be created.
+            </summary>
+            <param name="id">the ID of the application</param>
+            <param name="patchDocument">The patch document describing the changes to be made</param>
+            <param name="queryHandler"></param>
+            <param name="updateApplicationHandler"></param>
+            <param name="createApplicationHandler"></param>
+            <returns></returns>
+            <remarks>
+            Sample request:
+            
+                [
+                    {
+                        "op": "replace",
+                        "path": "/abbreviatedName",
+                        "value": "DEMO"
+                    }
+                ]
+            
+            </remarks>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Post(Configuration.API.Client.Models.Input.V1.CreateApplicationModel,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.CreateApplication})">
+            <summary>
+            Create an application.
+            </summary>
+            <remarks>
+            Sample request:
+            
+                POST /applications
+                {
+                    "id": "500f86a2-65f7-4fc2-836a-2b14f8686209",
+                    "name": "Demo Application",
+                    "abbreviation": null
+                }
+            
+            Sample response:
+            
+                {
+                    "applicationId": "500f86a2-65f7-4fc2-836a-2b14f8686209",
+                    "uniqueName": "Demo Application-500f86a2",
+                    "name": "Demo Application",
+                    "abbreviatedName": null,
+                    "description": null,
+                    "isActive": false
+                }
+            
+            </remarks>
+            <param name="model"></param>
+            <param name="commandHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Delete(System.Guid,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.DeleteApplication})">
+            <summary>
+            Delete an application.
+            </summary>
+            <param name="id"></param>
+            <param name="commandHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Options">
+            <summary>
+            Retrieve the communication options available for the resource.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.GetApplicationsWithoutLinks(Configuration.API.Client.Models.Input.V1.GetApplicationsModel,Enterprise.Reflection.Properties.Abstract.IPropertyExistenceService,Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplications,Configuration.ApplicationServices.Queries.Applications.Results.GetApplicationsResult})">
+            <summary>
+            Get applications.
+            </summary>
+            <param name="model"></param>
+            <param name="propertyExistenceService"></param>
+            <param name="queryHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.GetApplicationsWithLinks(Configuration.API.Client.Models.Input.V1.GetApplicationsModel,Enterprise.Reflection.Properties.Abstract.IPropertyExistenceService,Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplications,Configuration.ApplicationServices.Queries.Applications.Results.GetApplicationsResult})">
+            <summary>
+            Get applications.
+            </summary>
+            <param name="model"></param>
+            <param name="propertyExistenceService"></param>
+            <param name="queryHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.GetApplicationById(System.Guid,System.String,System.String,Enterprise.Reflection.Properties.Abstract.IPropertyExistenceService,Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplicationById,Configuration.Core.Queries.Model.Application})">
+            <summary>
+            Get an application by ID.
+            </summary>
+            <remarks>
+            Sample request:
+            
+                GET /applications/500f86a2-65f7-4fc2-836a-2b14f8686209
+            
+            Sample response:
+            
+                {
+                    "applicationId": "500f86a2-65f7-4fc2-836a-2b14f8686209",
+                    "uniqueName": "Demo Application-500f86a2",
+                    "name": "Demo Application",
+                    "abbreviatedName": "DEMO",
+                    "description": null,
+                    "isActive": true
+                }
+            
+            </remarks>
+            <param name="id"></param>
+            <param name="properties"></param>
+            <param name="mediaType"></param>
+            <param name="propertyExistenceService"></param>
+            <param name="queryHandler"></param>
+            <returns>an IActionResult</returns>
+            <response code="200">Returns the requested application.</response>
+            <response code="400">Bad request.</response>
+            <response code="404">Application not found.</response>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.GetApplicationByUniqueName(System.String,System.String,System.String,Enterprise.Reflection.Properties.Abstract.IPropertyExistenceService,Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplicationByUniqueName,Configuration.Core.Queries.Model.Application})">
+            <summary>
+            Get an application by unique name.
+            </summary>
+            <remarks>
+            Sample request:
+            
+                GET /applications/Demo Application-500f86a2
+            
+            Sample response:
+            
+                {
+                    "applicationId": "500f86a2-65f7-4fc2-836a-2b14f8686209",
+                    "uniqueName": "Demo Application-500f86a2",
+                    "name": "Demo Application",
+                    "abbreviatedName": "DEMO",
+                    "description": null,
+                    "isActive": true
+                }
+            
+            </remarks>
+            <param name="uniqueName"></param>
+            <param name="properties"></param>
+            <param name="mediaType"></param>
+            <param name="propertyExistenceService"></param>
+            <param name="queryHandler"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Configuration.API.Controllers.Applications.V2.ApplicationsControllerV2.GetApplicationById(System.Guid,Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplicationById,Configuration.Core.Queries.Model.Application})">
+            <summary>
+            Get an application by ID. (Version 2)
+            </summary>
+            <remarks>
+            Sample request:
+            
+                GET /applications/500f86a2-65f7-4fc2-836a-2b14f8686209
+            
+            Sample response:
+            
+                {
+                    "applicationId": "500f86a2-65f7-4fc2-836a-2b14f8686209",
+                    "uniqueName": "Demo Application-500f86a2",
+                    "name": "Demo Application",
+                    "isActive": true
+                }
+            
+            </remarks>
+            <param name="id"></param>
+            <param name="queryHandler"></param>
+            <returns>an IActionResult</returns>
+            <response code="200">Returns the requested application.</response>
+            <response code="400">Bad request.</response>
+            <response code="404">Application not found.</response>
+        </member>
+        <member name="F:Configuration.API.Routing.Constants.RouteTemplates.VersionSegment">
+            <summary>
+            This can be used to construct a versioned resource identifier.
+            For example: [Route("api/v{version:apiVersion}/[controller]")]
+            NOTE: It shouldn't be used by itself.
+            </summary>
+        </member>
+    </members>
+</doc>
