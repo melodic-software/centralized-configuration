@@ -2,28 +2,17 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using static Microsoft.Extensions.DependencyInjection.ServiceLifetime;
 
-namespace Enterprise.Applications.DotNet.Dependencies
+namespace Enterprise.DI.DotNet.Dependencies
 {
     public class RegistrationContext<TService>(IServiceCollection services)
         where TService : class
     {
-        public RegistrationContext<TService> AddSingleton<TImplementation>() 
-            where TImplementation : class, TService => Add<TImplementation>(Singleton);
-
-        public RegistrationContext<TService> AddSingleton(Func<IServiceProvider, TService> implementationFactory) =>
-            Add(implementationFactory, Singleton);
-
-        public RegistrationContext<TService> AddScoped<TImplementation>()
-            where TImplementation : class, TService => Add<TImplementation>(Scoped);
-
-        public RegistrationContext<TService> AddScoped(Func<IServiceProvider, TService> implementationFactory) =>
-            Add(implementationFactory, Scoped);
-
-        public RegistrationContext<TService> AddTransient<TImplementation>()
-            where TImplementation : class, TService => Add<TImplementation>(Transient);
-
-        public RegistrationContext<TService> AddTransient(Func<IServiceProvider, TService> implementationFactory) =>
-            Add(implementationFactory, Transient);
+        public RegistrationContext<TService> AddSingleton<TImplementation>() where TImplementation : class, TService => Add<TImplementation>(Singleton);
+        public RegistrationContext<TService> AddSingleton(Func<IServiceProvider, TService> implementationFactory) => Add(implementationFactory, Singleton);
+        public RegistrationContext<TService> AddScoped<TImplementation>() where TImplementation : class, TService => Add<TImplementation>(Scoped);
+        public RegistrationContext<TService> AddScoped(Func<IServiceProvider, TService> implementationFactory) => Add(implementationFactory, Scoped);
+        public RegistrationContext<TService> AddTransient<TImplementation>() where TImplementation : class, TService => Add<TImplementation>(Transient);
+        public RegistrationContext<TService> AddTransient(Func<IServiceProvider, TService> implementationFactory) => Add(implementationFactory, Transient);
 
         public RegistrationContext<TService> Add<TImplementation>(ServiceLifetime serviceLifetime)
             where TImplementation : class, TService
@@ -46,35 +35,52 @@ namespace Enterprise.Applications.DotNet.Dependencies
         public IServiceCollection WithDecorator<TDecorator>() where TDecorator : class, TService
         {
             return WithDecorator((serviceProvider, service) =>
-                ActivatorUtilities.CreateInstance<TDecorator>(serviceProvider, service));
+            {
+                return ActivatorUtilities.CreateInstance<TDecorator>(serviceProvider, service);
+            });
         }
 
-        public IServiceCollection WithDecorator<TDecorator>(Func<IServiceProvider, TService, TDecorator> decoratorFactory)
-            where TDecorator : class, TService
+        public IServiceCollection WithDecorator<TDecorator>(Func<IServiceProvider, TService, TDecorator> decoratorFactory) where TDecorator : class, TService
         {
             (Type serviceType, ServiceLifetime lifetime) = GetServiceDescriptorDetails();
 
-            // capture the original service registration
+            // Capture the original service registration
             ServiceDescriptor? originalServiceDescriptor = services
                 .FirstOrDefault(d => d.ServiceType == serviceType);
 
             if (originalServiceDescriptor == null)
                 throw new InvalidOperationException($"The original service of type {serviceType.Name} has not been registered.");
 
-            // replace the original service with the decorator
+            // Replace the original service with the decorator
             object ImplementationFactory(IServiceProvider serviceProvider)
             {
-                // resolve the original service using the original service descriptor
-                TService? originalService = originalServiceDescriptor.ImplementationFactory?.Invoke(serviceProvider) as TService;
+                TService originalService;
 
-                if (originalService == null)
-                    throw new InvalidOperationException();
+                if (originalServiceDescriptor.ImplementationFactory != null)
+                {
+                    // Use the factory if available
+                    originalService = (TService)originalServiceDescriptor.ImplementationFactory(serviceProvider);
+                }
+                else if (originalServiceDescriptor.ImplementationInstance != null)
+                {
+                    // Use the instance if available
+                    originalService = (TService)originalServiceDescriptor.ImplementationInstance;
+                }
+                else if (originalServiceDescriptor.ImplementationType != null)
+                {
+                    // Create an instance using ActivatorUtilities if only a type is registered
+                    originalService = (TService)ActivatorUtilities.CreateInstance(serviceProvider, originalServiceDescriptor.ImplementationType);
+                }
+                else
+                {
+                    // If none of the above, throw an exception as the service registration is not supported by this method
+                    throw new InvalidOperationException("The registration method for the original service is not supported.");
+                }
 
                 return decoratorFactory(serviceProvider, originalService);
             }
 
             ServiceDescriptor decoratorDescriptor = ServiceDescriptor.Describe(serviceType, ImplementationFactory, lifetime);
-
             services.Replace(decoratorDescriptor);
 
             return services;

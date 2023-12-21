@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.API\Enterprise.API.csproj" />
-    <ProjectReference Include="..\Enterprise.Applications.DotNet\Enterprise.Applications.DotNet.csproj" />
+    <ProjectReference Include="..\Enterprise.DI.DotNet\Enterprise.DI.DotNet.csproj" />
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
     <ProjectReference Include="..\Enterprise.Reflection\Enterprise.Reflection.csproj" />
   </ItemGroup>

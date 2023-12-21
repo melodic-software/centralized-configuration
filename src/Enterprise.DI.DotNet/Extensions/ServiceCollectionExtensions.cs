@@ -1,7 +1,7 @@
-﻿using Enterprise.Applications.DotNet.Dependencies;
+﻿using Enterprise.DI.DotNet.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enterprise.Applications.DotNet.Extensions;
+namespace Enterprise.DI.DotNet.Extensions;
 
 public static class ServiceCollectionExtensions
 {

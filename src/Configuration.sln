@@ -126,6 +126,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Hosting", "Enter
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Applications.DotNet", "Enterprise.Applications.DotNet\Enterprise.Applications.DotNet.csproj", "{FBC88734-7BFA-4749-9A7F-76A4562CF87A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.DI.DotNet", "Enterprise.DI.DotNet\Enterprise.DI.DotNet.csproj", "{F01A8E2B-8316-4277-BA93-650BFFF7BAC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -320,6 +322,10 @@ Global
 		{FBC88734-7BFA-4749-9A7F-76A4562CF87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBC88734-7BFA-4749-9A7F-76A4562CF87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBC88734-7BFA-4749-9A7F-76A4562CF87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F01A8E2B-8316-4277-BA93-650BFFF7BAC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F01A8E2B-8316-4277-BA93-650BFFF7BAC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F01A8E2B-8316-4277-BA93-650BFFF7BAC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F01A8E2B-8316-4277-BA93-650BFFF7BAC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -381,6 +387,7 @@ Global
 		{1D5CE9CD-27F8-4478-A3E0-4E994D4E03E0} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{DC837BDC-1B3F-481A-830F-E0FC6D450B33} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{FBC88734-7BFA-4749-9A7F-76A4562CF87A} = {E2239087-AC19-4FCA-82C4-33D60753D688}
+		{F01A8E2B-8316-4277-BA93-650BFFF7BAC6} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {081E96BF-0574-4A9D-86A7-982CDF05EBC9}

@@ -7,7 +7,7 @@ using Enterprise.Events.Services.Raising.Callbacks.Facade;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
 using Enterprise.API.Events.Decorators;
-using Enterprise.Applications.DotNet.Extensions;
+using Enterprise.DI.DotNet.Extensions;
 
 namespace Configuration.DI.Registrars;
 
@@ -21,7 +21,7 @@ internal class EventServiceRegistrar
 
         //services.BeginRegistration<IResolveEventHandlers>()
         //    .AddSingleton(provider => new EventHandlerResolver(provider))
-        //    .WithDecorator((provider, baseHandler) => new CachingEventHandlerResolver(baseHandler));
+        //    .WithDecorator((provider, eventHandlerResolver) => new CachingEventHandlerResolver(eventHandlerResolver));
 
         services.BeginRegistration<IResolveEventHandlers>()
             .AddSingleton(provider =>
