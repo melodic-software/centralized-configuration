@@ -4,14 +4,9 @@ using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
 namespace Enterprise.ApplicationServices;
 
-public class ApplicationServiceDependencies : IApplicationServiceDependencies
+public class ApplicationServiceDependencies(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
+    : IApplicationServiceDependencies
 {
-    public IRaiseEvents EventRaiser { get; }
-    public IEventCallbackService EventCallbackService { get; }
-
-    public ApplicationServiceDependencies(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
-    {
-        EventRaiser = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
-        EventCallbackService = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
-    }
+    public IRaiseEvents EventRaiser { get; } = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
+    public IEventCallbackService EventCallbackService { get; } = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
 }
