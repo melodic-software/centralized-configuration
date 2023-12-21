@@ -6,6 +6,8 @@ using Enterprise.Events.Services.Raising.Callbacks;
 using Enterprise.Events.Services.Raising.Callbacks.Facade;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
+using Enterprise.API.Events.Decorators;
+using Enterprise.Applications.DotNet.Extensions;
 
 namespace Configuration.DI.Registrars;
 
@@ -13,11 +15,26 @@ internal class EventServiceRegistrar
 {
     internal static void RegisterEventServices(IServiceCollection services)
     {
-        services.AddSingleton(provider =>
-        {
-            IResolveEventHandlers eventHandlerResolver = new EventHandlerResolver(provider);
-            return eventHandlerResolver;
-        });
+        //services.BeginRegistration<IResolveEventHandlers>()
+        //    .AddSingleton<EventHandlerResolver>()
+        //    .WithDecorator<CachingEventHandlerResolver>();
+
+        //services.BeginRegistration<IResolveEventHandlers>()
+        //    .AddSingleton(provider => new EventHandlerResolver(provider))
+        //    .WithDecorator((provider, baseHandler) => new CachingEventHandlerResolver(baseHandler));
+
+        services.BeginRegistration<IResolveEventHandlers>()
+            .AddSingleton(provider =>
+            {
+                IResolveEventHandlers eventHandlerResolver = new EventHandlerResolver(provider);
+                return eventHandlerResolver;
+            })
+            .WithDecorator((provider, eventHandlerResolver) =>
+            {
+                // if this had additional dependencies, they could be resolved via the DI provider
+                IResolveEventHandlers cachedEventHandlerResolver = new CachingEventHandlerResolver(eventHandlerResolver);
+                return cachedEventHandlerResolver;
+            });
 
         services.AddSingleton(provider =>
         {
