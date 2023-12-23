@@ -1,6 +1,11 @@
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = N'Configuration')
+IF NOT EXISTS
+(
+    SELECT TOP (1)
+           s.database_id
+    FROM sys.databases s
+    WHERE s.[name] = N'Configuration'
+)
 BEGIN
     CREATE DATABASE [Configuration];
-	-- You can add additional configuration settings here if necessary
 END;
 GO
