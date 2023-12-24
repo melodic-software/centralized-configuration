@@ -15,16 +15,16 @@ $ErrorActionPreference = "Stop"
 if (-not (Get-Module -ListAvailable -Name SqlServer)) {
     Write-Host "Installing SQL Server PowerShell module..."
     Install-Module -Name SqlServer -Scope CurrentUser -Force -AllowClobber
-    Write-Host "SQL Server PowerShell module install completed."
+    Write-Host "SQL Server PowerShell module installed."
 }
 
 # Import SQL Server module
 Import-Module -Name SqlServer -Force
 
 # Define database server
-$DbServer = "localhost"  # or ".\SQLEXPRESS"
+$DbServer = "localhost"  # or ".\SQLEXPRESS" (update as needed)
 
-# Path to the database initialization script
+# Define the path to the database initialization script
 $DbInitScriptPath = "..\..\data\init\CreateDatabase.sql"
 
 try {
