@@ -7,5 +7,7 @@ IF NOT EXISTS
 )
 BEGIN
     CREATE DATABASE [Configuration];
+
+    ALTER DATABASE [Configuration] SET RECOVERY SIMPLE;
 END;
 GO
