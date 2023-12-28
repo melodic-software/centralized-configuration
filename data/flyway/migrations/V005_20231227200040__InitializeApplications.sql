@@ -23,7 +23,8 @@ BEGIN TRY
                 CONSTRAINT UQ_Application_ApplicationGuid
                 UNIQUE NONCLUSTERED,
             ApplicationName NVARCHAR(100) NOT NULL,
-            DisplayName NVARCHAR(150) NULL,
+            AbbreviatedName NVARCHAR(150) NULL,
+            ApplicationDescription NVARCHAR(255) NULL,
             IsActive BIT NOT NULL
                 CONSTRAINT DF_Application_IsActive
                     DEFAULT 0,
@@ -54,7 +55,7 @@ BEGIN TRY
         (
             ApplicationGuid,
             ApplicationName,
-            DisplayName,
+            AbbreviatedName,
             IsActive,
             IsDeleted,
             CreatedByGuid,
