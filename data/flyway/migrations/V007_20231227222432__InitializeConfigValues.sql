@@ -39,6 +39,7 @@ BEGIN TRY
             DateCreated DATETIME2 NOT NULL
                 CONSTRAINT DF_ConfigValue_DateCreated
                     DEFAULT SYSUTCDATETIME(),
+            ModifiedByGuid UNIQUEIDENTIFIER NULL,
             DateModified DATETIME2 NULL
                 CONSTRAINT UQ_ConfigValue_ConfigDefinitionId_EnvironmentId_ApplicationId_ContextId_ConfigProviderId
                 UNIQUE NONCLUSTERED (
