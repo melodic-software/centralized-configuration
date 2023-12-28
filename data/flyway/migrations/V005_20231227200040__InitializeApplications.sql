@@ -22,8 +22,9 @@ BEGIN TRY
             ApplicationGuid UNIQUEIDENTIFIER NOT NULL
                 CONSTRAINT UQ_Application_ApplicationGuid
                 UNIQUE NONCLUSTERED,
+            UniqueName NVARCHAR(150) NOT NULL,
             ApplicationName NVARCHAR(100) NOT NULL,
-            AbbreviatedName NVARCHAR(150) NULL,
+            AbbreviatedName NVARCHAR(50) NULL,
             ApplicationDescription NVARCHAR(255) NULL,
             IsActive BIT NOT NULL
                 CONSTRAINT DF_Application_IsActive
@@ -54,8 +55,10 @@ BEGIN TRY
         INSERT INTO dbo.[Application]
         (
             ApplicationGuid,
+            UniqueName,
             ApplicationName,
             AbbreviatedName,
+            ApplicationDescription,
             IsActive,
             IsDeleted,
             CreatedByGuid,
@@ -64,8 +67,8 @@ BEGIN TRY
             DateModified
         )
         VALUES
-        ('5C901FE0-3086-48B1-B4EE-A315BA2E3E91', N'DemoApplication', 'Demo Application', DEFAULT, DEFAULT, @UserGuid,
-         DEFAULT, NULL, NULL);
+        ('5C901FE0-3086-48B1-B4EE-A315BA2E3E91', N'DemoApplication-5c901fe0', N'DemoApplication', 'Demo Application',
+         'This is a demo application.', DEFAULT, DEFAULT, @UserGuid, DEFAULT, NULL, NULL);
     END;
 
     COMMIT TRANSACTION;

@@ -10,6 +10,7 @@ BEGIN
 
     SELECT a.ApplicationId,
            a.ApplicationGuid,
+           a.UniqueName,
            a.ApplicationName,
            a.AbbreviatedName,
            a.ApplicationDescription,

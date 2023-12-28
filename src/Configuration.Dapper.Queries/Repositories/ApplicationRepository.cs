@@ -33,14 +33,11 @@ namespace Configuration.Dapper.Queries.Repositories
             if (result == null)
                 return null;
 
+            string uniqueName = result.UniqueName;
             string applicationName = result.ApplicationName;
             string abbreviatedName = result.AbbreviatedName;
             string? description = result.ApplicationDescription;
             bool isActive = result.IsActive;
-
-            // TODO: this needs to come from an injected service (technically business logic - centralized/shared formatting)
-            string guidPartial = id.ToString().Substring(0, 8);
-            string uniqueName = $"{applicationName}-{guidPartial}";
 
             Application application = new Application(id, uniqueName, applicationName, abbreviatedName, description, isActive);
 
