@@ -14,6 +14,13 @@ SELECT cv.ConfigValueId,
        ct.DateCreated AS DateConfigTypeCreated,
        ct.ModifiedByGuid AS ConfigTypeModifiedByGuid,
        ct.DateModified AS DateConfigTypeModified,
+	   cd.ConfigDataTypeId,
+       cdt.ConfigDataTypeName,
+       cdt.IsDeleted AS ConfigDataTypeIsDeleted,
+       cdt.CreatedByGuid AS ConfigDataTypeCreatedByGuid,
+       cdt.DateCreated AS DateConfigDataTypeCreated,
+       cdt.ModifiedByGuid AS ConfigDataTypeModifiedByGuid,
+       cdt.DateModified AS DateConfigDataTypeModified,
        cd.KeyName AS ConfigDefinitionKeyName,
        cd.ConfigDefinitionDescription,
        cd.IsDeleted AS ConfigDefinitionIsDeleted,
@@ -34,7 +41,7 @@ SELECT cv.ConfigValueId,
        e.DateModified AS DateEnvironmentModified,
        cv.ApplicationId,
        a.ApplicationGuid,
-	   a.UniqueName AS ApplicationUniqueName,
+       a.UniqueName AS ApplicationUniqueName,
        a.ApplicationName,
        a.AbbreviatedName AS AbbreviatedApplicationName,
        a.ApplicationDescription,
@@ -70,6 +77,8 @@ FROM dbo.ConfigValue cv
         ON cd.ConfigDefinitionId = cv.ConfigDefinitionId
     JOIN dbo.ConfigType ct
         ON ct.ConfigTypeId = cd.ConfigTypeId
+    LEFT JOIN dbo.ConfigDataType cdt
+        ON cdt.ConfigDataTypeId = cd.ConfigDataTypeId
     LEFT JOIN dbo.Environment e
         ON e.EnvironmentId = cv.EnvironmentId
     LEFT JOIN dbo.[Application] a

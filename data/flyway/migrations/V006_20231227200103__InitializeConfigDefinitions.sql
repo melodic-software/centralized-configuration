@@ -25,6 +25,9 @@ BEGIN TRY
             ConfigTypeId INT NOT NULL
                 CONSTRAINT FK_ConfigDefinition_ConfigTypeId_ConfigType_ConfigTypeId
                 REFERENCES dbo.ConfigType (ConfigTypeId),
+            ConfigDataTypeId INT NULL
+                CONSTRAINT FK_ConfigDefinition_ConfigDataTypeId_ConfigDataType_ConfigDataTypeId
+                REFERENCES dbo.ConfigDataType (ConfigDataTypeId),
             KeyName NVARCHAR(150) NOT NULL
                 CONSTRAINT UQ_ConfigDefinition_KeyName
                 UNIQUE NONCLUSTERED,
@@ -49,6 +52,16 @@ BEGIN TRY
                        ct.ConfigTypeId
                 FROM dbo.ConfigType ct
                 WHERE ct.ConfigTypeName = 'ApplicationSetting'
+                ORDER BY ct.ConfigTypeId
+            );
+
+    DECLARE @StringConfigDataTypeId INT =
+            (
+                SELECT TOP (1)
+                       cdt.ConfigDataTypeId
+                FROM dbo.ConfigDataType cdt
+                WHERE cdt.ConfigDataTypeName = 'String'
+                ORDER BY cdt.ConfigDataTypeId
             );
 
     IF NOT EXISTS
@@ -63,6 +76,7 @@ BEGIN TRY
         (
             ConfigDefinitionGuid,
             ConfigTypeId,
+            ConfigDataTypeId,
             KeyName,
             ConfigDefinitionDescription,
             IsDeleted,
@@ -72,8 +86,9 @@ BEGIN TRY
             DateModified
         )
         VALUES
-        ('F07D7437-27BD-4952-8696-AF18320B212E', @ApplicationSettingConfigTypeId, N'JwtBearerAuthentication:Authority',
-         'The trusted authority for JWT bearer tokens.', DEFAULT, @UserGuid, DEFAULT, NULL, NULL);
+        ('F07D7437-27BD-4952-8696-AF18320B212E', @ApplicationSettingConfigTypeId, @StringConfigDataTypeId,
+         N'JwtBearerAuthentication:Authority', 'The trusted authority for JWT bearer tokens.', DEFAULT, @UserGuid,
+         DEFAULT, NULL, NULL);
     END;
 
     IF NOT EXISTS
@@ -88,6 +103,7 @@ BEGIN TRY
         (
             ConfigDefinitionGuid,
             ConfigTypeId,
+			ConfigDataTypeId,
             KeyName,
             ConfigDefinitionDescription,
             IsDeleted,
@@ -97,7 +113,8 @@ BEGIN TRY
             DateModified
         )
         VALUES
-        ('6D9B5A02-A226-4577-9596-24A45F5C1FF0', @ApplicationSettingConfigTypeId, N'JwtBearerAuthentication:Audience',
+        ('6D9B5A02-A226-4577-9596-24A45F5C1FF0', @ApplicationSettingConfigTypeId, @StringConfigDataTypeId,
+         N'JwtBearerAuthentication:Audience',
          'The audience is a token claim that contains the name of the application it is meant for.', DEFAULT,
          @UserGuid, DEFAULT, NULL, NULL);
     END;
@@ -114,6 +131,7 @@ BEGIN TRY
         (
             ConfigDefinitionGuid,
             ConfigTypeId,
+			ConfigDataTypeId,
             KeyName,
             ConfigDefinitionDescription,
             IsDeleted,
@@ -123,7 +141,7 @@ BEGIN TRY
             DateModified
         )
         VALUES
-        ('33427DAF-000C-4E5E-B425-A8C482A07BAC', @ApplicationSettingConfigTypeId,
+        ('33427DAF-000C-4E5E-B425-A8C482A07BAC', @ApplicationSettingConfigTypeId, @StringConfigDataTypeId,
          N'JwtBearerAuthentication:NameClaimType', 'The claim used for the name of the logged in user.', DEFAULT,
          @UserGuid, DEFAULT, NULL, NULL);
     END;

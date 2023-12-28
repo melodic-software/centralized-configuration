@@ -10,7 +10,7 @@ public class ConfigurationEntryModel
 
     /// <summary>
     /// This is the type of configuration entry?
-    /// Examples: application setting, connection string, feature toggle (flag).
+    /// Examples: ApplicationSetting, ConnectionString, FeatureToggle (flag).
     /// </summary>
     public string ConfigurationEntryType { get; set; } = null!;
 

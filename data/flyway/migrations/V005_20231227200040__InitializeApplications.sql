@@ -49,7 +49,7 @@ BEGIN TRY
         SELECT TOP (1)
                a.ApplicationId
         FROM dbo.[Application] a
-        WHERE a.ApplicationGuid = '5C901FE0-3086-48B1-B4EE-A315BA2E3E91'
+        WHERE a.ApplicationGuid = '500F86A2-65F7-4FC2-836A-2B14F8686209'
     )
     BEGIN
         INSERT INTO dbo.[Application]
@@ -67,8 +67,62 @@ BEGIN TRY
             DateModified
         )
         VALUES
-        ('5C901FE0-3086-48B1-B4EE-A315BA2E3E91', N'DemoApplication-5c901fe0', N'DemoApplication', 'Demo Application',
+        ('500F86A2-65F7-4FC2-836A-2B14F8686209', N'Demo Application-500f86a2', N'Demo Application', 'Demo App',
          'This is a demo application.', DEFAULT, DEFAULT, @UserGuid, DEFAULT, NULL, NULL);
+    END;
+
+    IF NOT EXISTS
+    (
+        SELECT TOP (1)
+               a.ApplicationId
+        FROM dbo.[Application] a
+        WHERE a.ApplicationGuid = 'A49262FD-9AB9-452E-92b9-BFB742C94BD0'
+    )
+    BEGIN
+        INSERT INTO dbo.[Application]
+        (
+            ApplicationGuid,
+            UniqueName,
+            ApplicationName,
+            AbbreviatedName,
+            ApplicationDescription,
+            IsActive,
+            IsDeleted,
+            CreatedByGuid,
+            DateCreated,
+            ModifiedByGuid,
+            DateModified
+        )
+        VALUES
+        ('A49262FD-9AB9-452E-92b9-BFB742C94BD0', N'Demo API-a49262fd', N'Demo API', NULL, NULL, DEFAULT, DEFAULT,
+         @UserGuid, DEFAULT, NULL, NULL);
+    END;
+
+    IF NOT EXISTS
+    (
+        SELECT TOP (1)
+               a.ApplicationId
+        FROM dbo.[Application] a
+        WHERE a.ApplicationGuid = 'DD65FE33-97D0-4632-B7f4-677FFD2FDF14'
+    )
+    BEGIN
+        INSERT INTO dbo.[Application]
+        (
+            ApplicationGuid,
+            UniqueName,
+            ApplicationName,
+            AbbreviatedName,
+            ApplicationDescription,
+            IsActive,
+            IsDeleted,
+            CreatedByGuid,
+            DateCreated,
+            ModifiedByGuid,
+            DateModified
+        )
+        VALUES
+        ('DD65FE33-97D0-4632-B7f4-677FFD2FDF14', N'Demo WinForm Application-dd65fe33', N'Demo WinForm Application',
+         NULL, NULL, DEFAULT, DEFAULT, @UserGuid, DEFAULT, NULL, NULL);
     END;
 
     COMMIT TRANSACTION;

@@ -14,7 +14,7 @@ public static class ConfigurationEntryData
         {
             new(
                 "4c75734e-fce6-473d-99e5-a01243d16584",
-                "application setting",
+                "ApplicationSetting",
                 null,
                 null,
                 null,
@@ -27,7 +27,7 @@ public static class ConfigurationEntryData
             ),
             new(
                 "84aba662-aa9e-48e0-93cb-3ebf22bcac1b",
-                "application setting",
+                "ApplicationSetting",
                 null,
                 null,
                 null,
@@ -40,7 +40,7 @@ public static class ConfigurationEntryData
             ),
             new(
                 "84aba662-aa9e-48e0-93cb-3ebf22bcac1b",
-                "feature toggle",
+                "FeatureToggle",
                 null,
                 null,
                 null,
@@ -53,7 +53,7 @@ public static class ConfigurationEntryData
             ),
             new(
                 "dcd95eaf-42c9-4964-b43b-43af9577305b",
-                "connection string",
+                "ConnectionString",
                 null,
                 null,
                 null,

@@ -13,19 +13,19 @@ public class ConfigurationEntryTypeEntitySeedService
             new()
             {
                 ConfigurationEntryTypeId = id++,
-                Name = "application setting",
+                Name = "ApplicationSetting",
                 DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, DateTimeKind.Utc)
             },
             new()
             {
                 ConfigurationEntryTypeId = id++,
-                Name = "connection string",
+                Name = "ConnectionString",
                 DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, DateTimeKind.Utc)
             },
             new()
             {
                 ConfigurationEntryTypeId = id,
-                Name = "feature toggle",
+                Name = "FeatureToggle",
                 DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, DateTimeKind.Utc)
             }
         };

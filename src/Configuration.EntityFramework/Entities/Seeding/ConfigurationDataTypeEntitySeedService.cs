@@ -13,13 +13,13 @@ public static class ConfigurationDataTypeEntitySeedService
             new()
             {
                 ConfigurationValueDataTypeId = id++,
-                Name = "string",
+                Name = "String",
                 DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, DateTimeKind.Utc)
             },
             new()
             {
                 ConfigurationValueDataTypeId = id,
-                Name = "boolean",
+                Name = "Boolean",
                 DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, DateTimeKind.Utc)
             }
         };

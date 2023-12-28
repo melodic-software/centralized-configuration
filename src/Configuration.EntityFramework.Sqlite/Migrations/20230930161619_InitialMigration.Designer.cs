@@ -123,13 +123,13 @@ namespace Configuration.EntityFramework.Sqlite.Migrations
                         {
                             ConfigurationValueDataTypeId = 1,
                             DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "string"
+                            Name = "String"
                         },
                         new
                         {
                             ConfigurationValueDataTypeId = 2,
                             DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "boolean"
+                            Name = "Boolean"
                         });
                 });
 
@@ -197,19 +197,19 @@ namespace Configuration.EntityFramework.Sqlite.Migrations
                         {
                             ConfigurationEntryTypeId = 1,
                             DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "application setting"
+                            Name = "ApplicationSetting"
                         },
                         new
                         {
                             ConfigurationEntryTypeId = 2,
                             DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "connection string"
+                            Name = "ConnectionString"
                         },
                         new
                         {
                             ConfigurationEntryTypeId = 3,
                             DateCreated = new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc),
-                            Name = "feature toggle"
+                            Name = "FeatureToggle"
                         });
                 });
 

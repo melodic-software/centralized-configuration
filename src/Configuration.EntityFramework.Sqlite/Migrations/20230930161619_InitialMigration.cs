@@ -205,8 +205,8 @@ namespace Configuration.EntityFramework.Sqlite.Migrations
                 columns: new[] { "ConfigurationValueDataTypeId", "DateCreated", "DateModified", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "string" },
-                    { 2, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "boolean" }
+                    { 1, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "String" },
+                    { 2, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "Boolean" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,9 +214,9 @@ namespace Configuration.EntityFramework.Sqlite.Migrations
                 columns: new[] { "ConfigurationEntryTypeId", "DateCreated", "DateModified", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "application setting" },
-                    { 2, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "connection string" },
-                    { 3, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "feature toggle" }
+                    { 1, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "ApplicationSetting" },
+                    { 2, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "ConnectionString" },
+                    { 3, new DateTime(2023, 9, 29, 23, 0, 0, 0, DateTimeKind.Utc), null, "FeatureToggle" }
                 });
 
             migrationBuilder.InsertData(

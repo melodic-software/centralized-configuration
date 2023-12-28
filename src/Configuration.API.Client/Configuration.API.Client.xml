@@ -73,7 +73,7 @@
         <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.ConfigurationEntryType">
             <summary>
             This is the type of configuration entry?
-            Examples: application setting, connection string, feature toggle (flag).
+            Examples: ApplicationSetting, ConnectionString, FeatureToggle (flag).
             </summary>
         </member>
         <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryModel.DataType">
