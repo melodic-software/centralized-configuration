@@ -4,7 +4,7 @@ using Configuration.EntityFramework.DbContexts.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Configuration.DI.Commands.Registrars;
+namespace Configuration.DI.Commands.Registrars.EntityFramework;
 
 internal static class RepositoryRegistrar
 {

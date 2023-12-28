@@ -1,5 +1,5 @@
 ﻿using Configuration.Core.Queries.Model;
-using Configuration.DI.Queries.Mapping;
+using Configuration.DI.Queries.Mapping.EntityFramework;
 using Configuration.EntityFramework.Entities;
 using Enterprise.Mapping.Properties.Model;
 using Enterprise.Mapping.Properties.Model.Abstract;
@@ -7,7 +7,7 @@ using Enterprise.Mapping.Properties.Services;
 using Enterprise.Mapping.Properties.Services.Abstract;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Queries.Registrars;
+namespace Configuration.DI.Queries.Registrars.EntityFramework;
 
 internal class PropertyMappingRegistrar
 {

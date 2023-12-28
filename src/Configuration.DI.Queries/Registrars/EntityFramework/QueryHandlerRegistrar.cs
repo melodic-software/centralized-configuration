@@ -11,7 +11,7 @@ using Enterprise.Core.Queries.Sorting;
 using Enterprise.Mapping.Properties.Services.Abstract;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Queries.Registrars;
+namespace Configuration.DI.Queries.Registrars.EntityFramework;
 
 internal static class QueryHandlerRegistrar
 {

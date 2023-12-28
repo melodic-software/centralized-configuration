@@ -19,7 +19,7 @@ public static class ApplicationDependencyRegistrar
 
         services.RegisterEnterpriseServices();
         services.RegisterCommandServices();
-        services.RegisterQueryServices();
+        services.RegisterQueryServices(builder.Configuration);
 
         // services that are absolutely specific to this API (contain API specific implementation)
         RegisterApiServices(services);

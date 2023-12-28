@@ -7,12 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration.API.Client\Configuration.API.Client.csproj" />
     <ProjectReference Include="..\Configuration.ApplicationServices.Queries\Configuration.ApplicationServices.Queries.csproj" />
+    <ProjectReference Include="..\Configuration.Dapper.Queries\Configuration.Dapper.Queries.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.Queries\Configuration.EntityFramework.Queries.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Registrars\" />
   </ItemGroup>
 
 </Project>

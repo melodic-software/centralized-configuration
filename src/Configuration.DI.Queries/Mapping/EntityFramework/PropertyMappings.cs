@@ -3,7 +3,7 @@ using Configuration.EntityFramework.Entities;
 using Enterprise.Mapping.Properties.Model;
 using Enterprise.Sorting.Model;
 
-namespace Configuration.DI.Queries.Mapping;
+namespace Configuration.DI.Queries.Mapping.EntityFramework;
 // NOTE: this same technique can be applied to filtering
 // don't forget that query models, or API model contracts could contain different field representations (ex: concatenated, calculated, etc.)
 // the property mapping dictionary provides the translation

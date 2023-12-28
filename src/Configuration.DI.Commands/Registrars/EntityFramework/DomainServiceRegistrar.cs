@@ -3,7 +3,7 @@ using Configuration.EntityFramework.Commands.Services;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Commands.Registrars;
+namespace Configuration.DI.Commands.Registrars.EntityFramework;
 
 internal class DomainServiceRegistrar
 {
