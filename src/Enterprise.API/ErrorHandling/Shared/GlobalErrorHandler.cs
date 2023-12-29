@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.API.ErrorHandling.Shared;
 
+[Obsolete("Use IExceptionHandler instead of middleware. This was introduced with .NET 8.")]
 public class GlobalErrorHandler
 {
     internal const string ErrorMessage = "Something went wrong.";

@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.API.ErrorHandling.Middleware;
 
+[Obsolete("Use IExceptionHandler instead of middleware. This was introduced with .NET 8.")]
 public class CriticalExceptionMiddleware(RequestDelegate next, ILogger<CriticalExceptionMiddleware> logger)
 {
     public async Task InvokeAsync(HttpContext context)

@@ -11,6 +11,7 @@ namespace Enterprise.API.ErrorHandling.Controllers;
 [Route(RouteTemplates.ErrorHandlers)]
 [ApiController]
 [AllowAnonymous]
+[Obsolete("Use IExceptionHandler instead of middleware. This was introduced with .NET 8.")]
 public class ErrorHandlersController : ControllerBase
 {
     [Route(RouteTemplates.DevelopmentErrors)]

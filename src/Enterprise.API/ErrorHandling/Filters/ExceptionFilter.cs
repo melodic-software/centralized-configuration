@@ -4,6 +4,7 @@ namespace Enterprise.API.ErrorHandling.Filters;
 
 // NOTE: Filters have to be registered in the "AddControllers()" method when configuring / adding services.
 
+[Obsolete("Use IExceptionHandler instead of middleware. This was introduced with .NET 8.")]
 public class ExceptionFilter : IActionFilter, IOrderedFilter
 {
     // These execute in a specific order.

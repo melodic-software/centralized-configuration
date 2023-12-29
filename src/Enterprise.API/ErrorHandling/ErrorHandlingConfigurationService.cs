@@ -1,5 +1,4 @@
 ﻿using Enterprise.API.ErrorHandling.ExceptionHandlers;
-using Enterprise.API.ErrorHandling.Middleware;
 using Enterprise.API.ErrorHandling.Options;
 using Enterprise.API.ErrorHandling.ProblemDetailsConfig;
 using Enterprise.Hosting.Extensions;
@@ -13,10 +12,11 @@ public static class ErrorHandlingConfigurationService
 {
     public static void ConfigureErrorHandling(this IServiceCollection services, WebApplicationBuilder builder, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
     {
-        services.ConfigureProblemDetails(builder, errorHandlingConfigOptions);
-
+        // https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8
         services.AddExceptionHandler<TimeOutExceptionHandler>();
         services.AddExceptionHandler<DefaultExceptionHandler>();
+        
+        services.AddProblemDetails(builder, errorHandlingConfigOptions);
     }
     
     public static void UseErrorHandling(this WebApplication app, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
@@ -31,17 +31,8 @@ public static class ErrorHandlingConfigurationService
 
         }
 
-        app.UseMiddleware<CriticalExceptionMiddleware>();
+        app.UseExceptionHandler();
+
         app.UseProblemDetails(errorHandlingConfigOptions);
-
-        app.UseExceptionHandler(opt => { });
-
-        app.MapGet("/exceptions", () => {
-            throw new NotImplementedException();
-        });
-
-        app.MapGet("/timeouts", () => {
-            throw new TimeoutException();
-        });
     }
 }

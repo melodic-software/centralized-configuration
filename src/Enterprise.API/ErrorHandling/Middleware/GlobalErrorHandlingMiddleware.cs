@@ -7,6 +7,7 @@ namespace Enterprise.API.ErrorHandling.Middleware;
 // NOTE: This is an alternate approach to global error handling.
 // Take a look at the ConfigureGlobalErrorHandler method in the ErrorHandlingConfigurationService.
 
+[Obsolete("Use IExceptionHandler instead of middleware. This was introduced with .NET 8.")]
 public class GlobalErrorHandlingMiddleware(RequestDelegate next, ILogger<GlobalErrorHandlingMiddleware> logger)
 {
     private readonly ILogger _logger = logger;

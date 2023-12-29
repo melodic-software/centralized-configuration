@@ -4,13 +4,13 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<GenerateDocumentationFile>true</GenerateDocumentationFile>
-	<DocumentationFile>Configuration.API.xml</DocumentationFile>
-	<NoWarn>$(NoWarn);1591</NoWarn>
-	<IncludeOpenAPIAnalyzers>false</IncludeOpenAPIAnalyzers>
-	<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	<UserSecretsId>3f178707-0e19-4179-bf2f-d919ef68d853</UserSecretsId>
-	<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	  <DocumentationFile>Configuration.API.xml</DocumentationFile>
+	  <NoWarn>$(NoWarn);1591</NoWarn>
+	  <IncludeOpenAPIAnalyzers>false</IncludeOpenAPIAnalyzers>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	  <UserSecretsId>3f178707-0e19-4179-bf2f-d919ef68d853</UserSecretsId>
+	  <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
