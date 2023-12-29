@@ -1,6 +1,5 @@
-﻿using Enterprise.API.ErrorHandling.ExceptionHandlers;
-using Enterprise.API.ErrorHandling.Options;
-using Enterprise.API.ErrorHandling.ProblemDetailsConfig;
+﻿using Enterprise.API.ErrorHandling.Options;
+using Enterprise.API.ErrorHandling.ProblemDetailsMiddleware;
 using Enterprise.Hosting.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
@@ -13,8 +12,8 @@ public static class ErrorHandlingConfigurationService
     public static void ConfigureErrorHandling(this IServiceCollection services, WebApplicationBuilder builder, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
     {
         // https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8
-        services.AddExceptionHandler<TimeOutExceptionHandler>();
-        services.AddExceptionHandler<DefaultExceptionHandler>();
+        // NOTE: This will not be run if the Hellang middleware is registered.
+        //services.AddExceptionHandler<GlobalExceptionHandler>();
         
         services.AddProblemDetails(builder, errorHandlingConfigOptions);
     }

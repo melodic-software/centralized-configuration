@@ -45,7 +45,7 @@ namespace Enterprise.API.ErrorHandling.Middleware
                     if (contextFeature != null)
                     {
                         string path = contextFeature.Path;
-                        Endpoint? test = contextFeature.Endpoint;
+                        Endpoint? endpoint = contextFeature.Endpoint;
                         Exception exception = contextFeature.Error;
                         RouteValueDictionary routeValues = contextFeature.RouteValues ?? new RouteValueDictionary();
 

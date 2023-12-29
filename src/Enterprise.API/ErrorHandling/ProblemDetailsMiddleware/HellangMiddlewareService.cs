@@ -7,11 +7,11 @@ using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Enterprise.API.ErrorHandling.ProblemDetailsConfig
+namespace Enterprise.API.ErrorHandling.ProblemDetailsMiddleware
 {
-    public static class HellangMiddlewareConfigService
+    internal static class HellangMiddlewareService
     {
-        internal static void ConfigureProblemDetails(IServiceCollection services, WebApplicationBuilder builder, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
+        internal static void AddProblemDetails(IServiceCollection services, WebApplicationBuilder builder, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
         {
             bool includeExceptionDetails = !builder.Environment.IsProduction();
 
