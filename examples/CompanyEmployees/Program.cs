@@ -1,5 +1,7 @@
+using CompanyEmployees.Presentation;
 using Contracts;
 using Enterprise.API;
+using Enterprise.API.Controllers.Options;
 using LoggerService;
 using Microsoft.EntityFrameworkCore;
 using Repository;
@@ -11,6 +13,12 @@ ApiConfigurationService.Configure(args, options =>
     options.HttpRequestMiddlewareOptions.AddCustomMiddleware = app =>
     {
         
+    };
+
+    options.ServiceConfigurationOptions.ControllerConfigurationOptions = new ControllerConfigurationOptions()
+    {
+        ControllerAssemblyTypes = [typeof(AssemblyReference)],
+        EnableGlobalAuthorizeFilter = false
     };
 
     options.ServiceConfigurationOptions.RegisterCustomServices = (services, builder) =>
