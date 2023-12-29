@@ -1,17 +1,12 @@
-var builder = WebApplication.CreateBuilder(args);
+using Enterprise.API;
 
-// Add services to the container.
-
-builder.Services.AddControllers();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+ApiConfigurationService.Configure(args, options =>
+{
+    options.HttpRequestMiddlewareOptions.AddCustomMiddleware = app =>
+    {
+        app.Run(async context =>
+        {
+            await context.Response.WriteAsync("Hello from middleware component.");
+        });
+    };
+});
