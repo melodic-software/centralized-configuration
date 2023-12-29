@@ -69,6 +69,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.Logging.NLog", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.Logging.Serilog", "..\src\Enterprise.Logging.Serilog\Enterprise.Logging.Serilog.csproj", "{807AA6B3-BD4C-418A-9B6A-F1A19E2A601A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{0BB05777-6CA0-484F-8C2E-3C1607DB2B57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{E2F0D269-8D15-45BA-84B9-A2329D450942}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -203,6 +207,14 @@ Global
 		{807AA6B3-BD4C-418A-9B6A-F1A19E2A601A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{807AA6B3-BD4C-418A-9B6A-F1A19E2A601A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{807AA6B3-BD4C-418A-9B6A-F1A19E2A601A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BB05777-6CA0-484F-8C2E-3C1607DB2B57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BB05777-6CA0-484F-8C2E-3C1607DB2B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BB05777-6CA0-484F-8C2E-3C1607DB2B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BB05777-6CA0-484F-8C2E-3C1607DB2B57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2F0D269-8D15-45BA-84B9-A2329D450942}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2F0D269-8D15-45BA-84B9-A2329D450942}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2F0D269-8D15-45BA-84B9-A2329D450942}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2F0D269-8D15-45BA-84B9-A2329D450942}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
