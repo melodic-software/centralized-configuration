@@ -1,4 +1,5 @@
-﻿using Enterprise.API.Controllers.Behavior;
+﻿using System.Reflection;
+using Enterprise.API.Controllers.Behavior;
 using Enterprise.API.Controllers.Formatters;
 using Enterprise.API.Controllers.Options;
 using Microsoft.AspNetCore.Http;
@@ -17,6 +18,13 @@ public static class ControllerConfigurationService
         // this registers ONLY the controllers in the service collection and not views or pages
         // because they are not required in most web API projects
         IMvcBuilder builder = services.AddControllers();
+
+        // If controllers exist in other projects, these can be registered here.
+        foreach (Type controllerAssemblyType in controllerConfigOptions.ControllerAssemblyTypes)
+        {
+            Assembly assembly = controllerAssemblyType.Assembly;
+            builder.AddApplicationPart(assembly);
+        }
 
         builder.ConfigureFormatters();
 
