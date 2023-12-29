@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Configuration.API.Client;
+namespace Configuration.API.Client.Config;
 
 public static class ApiClientConfig
 {

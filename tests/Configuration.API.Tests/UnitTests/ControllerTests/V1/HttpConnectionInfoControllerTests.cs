@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
-using Configuration.API.Client.Models.Output.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Controllers;
 using Configuration.API.Tests.UnitTests.Services;
 using Configuration.AutoMapper.Profiles.API;

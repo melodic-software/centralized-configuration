@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using AutoMapper;
-using Configuration.API.Client.Models.Output.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 using Microsoft.AspNetCore.Http.Features;
 
 namespace Configuration.AutoMapper.Profiles.API;

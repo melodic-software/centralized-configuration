@@ -1,8 +1,8 @@
-﻿using Configuration.API.Client.Models.Input.V1.Abstract;
-using System.ComponentModel.DataAnnotations;
-using static Configuration.API.Client.Models.Input.V1.Validation.Constants.ApplicationValidationMessages;
+﻿using System.ComponentModel.DataAnnotations;
+using Configuration.API.Client.DTOs.Input.V1.Abstract;
+using static Configuration.API.Client.DTOs.Input.V1.Validation.Constants.ApplicationValidationMessages;
 
-namespace Configuration.API.Client.Models.Input.V1;
+namespace Configuration.API.Client.DTOs.Input.V1;
 
 public class UpdateApplicationDto : ApplicationManipulationDto
 {

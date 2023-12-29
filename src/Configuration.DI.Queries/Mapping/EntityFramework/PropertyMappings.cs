@@ -1,4 +1,4 @@
-﻿using Configuration.API.Client.Models.Output.V1;
+﻿using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.EntityFramework.Entities;
 using Enterprise.Mapping.Properties.Model;
 using Enterprise.Sorting.Model;

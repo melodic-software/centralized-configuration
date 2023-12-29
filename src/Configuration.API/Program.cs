@@ -1,4 +1,4 @@
-using Configuration.API.Client;
+using Configuration.API.Client.Config;
 using Configuration.API.Constants;
 using Configuration.API.Dependencies;
 using Configuration.API.EntityFramework;

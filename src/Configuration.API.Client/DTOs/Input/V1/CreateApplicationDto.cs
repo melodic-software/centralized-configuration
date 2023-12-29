@@ -1,6 +1,6 @@
-﻿using Configuration.API.Client.Models.Input.V1.Abstract;
+﻿using Configuration.API.Client.DTOs.Input.V1.Abstract;
 
-namespace Configuration.API.Client.Models.Input.V1;
+namespace Configuration.API.Client.DTOs.Input.V1;
 // NOTE: there are input serialization errors with this (probably due to the type derivation)
 
 public class CreateApplicationDto : ApplicationManipulationDto

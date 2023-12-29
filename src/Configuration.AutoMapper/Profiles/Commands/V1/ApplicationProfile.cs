@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Configuration.API.Client.Models.Output.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.Core.Domain.Model.Entities;
 using Configuration.Core.Domain.Model.Events;
 using Configuration.EntityFramework.Entities;

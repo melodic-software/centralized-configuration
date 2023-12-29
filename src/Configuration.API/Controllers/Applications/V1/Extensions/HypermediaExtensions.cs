@@ -1,6 +1,4 @@
-﻿using Configuration.API.Client.Models.Input.V1;
-using Configuration.API.Client.Models.Output.V1;
-using Configuration.API.Controllers.Applications.V1.Services;
+﻿using Configuration.API.Controllers.Applications.V1.Services;
 using Configuration.API.Routing.Constants;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Client.Hypermedia.Constants;
@@ -9,6 +7,8 @@ using Enterprise.API.Model.Enums;
 using Enterprise.Core.Queries.Paging;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
+using Configuration.API.Client.DTOs.Input.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 using HttpMethods = Enterprise.API.Client.Hypermedia.Constants.HttpMethods;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;

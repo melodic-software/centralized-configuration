@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Configuration.API.Client.Models.Output.V2;
+using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Controllers.Applications.V2;
 using Configuration.API.Tests.UnitTests.Services;
 using Configuration.ApplicationServices.Queries.Applications;

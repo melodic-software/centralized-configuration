@@ -1,6 +1,4 @@
-﻿using Configuration.API.Client.Models.Input.V1;
-using Configuration.API.Client.Models.Output.V1;
-using Configuration.API.ContentNegotiation.Constants;
+﻿using Configuration.API.ContentNegotiation.Constants;
 using Configuration.API.Controllers.Applications.V1.Extensions;
 using Configuration.API.Logging.Constants;
 using Configuration.API.Routing.Constants;
@@ -16,6 +14,8 @@ using Enterprise.Reflection.Properties.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Dynamic;
+using Configuration.API.Client.DTOs.Input.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 
 namespace Configuration.API.Controllers.Applications.V1.Partial;
 

@@ -1,4 +1,4 @@
-﻿using Configuration.API.Client.Models.Input.V1;
+﻿using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Routing.Constants;
 using Enterprise.API.Model.Enums;
 using Enterprise.Core.Queries.Paging;

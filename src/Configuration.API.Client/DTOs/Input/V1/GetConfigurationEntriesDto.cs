@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Client.Models.Input.V1;
+﻿namespace Configuration.API.Client.DTOs.Input.V1;
 
 public class GetConfigurationEntriesDto
 {

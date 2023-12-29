@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Configuration.API.Client.Models.Input.V1;
-using Configuration.API.Client.Models.Output.V1;
 using Configuration.ApplicationServices.Queries.Applications;
 using Configuration.ApplicationServices.Queries.Applications.Results;
 using Configuration.Core.Queries.Model;
@@ -20,6 +18,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 using System.Dynamic;
+using Configuration.API.Client.DTOs.Input.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;

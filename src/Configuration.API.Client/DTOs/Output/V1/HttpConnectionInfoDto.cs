@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Client.Models.Output.V1;
+﻿namespace Configuration.API.Client.DTOs.Output.V1;
 
 /// <summary>
 /// The model for HTTP connection information.

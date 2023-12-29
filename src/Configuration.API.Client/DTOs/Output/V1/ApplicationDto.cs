@@ -1,9 +1,8 @@
-﻿namespace Configuration.API.Client.Models.Output.V2;
-// NOTE: this is just an example of a versioned model contract
-// we should version model contracts if properties are removed, or renamed
-// we can add properties (model extension) to the current version,
-// but consider using a new model if there are multiple additions (increasing payload size)
+﻿namespace Configuration.API.Client.DTOs.Output.V1;
 
+/// <summary>
+/// The model contract for an application resource.
+/// </summary>
 public class ApplicationDto
 {
     /// <summary>
@@ -23,15 +22,27 @@ public class ApplicationDto
     public string Name { get; set; } = null!;
 
     /// <summary>
+    /// The optional abbreviated name.
+    /// </summary>
+    public string? AbbreviatedName { get; set; }
+
+    /// <summary>
+    /// An optional description of the application.
+    /// </summary>
+    public string? Description { get; }
+
+    /// <summary>
     /// The active status of an application.
     /// </summary>
     public bool IsActive { get; set; }
 
-    public ApplicationDto(Guid id, string uniqueName, string name, bool isActive)
+    public ApplicationDto(Guid id, string uniqueName, string name, string? abbreviatedName, string? description, bool isActive)
     {
         Id = id;
         UniqueName = uniqueName;
         Name = name;
+        AbbreviatedName = abbreviatedName;
+        Description = description;
         IsActive = isActive;
     }
 

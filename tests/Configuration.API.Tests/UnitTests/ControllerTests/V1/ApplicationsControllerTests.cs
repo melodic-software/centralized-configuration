@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Configuration.API.Client.Models.Input.V1;
+using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Controllers.Applications.V1.Partial;
 using Configuration.API.Tests.UnitTests.Mocking;
 using Configuration.API.Tests.UnitTests.Services;

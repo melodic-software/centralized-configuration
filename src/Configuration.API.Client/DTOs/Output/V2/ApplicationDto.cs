@@ -1,8 +1,10 @@
-﻿namespace Configuration.API.Client.Models.Output.V1;
+﻿namespace Configuration.API.Client.DTOs.Output.V2;
 
-/// <summary>
-/// The model contract for an application resource.
-/// </summary>
+// NOTE: this is just an example of a versioned model contract
+// we should version model contracts if properties are removed, or renamed
+// we can add properties (model extension) to the current version,
+// but consider using a new model if there are multiple additions (increasing payload size)
+
 public class ApplicationDto
 {
     /// <summary>
@@ -11,7 +13,7 @@ public class ApplicationDto
     public Guid Id { get; set; }
 
     /// <summary>
-    /// The human readable unique name for an application.
+    /// The human-readable unique name for an application.
     /// This is a combination of the name and the application ID.
     /// </summary>
     public string UniqueName { get; set; } = null!;
@@ -22,27 +24,15 @@ public class ApplicationDto
     public string Name { get; set; } = null!;
 
     /// <summary>
-    /// The optional abbreviated name.
-    /// </summary>
-    public string? AbbreviatedName { get; set; }
-
-    /// <summary>
-    /// An optional description of the application.
-    /// </summary>
-    public string? Description { get; }
-
-    /// <summary>
     /// The active status of an application.
     /// </summary>
     public bool IsActive { get; set; }
 
-    public ApplicationDto(Guid id, string uniqueName, string name, string? abbreviatedName, string? description, bool isActive)
+    public ApplicationDto(Guid id, string uniqueName, string name, bool isActive)
     {
         Id = id;
         UniqueName = uniqueName;
         Name = name;
-        AbbreviatedName = abbreviatedName;
-        Description = description;
         IsActive = isActive;
     }
 

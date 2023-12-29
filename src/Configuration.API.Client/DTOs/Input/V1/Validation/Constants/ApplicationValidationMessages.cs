@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Client.Models.Input.V1.Validation.Constants;
+﻿namespace Configuration.API.Client.DTOs.Input.V1.Validation.Constants;
 
 public static class ApplicationValidationMessages
 {

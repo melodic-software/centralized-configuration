@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
 using AutoMapper;
-using Configuration.API.Client.Models.Output.V2;
+using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Routing.Constants;
 using Configuration.ApplicationServices.Queries.Applications;
 using Configuration.Core.Queries.Model;

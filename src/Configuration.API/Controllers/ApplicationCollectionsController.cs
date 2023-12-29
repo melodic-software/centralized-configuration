@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Configuration.API.Client.Models.Input.V1;
-using Configuration.API.Client.Models.Output.V1;
+using Configuration.API.Client.DTOs.Input.V1;
+using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Routing.Constants;
 using Configuration.ApplicationServices.Commands.Applications;
 using Configuration.Core.Domain.Model.Events;
