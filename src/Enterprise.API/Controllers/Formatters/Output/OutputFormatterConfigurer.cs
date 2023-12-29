@@ -9,19 +9,18 @@ public class OutputFormatterConfigurer : IConfigureOptions<MvcOptions>
     public void Configure(MvcOptions options)
     {
         HandleNewtonSoftJsonFormatter(options.OutputFormatters);
-        AddOutputFormatters(options);
-        RemoveOutputFormatters(options);
+        AddOutputFormatters(options.OutputFormatters);
+        RemoveOutputFormatters(options.OutputFormatters);
+        //ReOrderOutputFormatters(options.OutputFormatters);
     }
 
-    public void AddOutputFormatters(MvcOptions options)
+    public void AddOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
     {
         // add any output formatters here
     }
 
-    public void RemoveOutputFormatters(MvcOptions options)
+    public void RemoveOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
     {
-        FormatterCollection<IOutputFormatter> outputFormatters = options.OutputFormatters;
-
         // by default, string return types are formatted as text/plain (text/html if requested via the Accept header)
         // this behavior can be deleted by removing the StringOutputFormatter
         outputFormatters.RemoveType<StringOutputFormatter>();
@@ -47,5 +46,25 @@ public class OutputFormatterConfigurer : IConfigureOptions<MvcOptions>
 
         // remove text/json as it isn't the approved media type for working with JSON at an API level
         newtonSoftJsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
+    }
+
+    private void ReOrderOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
+    {
+        // NOTE: The System.Text.Json formatter should already be the default
+        // But this will ensure it is the first output formatter in the list
+
+        // Find the System.Text.Json formatter
+        SystemTextJsonOutputFormatter? jsonFormatter = outputFormatters
+            .OfType<SystemTextJsonOutputFormatter>()
+            .FirstOrDefault();
+
+        if (jsonFormatter == null)
+            return;
+        
+        // Remove the existing JSON formatter
+        outputFormatters.Remove(jsonFormatter);
+
+        // Re-insert it at the beginning of the collection
+        outputFormatters.Insert(0, jsonFormatter);
     }
 }

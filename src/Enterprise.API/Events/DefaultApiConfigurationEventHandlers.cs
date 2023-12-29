@@ -1,4 +1,4 @@
-﻿using Enterprise.Logging.Providers;
+﻿using Enterprise.Logging.NLog;
 using NLog;
 
 namespace Enterprise.API.Events;
@@ -12,7 +12,8 @@ public class DefaultApiConfigurationEventHandlers : ApiConfigurationEventHandler
 
         OnPreConfiguration = args =>
         {
-            logger = NLogConfigurationService.HandleNLogPreConfiguration();
+            logger = NLogConfigurationService.CreateLogger();
+            logger?.Debug("PRE-CONFIGURATION");
             return Task.CompletedTask;
         };
 
@@ -49,6 +50,7 @@ public class DefaultApiConfigurationEventHandlers : ApiConfigurationEventHandler
 
         OnPostConfiguration = () =>
         {
+            logger?.Debug("POST-CONFIGURATION");
             NLogConfigurationService.HandleNLogPostConfiguration(logger);
             return Task.CompletedTask;
         };

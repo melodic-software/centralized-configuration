@@ -81,7 +81,7 @@ public static class WebApplicationExtensions
 
         app.UseCaching();
 
-        app.UseSecurity(app.Environment);
+        app.UseSecurity();
 
         app.UseHealthChecks(healthCheckOptions);
 

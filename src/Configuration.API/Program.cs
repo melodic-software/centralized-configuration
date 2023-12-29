@@ -9,6 +9,7 @@ using Configuration.API.Swagger.Constants;
 using Configuration.AutoMapper;
 using Enterprise.API;
 using Enterprise.API.Caching.Options;
+using Enterprise.API.Controllers.Options;
 using Enterprise.API.Events;
 using Enterprise.API.Mapping.Options;
 using Enterprise.API.Options;
@@ -67,6 +68,10 @@ ApiConfigurationService.Configure(args, options =>
             Audience = SecurityConstants.Audience,
             NameClaimType = SecurityConstants.NameClaimType,
             ConfigureJwtBearerOptions = null
+        },
+        ControllerConfigurationOptions = new ControllerConfigurationOptions
+        {
+            EnableGlobalAuthorizeFilter = true
         },
         RegisterCustomServices = ApplicationDependencyRegistrar.RegisterCustomServices
     };

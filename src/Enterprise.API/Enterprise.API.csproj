@@ -49,7 +49,8 @@
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
     <ProjectReference Include="..\Enterprise.Hosting\Enterprise.Hosting.csproj" />
     <ProjectReference Include="..\Enterprise.Library\Enterprise.Library.csproj" />
-    <ProjectReference Include="..\Enterprise.Logging\Enterprise.Logging.csproj" />
+    <ProjectReference Include="..\Enterprise.Logging.NLog\Enterprise.Logging.NLog.csproj" />
+    <ProjectReference Include="..\Enterprise.Logging.Serilog\Enterprise.Logging.Serilog.csproj" />
     <ProjectReference Include="..\Enterprise.Middleware\Enterprise.Middleware.csproj" />
     <ProjectReference Include="..\Enterprise.Monitoring\Enterprise.Monitoring.csproj" />
     <ProjectReference Include="..\Enterprise.Traceability\Enterprise.Traceability.csproj" />

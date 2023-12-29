@@ -27,8 +27,8 @@ public static class JwtBearerExtensions
             string authority = jwtBearerTokenOptions.Authority;
             string audience = jwtBearerTokenOptions.Audience;
             bool requireHttpsMetadata = environment.IsProduction();
-            string validIssuer = GetConfigValue(configuration, JwtValidIssuerConfigKey, jwtBearerTokenOptions.Authority);
-            string validAudience = GetConfigValue(configuration, JwtValidAudienceConfigKey, jwtBearerTokenOptions.Audience);
+            string? validIssuer = GetConfigValue(configuration, JwtValidIssuerConfigKey, jwtBearerTokenOptions.Authority);
+            string? validAudience = GetConfigValue(configuration, JwtValidAudienceConfigKey, jwtBearerTokenOptions.Audience);
             string nameClaimType = jwtBearerTokenOptions.NameClaimType ?? JwtClaimTypes.Name;
             string roleClaimType = JwtClaimTypes.Role;
 

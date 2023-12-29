@@ -6,7 +6,7 @@ namespace Enterprise.API.Swagger.Options;
 public class SwaggerConfigurationOptions
 {
     /// <summary>
-    /// By default Swagger is enabled.
+    /// Swagger is enabled by default.
     /// It can never be enabled in a production environment (for security purposes).
     /// </summary>
     public bool EnableSwagger { get; set; }
@@ -20,6 +20,12 @@ public class SwaggerConfigurationOptions
     /// The OAuth client for the swagger documentation page.
     /// </summary>
     public string OAuthClientId { get; set; }
+
+    /// <summary>
+    /// Use Proof Key for Code Exchange.
+    /// This only applies to authorization code flows.
+    /// </summary>
+    public bool UsePkce { get; set; }
 
     /// <summary>
     /// The available OAuth scopes.
@@ -60,6 +66,13 @@ public class SwaggerConfigurationOptions
     public Action<SwaggerGenOptions>? CustomConfigure { get; set; }
 
     /// <summary>
+    /// Have the required OAuth configuration settings been set?
+    /// </summary>
+    public bool CanConfigureOAuth => !string.IsNullOrWhiteSpace(Authority) &&
+                                     !string.IsNullOrWhiteSpace(OAuthClientId) &&
+                                     !string.IsNullOrWhiteSpace(OAuthAppName);
+
+    /// <summary>
     /// Create a new SwaggerConfigurationOptions with the default settings.
     /// </summary>
     public SwaggerConfigurationOptions()
@@ -67,6 +80,7 @@ public class SwaggerConfigurationOptions
         EnableSwagger = true;
         Authority = string.Empty;
         OAuthClientId = string.Empty;
+        UsePkce = true;
         OAuthScopes = new Dictionary<string, string>();
         OAuthAppName = string.Empty;
         ApplicationName = string.Empty;

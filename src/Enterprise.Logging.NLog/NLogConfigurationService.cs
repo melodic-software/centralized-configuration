@@ -4,11 +4,11 @@ using NLog;
 using NLog.Config;
 using NLog.Web;
 
-namespace Enterprise.Logging.Providers;
+namespace Enterprise.Logging.NLog;
 
 public static class NLogConfigurationService
 {
-    public static Logger? HandleNLogPreConfiguration()
+    public static Logger? CreateLogger()
     {
         string currentDirectory = Directory.GetCurrentDirectory();
 
@@ -30,14 +30,11 @@ public static class NLogConfigurationService
         setupBuilder.LoadConfigurationFromFile(configFile: nLogConfigFile, optional: false);
         Logger? logger = setupBuilder.GetCurrentClassLogger();
 
-        logger.Debug("PRE-CONFIGURATION");
-
         return logger;
     }
 
     public static void HandleNLogPostConfiguration(Logger? logger)
     {
-        logger?.Debug("POST-CONFIGURATION");
         // ensure to flush and stop internal timers/threads before application-exit (avoid segmentation fault on Linux)
         LogManager.Shutdown();
     }

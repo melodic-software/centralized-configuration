@@ -1,5 +1,6 @@
 ﻿using Enterprise.API.Controllers.Behavior;
 using Enterprise.API.Controllers.Formatters;
+using Enterprise.API.Controllers.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -11,7 +12,7 @@ namespace Enterprise.API.Controllers;
 
 public static class ControllerConfigurationService
 {
-    public static void ConfigureControllers(this IServiceCollection services)
+    public static void ConfigureControllers(this IServiceCollection services, ControllerConfigurationOptions controllerConfigOptions)
     {
         // this registers ONLY the controllers in the service collection and not views or pages
         // because they are not required in most web API projects
@@ -51,7 +52,8 @@ public static class ControllerConfigurationService
             options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
 
             // register custom filters
-            options.Filters.Add(new AuthorizeFilter()); // essentially adds the [Authorize] attribute to all controllers
+            if (controllerConfigOptions.EnableGlobalAuthorizeFilter)
+                options.Filters.Add(new AuthorizeFilter());
 
             // NOTE: you can pass in authorization policy names to the authorize filter and apply a global authorization policy
             //options.Filters.Add<ExceptionFilter>();

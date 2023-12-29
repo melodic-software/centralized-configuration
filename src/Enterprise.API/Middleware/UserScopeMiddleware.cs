@@ -1,24 +1,15 @@
-﻿using IdentityModel;
+﻿using System.Security.Claims;
+using IdentityModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Security.Claims;
 
-namespace Enterprise.Logging.Middleware;
+namespace Enterprise.API.Middleware;
 
 /// <summary>
 /// If a user is authenticated, a logging scope is created to capture user information (username, subject, etc.).
 /// </summary>
-public class UserScopeMiddleware
+public class UserScopeMiddleware(RequestDelegate next, ILogger<UserScopeMiddleware> logger)
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<UserScopeMiddleware> _logger;
-
-    public UserScopeMiddleware(RequestDelegate next, ILogger<UserScopeMiddleware> logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         bool userIsAuthenticated = context.User.Identity is { IsAuthenticated: true };
@@ -30,14 +21,14 @@ public class UserScopeMiddleware
             string? identityName = user.Identity?.Name ?? "N/A";
             string? subjectId = user.Claims.FirstOrDefault(c => c.Type == JwtClaimTypes.Subject)?.Value;
 
-            using (_logger.BeginScope("User:{user}, SubjectId:{subject}", identityName, subjectId))
+            using (logger.BeginScope("User:{user}, SubjectId:{subject}", identityName, subjectId))
             {
-                await _next(context);
+                await next(context);
             }
         }
         else
         {
-            await _next(context);
+            await next(context);
         }
     }
 }

@@ -43,7 +43,7 @@ public static class WebApplicationBuilderExtensions
         builder.Services.ConfigureProblemDetails(builder, errorHandlingConfigOptions);
         builder.Services.ConfigureSecurity(builder, options.JwtBearerTokenOptions);
 
-        builder.Services.ConfigureControllers();
+        builder.Services.ConfigureControllers(options.ControllerConfigurationOptions);
 
         builder.Services.ConfigureCaching(builder.Configuration, options.CachingConfigurationOptions);
         builder.Services.ConfigureResponseCaching();

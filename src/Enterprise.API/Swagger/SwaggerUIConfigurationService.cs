@@ -13,12 +13,14 @@ public static class SwaggerUIConfigurationService
 {
     public static void ConfigureSwaggerUI(SwaggerUIOptions options, SwaggerConfigurationOptions swaggerConfigOptions, IServiceProvider serviceProvider, IConfiguration configuration)
     {
-        options.OAuthClientId(swaggerConfigOptions.OAuthClientId);
-        options.OAuthAppName(swaggerConfigOptions.OAuthAppName);
+        if (swaggerConfigOptions.CanConfigureOAuth)
+        {
+            options.OAuthClientId(swaggerConfigOptions.OAuthClientId);
+            options.OAuthAppName(swaggerConfigOptions.OAuthAppName);
 
-        // Proof Key for Code Exchange
-        // only applies to authorization code flows
-        options.OAuthUsePkce();
+            if (swaggerConfigOptions.UsePkce)
+                options.OAuthUsePkce();
+        }
 
         IApiVersionDescriptionProvider? apiVersionDescriptionProvider = serviceProvider.GetService<IApiVersionDescriptionProvider>();
 
@@ -35,8 +37,6 @@ public static class SwaggerUIConfigurationService
         options.RoutePrefix = RoutePrefix;
 
         CustomizeUI(options, configuration);
-
-        options.OAuthUsePkce();
     }
 
     private static string GetEndpointUrl(ApiVersionDescription apiVersionDescription)

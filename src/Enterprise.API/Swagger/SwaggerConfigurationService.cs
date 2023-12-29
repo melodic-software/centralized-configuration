@@ -40,6 +40,9 @@ public static class SwaggerConfigurationService
 
     public static void UseSwagger(this WebApplication app, SwaggerConfigurationOptions swaggerConfigOptions)
     {
+        if (!swaggerConfigOptions.EnableSwagger)
+            return;
+
         // add the middleware that generates the OpenAPI specification
         app.UseSwagger(options =>
         {

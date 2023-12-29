@@ -1,12 +1,12 @@
-﻿using Enterprise.Logging.Extensions;
+﻿using System.Reflection;
+using Enterprise.Logging.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Enrichers.Span;
 using Serilog.Exceptions;
-using System.Reflection;
 
-namespace Enterprise.Logging.Providers;
+namespace Enterprise.Logging.Serilog;
 
 public static class SerilogConfigurationService
 {

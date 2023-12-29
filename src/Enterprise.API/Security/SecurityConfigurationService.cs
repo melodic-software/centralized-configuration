@@ -1,6 +1,7 @@
-﻿using Enterprise.API.Security.OAuth.Extensions;
+﻿using Enterprise.API.Middleware;
+using Enterprise.API.Security.OAuth.Extensions;
 using Enterprise.API.Security.Options;
-using Enterprise.Logging.Middleware;
+using Enterprise.Hosting.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,18 +10,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Logging;
 using System.IdentityModel.Tokens.Jwt;
-using Enterprise.Hosting.Extensions;
 using static Enterprise.API.Security.Constants.SecurityConstants;
 
 namespace Enterprise.API.Security;
 
 public static class SecurityConfigurationService
 {
-    // TODO: Add option to enable/disable security.
-    // Only allow disabling if running locally. Throw an error if running in any other environment.
-
     public static void ConfigureSecurity(this IServiceCollection services, WebApplicationBuilder builder, JwtBearerTokenOptions jwtBearerTokenOptions)
     {
+        if (SkipConfiguration(builder.Configuration, builder.Environment))
+            return;
+        
         JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
         JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
@@ -28,18 +28,29 @@ public static class SecurityConfigurationService
         AddAuthorization(builder, services);
     }
 
-    public static void UseSecurity(this WebApplication appBuilder, IWebHostEnvironment env)
+    public static void UseSecurity(this WebApplication app)
     {
-        appBuilder.UseAuthentication();
-        appBuilder.UseMiddleware<UserScopeMiddleware>(); // this will add user information (via a logging scope) if a user is authenticated
-        appBuilder.UseAuthorization();
+        if (SkipConfiguration(app.Configuration, app.Environment))
+            return;
 
-        if (env.IsLocal() || env.IsDevelopment())
+        app.UseAuthentication();
+        app.UseMiddleware<UserScopeMiddleware>(); // this will add user information (via a logging scope) if a user is authenticated
+        app.UseAuthorization();
+
+        if (app.Environment.IsLocal() || app.Environment.IsDevelopment())
         {
             // some errors may be obfuscated by this
             // do NOT enable this in production
             IdentityModelEventSource.ShowPII = true;
         }
+    }
+
+    private static bool SkipConfiguration(IConfiguration configuration, IWebHostEnvironment environment)
+    {
+        bool isNotProduction = !environment.IsProduction();
+        bool disableSecurity = configuration.GetValue<bool>("DisableSecurity", false);
+        bool skipConfiguration = isNotProduction && disableSecurity;
+        return skipConfiguration;
     }
 
     private static void AddAuthentication(WebApplicationBuilder builder, IServiceCollection services, JwtBearerTokenOptions jwtBearerTokenOptions)
