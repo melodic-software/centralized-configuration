@@ -95,9 +95,11 @@ public static class CachingConfigurationService
 
     public static void UseCaching(this WebApplication app)
     {
+        // TODO: Add options to enable/disable caching.
+
         //UseResponseCompression(app);
         //UseResponseCaching(app);
-        UseHttpCacheHeaders(app);
+        //UseHttpCacheHeaders(app);
     }
 
     private static void UseResponseCompression(WebApplication app)
