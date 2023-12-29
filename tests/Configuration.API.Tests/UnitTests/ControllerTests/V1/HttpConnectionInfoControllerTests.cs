@@ -61,17 +61,17 @@ public class HttpConnectionInfoControllerTests
         };
 
         // ACT
-        ActionResult<HttpConnectionInfoModel> result = controller.Get();
+        ActionResult<HttpConnectionInfoDto> result = controller.Get();
 
         // ASSERT
-        ActionResult<HttpConnectionInfoModel> actionResult = Assert.IsType<ActionResult<HttpConnectionInfoModel>>(result);
+        ActionResult<HttpConnectionInfoDto> actionResult = Assert.IsType<ActionResult<HttpConnectionInfoDto>>(result);
         OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-        HttpConnectionInfoModel model = Assert.IsType<HttpConnectionInfoModel>(okObjectResult.Value);
+        HttpConnectionInfoDto dto = Assert.IsType<HttpConnectionInfoDto>(okObjectResult.Value);
 
-        Assert.Equal(connectionId, model.ConnectionId);
-        Assert.Equal(localIpAddress.ToString(), model.LocalIpAddress);
-        Assert.Equal(localPort, model.LocalPort);
-        Assert.Equal(remoteIpAddress.ToString(), model.RemoteIpAddress);
-        Assert.Equal(remotePort, model.RemotePort);
+        Assert.Equal(connectionId, dto.ConnectionId);
+        Assert.Equal(localIpAddress.ToString(), dto.LocalIpAddress);
+        Assert.Equal(localPort, dto.LocalPort);
+        Assert.Equal(remoteIpAddress.ToString(), dto.RemoteIpAddress);
+        Assert.Equal(remotePort, dto.RemotePort);
     }
 }

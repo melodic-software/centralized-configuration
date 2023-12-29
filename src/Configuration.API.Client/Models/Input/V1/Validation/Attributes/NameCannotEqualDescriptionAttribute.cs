@@ -36,10 +36,10 @@ public class NameCannotEqualDescriptionAttribute : ValidationAttribute
         // NOTE: this can be a collection of model objects with the attribute...
         object objectInstance = validationContext.ObjectInstance;
 
-        if (value is not ApplicationManipulationModel model)
+        if (value is not ApplicationManipulationDto model)
         {
             string errorMessage = $"Attribute {nameof(NameCannotEqualDescriptionAttribute)} " +
-                                  $"must be applied to a {nameof(ApplicationManipulationModel)} or a derived type";
+                                  $"must be applied to a {nameof(ApplicationManipulationDto)} or a derived type";
 
             throw new Exception(errorMessage);
         }

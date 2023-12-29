@@ -3,7 +3,7 @@
 namespace Configuration.API.Client.Models.Input.V1;
 // NOTE: there are input serialization errors with this (probably due to the type derivation)
 
-public class CreateApplicationModel : ApplicationManipulationModel
+public class CreateApplicationDto : ApplicationManipulationDto
 {
     /// <summary>
     /// The unique identifier of the application.

@@ -24,7 +24,7 @@ public partial class ApplicationsController
     /// <summary>
     /// Get applications.
     /// </summary>
-    /// <param name="model"></param>
+    /// <param name="getApplicationsDto"></param>
     /// <param name="propertyExistenceService"></param>
     /// <param name="queryHandler"></param>
     /// <returns></returns>
@@ -32,18 +32,18 @@ public partial class ApplicationsController
     [HttpGet(Name = RouteNames.GetApplications)]
     [RequestHeaderMatchesMediaType(HttpHeaderConstants.Accept, MediaTypeConstants.Json, MediaTypeConstants.Xml)] // routing constraint
     [Consumes(MediaTypeConstants.Json, MediaTypeConstants.Xml)]
-    [Produces(MediaTypeConstants.Json, MediaTypeConstants.Xml, Type = typeof(List<ApplicationModel>))]
-    public async Task<IActionResult> GetApplicationsWithoutLinks([FromQuery] GetApplicationsModel model,
+    [Produces(MediaTypeConstants.Json, MediaTypeConstants.Xml, Type = typeof(List<ApplicationDto>))]
+    public async Task<IActionResult> GetApplicationsWithoutLinks([FromQuery] GetApplicationsDto getApplicationsDto,
         [FromServices] IPropertyExistenceService propertyExistenceService,
         [FromServices] IHandleQuery<GetApplications, GetApplicationsResult> queryHandler)
     {
         try
         {
             // TODO: this object isn't being represented (just a plain .ToString())
-            using (_logger.BeginScope("ScopeModel: {ScopeModel}", model)) 
+            using (_logger.BeginScope("ScopeModel: {ScopeModel}", getApplicationsDto)) 
             {
                 DataShapedQueryResult result = await this
-                    .GetApplications(model, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory);
+                    .GetApplications(getApplicationsDto, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory);
 
                 if (result.FailureActionResult != null)
                     return result.FailureActionResult;
@@ -63,7 +63,7 @@ public partial class ApplicationsController
     /// <summary>
     /// Get applications.
     /// </summary>
-    /// <param name="model"></param>
+    /// <param name="getApplicationsDto"></param>
     /// <param name="propertyExistenceService"></param>
     /// <param name="queryHandler"></param>
     /// <returns></returns>
@@ -73,19 +73,19 @@ public partial class ApplicationsController
     [Consumes(VendorMediaTypeConstants.HypermediaJson)]
     [Produces(VendorMediaTypeConstants.HypermediaJson)] // TODO: add hypermedia model type?
     [ApiExplorerSettings(IgnoreApi = true)]
-    public async Task<IActionResult> GetApplicationsWithLinks([FromQuery] GetApplicationsModel model,
+    public async Task<IActionResult> GetApplicationsWithLinks([FromQuery] GetApplicationsDto getApplicationsDto,
         [FromServices] IPropertyExistenceService propertyExistenceService,
         [FromServices] IHandleQuery<GetApplications, GetApplicationsResult> queryHandler)
     {
         try
         {
             DataShapedQueryResult result = await this
-                .GetApplications(model, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory);
+                .GetApplications(getApplicationsDto, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory);
 
             if (result.FailureActionResult != null)
                 return result.FailureActionResult;
 
-            dynamic resultModel = this.ApplicationsWithLinks(model, result.PaginationMetadata, result.DataShapedResult);
+            dynamic resultModel = this.ApplicationsWithLinks(getApplicationsDto, result.PaginationMetadata, result.DataShapedResult);
 
             return Ok(resultModel);
         }
@@ -128,7 +128,7 @@ public partial class ApplicationsController
     [HttpGet("{id:guid}", Name = RouteNames.GetApplicationById)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [Produces(typeof(ApplicationModel))]
+    [Produces(typeof(ApplicationDto))]
     public async Task<IActionResult> GetApplicationById(Guid id, string? properties,
         [FromHeader(Name = HttpHeaderConstants.Accept)] string? mediaType,
         [FromServices] IPropertyExistenceService propertyExistenceService,
@@ -151,7 +151,7 @@ public partial class ApplicationsController
             return BadRequest(problemDetails);
         }
 
-        if (!propertyExistenceService.TypeHasProperties<ApplicationModel>(properties))
+        if (!propertyExistenceService.TypeHasProperties<ApplicationDto>(properties))
             return this.BadDataShapingRequest(_problemDetailsFactory, properties);
 
         GetApplicationById query = new GetApplicationById(id);
@@ -195,7 +195,7 @@ public partial class ApplicationsController
     /// <param name="queryHandler"></param>
     /// <returns></returns>
     [HttpGet("{uniqueName}", Name = RouteNames.GetApplicationByUniqueName)]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApplicationModel))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApplicationDto))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetApplicationByUniqueName(string uniqueName, string? properties,
         [FromHeader(Name = HttpHeaderConstants.Accept)] string? mediaType,
@@ -218,7 +218,7 @@ public partial class ApplicationsController
         }
 
         // if the client specified a data shape result, we need to ensure that the fields requested (if any) are valid
-        if (!propertyExistenceService.TypeHasProperties<ApplicationModel>(properties))
+        if (!propertyExistenceService.TypeHasProperties<ApplicationDto>(properties))
             return this.BadDataShapingRequest(_problemDetailsFactory, properties);
 
         GetApplicationByUniqueName query = new GetApplicationByUniqueName(uniqueName);

@@ -5,6 +5,6 @@ namespace Configuration.API.InMemory;
 
 public static class ConfigurationDataStore
 {
-    public static List<ConfigurationEntryModel> ConfigurationEntries => ConfigurationEntryData.ConfigurationEntries;
-    public static List<EnvironmentModel> Environments => EnvironmentData.Environments;
+    public static List<ConfigurationEntryDto> ConfigurationEntries => ConfigurationEntryData.ConfigurationEntries;
+    public static List<EnvironmentDto> Environments => EnvironmentData.Environments;
 }

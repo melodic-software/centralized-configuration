@@ -28,7 +28,7 @@ public class ApplicationProfile : Profile
 
     public void DomainEventsToApiModelContracts()
     {
-        CreateMap<ApplicationCreated, ApplicationModel>()
-            .ConstructUsing(x => new ApplicationModel(x.ApplicationId, x.UniqueName, x.Name, x.AbbreviatedName, x.Description, false));
+        CreateMap<ApplicationCreated, ApplicationDto>()
+            .ConstructUsing(x => new ApplicationDto(x.ApplicationId, x.UniqueName, x.Name, x.AbbreviatedName, x.Description, false));
     }
 }

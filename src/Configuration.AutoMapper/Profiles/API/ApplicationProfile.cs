@@ -12,8 +12,8 @@ public class ApplicationProfile : Profile
 
     public void ApiModelContractsToApiModelContracts()
     {
-        CreateMap<UpdateApplicationModel, CreateApplicationModel>()
-            .ConstructUsing(x => new CreateApplicationModel()
+        CreateMap<UpdateApplicationDto, CreateApplicationDto>()
+            .ConstructUsing(x => new CreateApplicationDto()
             {
                 Id = null, // must be assigned after mapping
                 Name = x.Name,
@@ -22,8 +22,8 @@ public class ApplicationProfile : Profile
                 IsActive = x.IsActive
             });
 
-        CreateMap<CreateApplicationModel, UpdateApplicationModel>()
-            .ConstructUsing(x => new UpdateApplicationModel()
+        CreateMap<CreateApplicationDto, UpdateApplicationDto>()
+            .ConstructUsing(x => new UpdateApplicationDto()
             {
                 Name = x.Name,
                 AbbreviatedName = x.AbbreviatedName,

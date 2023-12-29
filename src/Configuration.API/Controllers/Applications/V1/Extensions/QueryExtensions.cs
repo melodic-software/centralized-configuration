@@ -26,7 +26,7 @@ namespace Configuration.API.Controllers.Applications.V1.Extensions;
 
 public static class QueryExtensions
 {
-    public static async Task<DataShapedQueryResult> GetApplications(this ControllerBase controller, GetApplicationsModel model,
+    public static async Task<DataShapedQueryResult> GetApplications(this ControllerBase controller, GetApplicationsDto getApplicationsDto,
         IPropertyExistenceService propertyExistenceService, IHandleQuery<GetApplications, GetApplicationsResult> queryHandler, IMapper mapper,
         ILogger logger, ProblemDetailsFactory problemDetailsFactory)
     {
@@ -37,14 +37,14 @@ public static class QueryExtensions
 
         // TODO: return the properties not found? this would make it easier on the client to fix the error
         // right now it returns all properties sent in the request, so you don't know which one is wrong
-        if (!propertyExistenceService.TypeHasProperties<ApplicationModel>(model.Properties))
+        if (!propertyExistenceService.TypeHasProperties<ApplicationDto>(getApplicationsDto.Properties))
         {
-            IActionResult actionResult = controller.BadDataShapingRequest(problemDetailsFactory, model.Properties);
+            IActionResult actionResult = controller.BadDataShapingRequest(problemDetailsFactory, getApplicationsDto.Properties);
             return DataShapedQueryResult.Failure(actionResult);
         }
 
         // map from the API model contract to the application services (query) model
-        GetApplications query = mapper.Map<GetApplications>(model);
+        GetApplications query = mapper.Map<GetApplications>(getApplicationsDto);
 
         List<ValidationFailure> validationFailures = new List<ValidationFailure>();
 
@@ -70,11 +70,11 @@ public static class QueryExtensions
         PaginationResponseHeaderService.AddToResponseHeader(pagingMetadataModel, controller);
 
         // map from the core query objects to API model contracts
-        IEnumerable<ApplicationModel>? mapResult = mapper.Map<IEnumerable<ApplicationModel>>(applications);
+        IEnumerable<ApplicationDto>? mapResult = mapper.Map<IEnumerable<ApplicationDto>>(applications);
 
         // only return the fields specified by the client (if applicable)
         // this makes the resulting API model contract dynamic (data shaping)
-        IEnumerable<ExpandoObject> dataShapedResult = mapResult.ShapeData(model.Properties);
+        IEnumerable<ExpandoObject> dataShapedResult = mapResult.ShapeData(getApplicationsDto.Properties);
 
         DataShapedQueryResult result = DataShapedQueryResult.Success(dataShapedResult, paginationMetadata);
 
@@ -101,7 +101,7 @@ public static class QueryExtensions
 
         // this is the default API model 
         // this is the concrete model type that we data shape (becomes dynamic) and return
-        ApplicationModel? mapResult = mapper.Map<ApplicationModel>(application);
+        ApplicationDto? mapResult = mapper.Map<ApplicationDto>(application);
 
         // apply data shaping (if applicable), which results in a dynamic model contract
         ExpandoObject resultModel = mapResult.ShapeData(properties);

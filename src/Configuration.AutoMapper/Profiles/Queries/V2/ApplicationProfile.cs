@@ -19,7 +19,7 @@ public class ApplicationProfile : Profile
 
     public void ApplicationServiceModelsToApiContracts()
     {
-        CreateMap<Application, ApplicationModel>()
-            .ConstructUsing(x => new ApplicationModel(x.Id, x.UniqueName, x.Name, x.IsActive));
+        CreateMap<Application, ApplicationDto>()
+            .ConstructUsing(x => new ApplicationDto(x.Id, x.UniqueName, x.Name, x.IsActive));
     }
 }

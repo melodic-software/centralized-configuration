@@ -9,7 +9,7 @@ namespace Configuration.API.Controllers.Applications.V1.Services;
 
 public static class ApplicationsResourceUriService
 {
-    public static string? CreateResourceUri(ControllerBase controller, GetApplicationsModel model, PaginationMetadata paginationMetadata, ResourceUriType resourceUriType)
+    public static string? CreateResourceUri(ControllerBase controller, GetApplicationsDto dto, PaginationMetadata paginationMetadata, ResourceUriType resourceUriType)
     {
         // TODO: reduce assignment duplication
 
@@ -23,12 +23,12 @@ public static class ApplicationsResourceUriService
                 return controller.Url.Link(RouteNames.GetApplications, new
                 {
                     // TODO: can we add something that can camel case these property names?
-                    name = model.Name,
-                    abbreviatedName = model.AbbreviatedName,
-                    isActive = model.IsActive,
-                    searchQuery = model.SearchQuery,
-                    orderBy = model.OrderBy,
-                    properties = model.Properties,
+                    name = dto.Name,
+                    abbreviatedName = dto.AbbreviatedName,
+                    isActive = dto.IsActive,
+                    searchQuery = dto.SearchQuery,
+                    orderBy = dto.OrderBy,
+                    properties = dto.Properties,
                     pageNumber = paginationMetadata.CurrentPage.Value - 1, // TODO: look at adding operator on the class
                     pageSize = paginationMetadata.PageSize,
                 });
@@ -41,12 +41,12 @@ public static class ApplicationsResourceUriService
                 return controller.Url.Link(RouteNames.GetApplications, new
                 {
                     // TODO: can we add something that can camel case these property names?
-                    name = model.Name,
-                    abbreviatedName = model.AbbreviatedName,
-                    isActive = model.IsActive,
-                    searchQuery = model.SearchQuery,
-                    orderBy = model.OrderBy,
-                    properties = model.Properties,
+                    name = dto.Name,
+                    abbreviatedName = dto.AbbreviatedName,
+                    isActive = dto.IsActive,
+                    searchQuery = dto.SearchQuery,
+                    orderBy = dto.OrderBy,
+                    properties = dto.Properties,
                     pageNumber = paginationMetadata.CurrentPage.Value + 1, // TODO: look at adding operator on the class
                     pageSize = paginationMetadata.PageSize,
                 });
@@ -56,12 +56,12 @@ public static class ApplicationsResourceUriService
                 return controller.Url.Link(RouteNames.GetApplications, new
                 {
                     // TODO: can we add something that can camel case these property names?
-                    name = model.Name,
-                    abbreviatedName = model.AbbreviatedName,
-                    isActive = model.IsActive,
-                    searchQuery = model.SearchQuery,
-                    orderBy = model.OrderBy,
-                    properties = model.Properties,
+                    name = dto.Name,
+                    abbreviatedName = dto.AbbreviatedName,
+                    isActive = dto.IsActive,
+                    searchQuery = dto.SearchQuery,
+                    orderBy = dto.OrderBy,
+                    properties = dto.Properties,
                     pageNumber = paginationMetadata.CurrentPage.Value,
                     pageSize = paginationMetadata.PageSize,
                 });

@@ -12,10 +12,10 @@ namespace Configuration.API.Controllers;
 public class ConfigurationEntriesController : CustomControllerBase
 {
     [HttpGet(Name = RouteNames.GetConfigurationEntries)]
-    [Produces(typeof(List<ConfigurationEntryModel>))]
-    public IActionResult Get([FromQuery] GetConfigurationEntriesModel model)
+    [Produces(typeof(List<ConfigurationEntryDto>))]
+    public IActionResult Get([FromQuery] GetConfigurationEntriesDto queryParams)
     {
-        List<ConfigurationEntryModel> result = ConfigurationDataStore.ConfigurationEntries;
+        List<ConfigurationEntryDto> result = ConfigurationDataStore.ConfigurationEntries;
 
         return Ok(result);
     }

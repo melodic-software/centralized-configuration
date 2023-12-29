@@ -16,24 +16,24 @@ namespace Configuration.API.Controllers.Applications.V1.Extensions;
 public static class CommandExtensions
 {
     public static async Task<IActionResult> Upsert(this ControllerBase controller, Guid id,
-        UpdateApplicationModel updateModel, IHandleCommand<UpdateApplication> updateApplicationHandler,
+        UpdateApplicationDto updateDto, IHandleCommand<UpdateApplication> updateApplicationHandler,
         IHandleCommand<CreateApplication> createApplicationHandler, IMapper mapper)
     {
         Task<IActionResult> OnNotFound()
         {
-            CreateApplicationModel createModel = mapper.Map<CreateApplicationModel>(updateModel);
+            CreateApplicationDto createModel = mapper.Map<CreateApplicationDto>(updateDto);
             createModel.Id = id;
             Task<IActionResult> result = controller.Create(createModel, createApplicationHandler, mapper);
             return result;
         }
 
-        return await controller.Update(id, updateModel, updateApplicationHandler, OnNotFound);
+        return await controller.Update(id, updateDto, updateApplicationHandler, OnNotFound);
     }
 
     public static async Task<IActionResult> Create(this ControllerBase controller,
-        CreateApplicationModel model, IHandleCommand<CreateApplication> commandHandler, IMapper mapper)
+        CreateApplicationDto createDto, IHandleCommand<CreateApplication> commandHandler, IMapper mapper)
     {
-        CreateApplication command = new CreateApplication(model.Id, model.Name, model.AbbreviatedName, model.Description, model.IsActive);
+        CreateApplication command = new CreateApplication(createDto.Id, createDto.Name, createDto.AbbreviatedName, createDto.Description, createDto.IsActive);
 
         List<ValidationFailure> validationFailures = new List<ValidationFailure>();
         ApplicationCreated? applicationCreated = null;
@@ -51,7 +51,7 @@ public static class CommandExtensions
         // TODO: should we use a 409 conflict if the application (resource) already exists?
         // this means the ID is non-unique (already associated with an existing application)
 
-        ApplicationModel mapResult = mapper.Map<ApplicationModel>(applicationCreated);
+        ApplicationDto mapResult = mapper.Map<ApplicationDto>(applicationCreated);
 
         ExpandoObject resultModel = mapResult.ShapeData();
 
@@ -60,7 +60,7 @@ public static class CommandExtensions
         IDictionary<string, object?> modelDictionary = resultModel;
         modelDictionary.Add("links", links);
 
-        object? applicationId = modelDictionary[nameof(ApplicationModel.Id)];
+        object? applicationId = modelDictionary[nameof(ApplicationDto.Id)];
 
         var routeValues = new { id = applicationId };
         IActionResult result = controller.CreatedAtRoute(RouteNames.GetApplicationById, routeValues, resultModel);
@@ -68,10 +68,10 @@ public static class CommandExtensions
     }
 
     public static async Task<IActionResult> Update(this ControllerBase controller, Guid id,
-        UpdateApplicationModel model, IHandleCommand<UpdateApplication> commandHandler,
+        UpdateApplicationDto updateDto, IHandleCommand<UpdateApplication> commandHandler,
         Func<Task<IActionResult>>? onNotFound = null)
     {
-        UpdateApplication command = new UpdateApplication(id, model.Name, model.AbbreviatedName, model.Description, model.IsActive);
+        UpdateApplication command = new UpdateApplication(id, updateDto.Name, updateDto.AbbreviatedName, updateDto.Description, updateDto.IsActive);
 
         List<ValidationFailure> validationFailures = new List<ValidationFailure>();
 

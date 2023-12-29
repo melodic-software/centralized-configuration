@@ -4,7 +4,7 @@ using static Configuration.API.Client.Models.Input.V1.Validation.Constants.Appli
 
 namespace Configuration.API.Client.Models.Input.V1;
 
-public class UpdateApplicationModel : ApplicationManipulationModel
+public class UpdateApplicationDto : ApplicationManipulationDto
 {
     [Required(ErrorMessage = IsActiveRequired)]
     public bool IsActive { get; set; }

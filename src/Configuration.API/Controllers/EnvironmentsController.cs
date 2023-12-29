@@ -19,27 +19,27 @@ public class EnvironmentsController : CustomControllerBase
         if (environmentId == Guid.Empty)
             return BadRequest();
 
-        EnvironmentModel? environment = ConfigurationDataStore.Environments
+        EnvironmentDto? result = ConfigurationDataStore.Environments
             .FirstOrDefault(x => x.EnvironmentId == environmentId);
 
-        if (environment == null)
+        if (result == null)
             return NotFound();
 
-        return Ok(environment);
+        return Ok(result);
     }
 
     [HttpGet(Name = RouteNames.GetEnvironments)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public IActionResult GetEnvironments([FromQuery] GetEnvironmentsModel model)
+    public IActionResult GetEnvironments([FromQuery] GetEnvironmentsDto queryParams)
     {
-        if (model.EnvironmentId.HasValue)
-            return GetEnvironmentById(model.EnvironmentId.Value);
+        if (queryParams.EnvironmentId.HasValue)
+            return GetEnvironmentById(queryParams.EnvironmentId.Value);
 
-        if (!string.IsNullOrWhiteSpace(model.EnvironmentUniqueName))
+        if (!string.IsNullOrWhiteSpace(queryParams.EnvironmentUniqueName))
         {
-            EnvironmentModel? environment = ConfigurationDataStore.Environments
-                .FirstOrDefault(x => x.EnvironmentUniqueName == model.EnvironmentUniqueName);
+            EnvironmentDto? environment = ConfigurationDataStore.Environments
+                .FirstOrDefault(x => x.EnvironmentUniqueName == queryParams.EnvironmentUniqueName);
 
             if (environment == null)
                 return NotFound();
@@ -47,8 +47,8 @@ public class EnvironmentsController : CustomControllerBase
             return Ok(environment);
         }
 
-        List<EnvironmentModel> result = ConfigurationDataStore.Environments;
+        List<EnvironmentDto> allEnvironments = ConfigurationDataStore.Environments;
 
-        return Ok(result);
+        return Ok(allEnvironments);
     }
 }

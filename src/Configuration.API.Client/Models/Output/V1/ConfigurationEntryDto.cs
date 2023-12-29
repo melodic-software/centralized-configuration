@@ -3,7 +3,7 @@
 /// <summary>
 /// The model for a configuration entry resource.
 /// </summary>
-public class ConfigurationEntryModel
+public class ConfigurationEntryDto
 {
     public string ConfigurationEntryId { get; set; } = null!;
 
@@ -49,7 +49,7 @@ public class ConfigurationEntryModel
     /// </summary>
     public object Value { get; set; } = null!;
 
-    public ConfigurationEntryModel(string configurationEntryId, string configurationEntryType,
+    public ConfigurationEntryDto(string configurationEntryId, string configurationEntryType,
         string? environmentId, string? environmentUniqueName, string? applicationId, string? applicationUniqueName,
         string? label, string? displayName, string key, object value, string? dataType)
     {
@@ -66,7 +66,7 @@ public class ConfigurationEntryModel
         DataType = dataType;
     }
 
-    public ConfigurationEntryModel()
+    public ConfigurationEntryDto()
     {
 
     }

@@ -48,7 +48,7 @@ public class ApplicationCollectionsController : CustomControllerBase
     [HttpPost(Name = RouteNames.CreateApplicationCollection)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<ActionResult<IEnumerable<ApplicationModel>>> Post(IEnumerable<CreateApplicationModel> model,
+    public async Task<ActionResult<IEnumerable<ApplicationDto>>> Post(IEnumerable<CreateApplicationDto> createApplicationDtos,
         IHandleCommand<CreateApplication> commandHandler)
     {
         // TODO: is this a single transactional use case?
@@ -57,8 +57,8 @@ public class ApplicationCollectionsController : CustomControllerBase
         List<ApplicationCreated> applicationCreatedEvents = new List<ApplicationCreated>();
         List<ValidationFailure> validationFailures = new List<ValidationFailure>();
 
-        foreach (CreateApplicationModel createApplicationModel in model)
-            await ExecuteCommand(commandHandler, createApplicationModel, validationFailures, applicationCreatedEvents);
+        foreach (CreateApplicationDto createApplicationDto in createApplicationDtos)
+            await ExecuteCommand(commandHandler, createApplicationDto, validationFailures, applicationCreatedEvents);
 
         if (validationFailures.Any())
         {
@@ -66,8 +66,8 @@ public class ApplicationCollectionsController : CustomControllerBase
             return UnprocessableEntity(ModelState);
         }
 
-        List<ApplicationModel> result = applicationCreatedEvents
-            .Select(x => _mapper.Map<ApplicationModel>(x))
+        List<ApplicationDto> result = applicationCreatedEvents
+            .Select(x => _mapper.Map<ApplicationDto>(x))
             .ToList();
 
         // the resource ID is a collection of application IDs
@@ -77,10 +77,10 @@ public class ApplicationCollectionsController : CustomControllerBase
         return CreatedAtRoute(RouteNames.GetApplicationCollection, routeValues, result);
     }
 
-    private async Task ExecuteCommand(IHandleCommand<CreateApplication> commandHandler, CreateApplicationModel model,
+    private async Task ExecuteCommand(IHandleCommand<CreateApplication> commandHandler, CreateApplicationDto createApplicationDto,
         List<ValidationFailure> validationFailures, List<ApplicationCreated> applicationCreatedEvents)
     {
-        CreateApplication command = new CreateApplication(model.Id, model.Name, model.AbbreviatedName, model.Description, model.IsActive);
+        CreateApplication command = new CreateApplication(createApplicationDto.Id, createApplicationDto.Name, createApplicationDto.AbbreviatedName, createApplicationDto.Description, createApplicationDto.IsActive);
 
         ApplicationCreated? applicationCreated = null;
         bool validationFailed = false;

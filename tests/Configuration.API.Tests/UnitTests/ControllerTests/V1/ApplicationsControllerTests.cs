@@ -31,7 +31,7 @@ public class ApplicationsControllerTests
     public async Task CreateApplication_CreateAction_NullModelResultsInBadRequest()
     {
         // ARRANGE
-        CreateApplicationModel inputModel = new CreateApplicationModel();
+        CreateApplicationDto inputDto = new CreateApplicationDto();
 
         Mock<IHandleCommand<CreateApplication>> commandHandlerMock = new Mock<IHandleCommand<CreateApplication>>();
 
@@ -47,7 +47,7 @@ public class ApplicationsControllerTests
     public async Task CreateApplication_CreateAction_InvalidModelStateResultsIn422UnprocessableEntity()
     {
         // ARRANGE
-        CreateApplicationModel inputModel = new CreateApplicationModel();
+        CreateApplicationDto inputDto = new CreateApplicationDto();
 
         Mock<IHandleCommand<CreateApplication>> commandHandlerMock = new Mock<IHandleCommand<CreateApplication>>();
 
@@ -56,7 +56,7 @@ public class ApplicationsControllerTests
         _controller.ModelState.AddModelError("Name", "Required");
 
         // ACT
-        IActionResult result = await _controller.Post(inputModel, commandHandlerMock.Object);
+        IActionResult result = await _controller.Post(inputDto, commandHandlerMock.Object);
 
         // ASSERT
         IActionResult actionResult = Assert.IsAssignableFrom<IActionResult>(result);

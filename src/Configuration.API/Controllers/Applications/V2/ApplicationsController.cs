@@ -56,22 +56,22 @@ public class ApplicationsControllerV2 : CustomControllerBase
     [HttpGet("{id:guid}", Name = RouteNames.GetApplicationById)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [Produces(typeof(ApplicationModel))] // this is the "V2" version of the model
-    public async Task<ActionResult<ApplicationModel>> GetApplicationById(Guid id, [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler)
+    [Produces(typeof(ApplicationDto))] // this is the "V2" version of the model
+    public async Task<ActionResult<ApplicationDto>> GetApplicationById(Guid id, [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler)
     {
         // the data shaping support has been stripped to keep this as a simple self-contained example
         // technically we could also use a versioned application service (query object, and result) if needed
 
         GetApplicationById query = new GetApplicationById(id);
 
-        Application? result = await queryHandler.HandleAsync(query);
+        Application? application = await queryHandler.HandleAsync(query);
 
-        if (result == null)
+        if (application == null)
             return NotFound();
 
         // normally we'd use auto mapper here to map from the query object to the specific API model (v2) contract
-        ApplicationModel model = _mapper.Map<ApplicationModel>(result);
+        ApplicationDto result = _mapper.Map<ApplicationDto>(application);
 
-        return Ok(model);
+        return Ok(result);
     }
 }

@@ -4,13 +4,13 @@ namespace Configuration.API.InMemory.Singletons;
 
 public static class EnvironmentData
 {
-    private static readonly Lazy<List<EnvironmentModel>> Data = new(Initialize);
+    private static readonly Lazy<List<EnvironmentDto>> Data = new(Initialize);
 
-    public static List<EnvironmentModel> Environments => Data.Value;
+    public static List<EnvironmentDto> Environments => Data.Value;
 
-    private static List<EnvironmentModel> Initialize()
+    private static List<EnvironmentDto> Initialize()
     {
-        List<EnvironmentModel> environmentModels = new List<EnvironmentModel>
+        List<EnvironmentDto> environmentModels = new List<EnvironmentDto>
         {
             new(
                 new Guid("fc52da1b-439a-4ffa-90f9-a9f7f585deb9"),

@@ -9,26 +9,19 @@ namespace Configuration.API.Controllers;
 
 [Route(RouteTemplates.HttpConnectionInfo)]
 [ApiController]
-public class HttpConnectionInfoController : CustomControllerBase
+public class HttpConnectionInfoController(IMapper mapper) : CustomControllerBase
 {
-    private readonly IMapper _mapper;
-
-    public HttpConnectionInfoController(IMapper mapper)
-    {
-        _mapper = mapper;
-    }
-
     [HttpGet(Name = RouteNames.GetHttpConnectionInfo)]
-    [Produces(typeof(HttpConnectionInfoModel))]
-    public ActionResult<HttpConnectionInfoModel> Get()
+    [Produces(typeof(HttpConnectionInfoDto))]
+    public ActionResult<HttpConnectionInfoDto> Get()
     {
         IHttpConnectionFeature? httpConnectionFeature = HttpContext.Features.Get<IHttpConnectionFeature>();
 
         if (httpConnectionFeature == null)
             return NotFound();
 
-        HttpConnectionInfoModel model = _mapper.Map<HttpConnectionInfoModel>(httpConnectionFeature);
+        HttpConnectionInfoDto result = mapper.Map<HttpConnectionInfoDto>(httpConnectionFeature);
 
-        return Ok(model);
+        return Ok(result);
     }
 }

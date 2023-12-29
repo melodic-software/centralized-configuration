@@ -44,7 +44,7 @@ public partial class ApplicationsController : CustomControllerBase
     /// If an application is not found, an application resource will be created.
     /// </summary>
     /// <param name="id"></param>
-    /// <param name="model"></param>
+    /// <param name="updateApplicationDto"></param>
     /// <param name="updateApplicationHandler"></param>
     /// <param name="createApplicationHandler"></param>
     /// <returns></returns>
@@ -56,9 +56,9 @@ public partial class ApplicationsController : CustomControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationModel))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationDto))]
     [Consumes(MediaTypeConstants.Json, MediaTypeConstants.Xml)]
-    public async Task<IActionResult> Put(Guid id, UpdateApplicationModel model,
+    public async Task<IActionResult> Put(Guid id, UpdateApplicationDto updateApplicationDto,
         [FromServices] IHandleCommand<UpdateApplication> updateApplicationHandler,
         [FromServices] IHandleCommand<CreateApplication> createApplicationHandler)
     {
@@ -66,7 +66,7 @@ public partial class ApplicationsController : CustomControllerBase
         // all resource fields are either overwritten or set to their default values
         // we support UPSERT behavior here...
 
-        return await this.Upsert(id, model, updateApplicationHandler, createApplicationHandler, _mapper);
+        return await this.Upsert(id, updateApplicationDto, updateApplicationHandler, createApplicationHandler, _mapper);
     }
 
     /// <summary>
@@ -95,9 +95,9 @@ public partial class ApplicationsController : CustomControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationModel))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationDto))]
     [Consumes(MediaTypeConstants.JsonPatch)]
-    public async Task<IActionResult> Patch(Guid id, JsonPatchDocument<UpdateApplicationModel>? patchDocument,
+    public async Task<IActionResult> Patch(Guid id, JsonPatchDocument<UpdateApplicationDto>? patchDocument,
         [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
         [FromServices] IHandleCommand<UpdateApplication> updateApplicationHandler,
         [FromServices] IHandleCommand<CreateApplication> createApplicationHandler)
@@ -116,28 +116,28 @@ public partial class ApplicationsController : CustomControllerBase
         GetApplicationById query = new GetApplicationById(id);
         Application? application = await queryHandler.HandleAsync(query);
 
-        UpdateApplicationModel? updateModel = application == null ?
-            new UpdateApplicationModel() :
-            _mapper.Map<UpdateApplicationModel>(application);
+        UpdateApplicationDto? updateDto = application == null ?
+            new UpdateApplicationDto() :
+            _mapper.Map<UpdateApplicationDto>(application);
 
         // apply the patch document to the model we use for updates (PUT)
         // if there are any patch document application errors, they will be added to the model state
-        patchDocument.ApplyTo(updateModel, ModelState);
+        patchDocument.ApplyTo(updateDto, ModelState);
 
         // this checks validation (using data annotations, validation attributes, etc.)
         // AFTER the patch has been applied
-        if (!TryValidateModel(updateModel))
+        if (!TryValidateModel(updateDto))
             return ValidationProblem(ModelState);
 
         // we support UPSERT behavior here...
 
         if (application != null)
-            return await this.Update(id, updateModel, updateApplicationHandler);
+            return await this.Update(id, updateDto, updateApplicationHandler);
 
-        CreateApplicationModel createModel = _mapper.Map<CreateApplicationModel>(updateModel);
-        createModel.Id = id;
+        CreateApplicationDto createDto = _mapper.Map<CreateApplicationDto>(updateDto);
+        createDto.Id = id;
 
-        return await this.Create(createModel, createApplicationHandler, _mapper);
+        return await this.Create(createDto, createApplicationHandler, _mapper);
     }
 
     /// <summary>
@@ -165,21 +165,21 @@ public partial class ApplicationsController : CustomControllerBase
     ///     }
     /// 
     /// </remarks>
-    /// <param name="model"></param>
+    /// <param name="createDto"></param>
     /// <param name="commandHandler"></param>
     /// <returns></returns>
     [HttpPost(Name = RouteNames.CreateApplication)]
     [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationModel))]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationDto))]
     [Consumes(MediaTypeConstants.Json, MediaTypeConstants.Xml)]
     [Produces(MediaTypeConstants.Json, MediaTypeConstants.Xml)]
-    public async Task<IActionResult> Post(CreateApplicationModel? model,
+    public async Task<IActionResult> Post(CreateApplicationDto? createDto,
         [FromServices] IHandleCommand<CreateApplication> commandHandler)
     {
         // normally the ApiController attribute would catch this and automatically return a 400 "bad request"
         // but we've overridden the default validation handling (SuppressModelStateInvalidFilter)
 
-        if (model == null)
+        if (createDto == null)
             return BadRequest(); // client error, not a 422 (unprocessable entity)
 
         // typically when the ApiController attribute is used, we don't have to check model state
@@ -188,7 +188,7 @@ public partial class ApplicationsController : CustomControllerBase
         if (!ModelState.IsValid)
             return UnprocessableEntity(ModelState);
 
-        return await this.Create(model, commandHandler, _mapper);
+        return await this.Create(createDto, commandHandler, _mapper);
     }
 
     /// <summary>

@@ -23,7 +23,7 @@ public class GetApplicationsOperationFilter : IOperationFilter
         // operation.Extensions
 
         // TODO: can we make the schema a hypermedia model?
-        OpenApiSchema? schema = context.SchemaGenerator.GenerateSchema(typeof(List<ApplicationModel>), context.SchemaRepository);
+        OpenApiSchema? schema = context.SchemaGenerator.GenerateSchema(typeof(List<ApplicationDto>), context.SchemaRepository);
         OpenApiMediaType openApiMediaType = new OpenApiMediaType { Schema = schema };
 
         string statusCode = StatusCodes.Status200OK.ToString();

@@ -15,17 +15,17 @@ namespace Configuration.API.Controllers.Applications.V1.Extensions;
 
 public static class HypermediaExtensions
 {
-    public static dynamic ApplicationsWithLinks(this ControllerBase controller, GetApplicationsModel model,
+    public static dynamic ApplicationsWithLinks(this ControllerBase controller, GetApplicationsDto getApplicationsDto,
         PaginationMetadata paginationMetadata, IEnumerable<ExpandoObject> dataShapedResult)
     {
         // hypermedia links
-        IEnumerable<HypermediaLinkModel> links = controller.CreateLinksForApplications(model, paginationMetadata);
+        IEnumerable<HypermediaLinkModel> links = controller.CreateLinksForApplications(getApplicationsDto, paginationMetadata);
 
         // create links for each application in the list
         IEnumerable<IDictionary<string, object?>> value = dataShapedResult.Select(application =>
         {
             IDictionary<string, object?> dictionary = application;
-            Guid applicationId = (Guid)(dictionary[nameof(ApplicationModel.Id)] ?? throw new InvalidOperationException());
+            Guid applicationId = (Guid)(dictionary[nameof(ApplicationDto.Id)] ?? throw new InvalidOperationException());
             IEnumerable<HypermediaLinkModel> applicationLinks = controller.CreateLinksForApplication(applicationId, null);
             application.TryAdd(HypermediaConstants.RootPropertyName, applicationLinks);
             return dictionary;
@@ -57,24 +57,24 @@ public static class HypermediaExtensions
     }
 
     public static IEnumerable<HypermediaLinkModel> CreateLinksForApplications(this ControllerBase controller,
-        GetApplicationsModel model, PaginationMetadata paginationMetadata)
+        GetApplicationsDto getApplicationsDto, PaginationMetadata paginationMetadata)
     {
         List<HypermediaLinkModel> links = new();
 
         // self
-        string? currentHref = ApplicationsResourceUriService.CreateResourceUri(controller, model, paginationMetadata, ResourceUriType.Current);
+        string? currentHref = ApplicationsResourceUriService.CreateResourceUri(controller, getApplicationsDto, paginationMetadata, ResourceUriType.Current);
         links.Add(HypermediaLinkService.CreateSelfLink(currentHref));
 
         // pagination
         if (paginationMetadata.HasPreviousPage)
         {
-            string? previousPageHref = ApplicationsResourceUriService.CreateResourceUri(controller, model, paginationMetadata, ResourceUriType.PreviousPage);
+            string? previousPageHref = ApplicationsResourceUriService.CreateResourceUri(controller, getApplicationsDto, paginationMetadata, ResourceUriType.PreviousPage);
             links.Add(new(previousPageHref, Relations.PreviousPage, HttpMethods.Get));
         }
 
         if (paginationMetadata.HasNextPage)
         {
-            string? nextPageHref = ApplicationsResourceUriService.CreateResourceUri(controller, model, paginationMetadata, ResourceUriType.NextPage);
+            string? nextPageHref = ApplicationsResourceUriService.CreateResourceUri(controller, getApplicationsDto, paginationMetadata, ResourceUriType.NextPage);
             links.Add(new(nextPageHref, Relations.NextPage, HttpMethods.Get));
         }
 

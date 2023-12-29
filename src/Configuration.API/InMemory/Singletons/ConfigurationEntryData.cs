@@ -4,13 +4,13 @@ namespace Configuration.API.InMemory.Singletons;
 
 public static class ConfigurationEntryData
 {
-    private static readonly Lazy<List<ConfigurationEntryModel>> Data = new(Initialize);
+    private static readonly Lazy<List<ConfigurationEntryDto>> Data = new(Initialize);
 
-    public static List<ConfigurationEntryModel> ConfigurationEntries => Data.Value;
+    public static List<ConfigurationEntryDto> ConfigurationEntries => Data.Value;
 
-    private static List<ConfigurationEntryModel> Initialize()
+    private static List<ConfigurationEntryDto> Initialize()
     {
-        List<ConfigurationEntryModel> result = new List<ConfigurationEntryModel>
+        List<ConfigurationEntryDto> result = new List<ConfigurationEntryDto>
         {
             new(
                 "4c75734e-fce6-473d-99e5-a01243d16584",

@@ -16,20 +16,20 @@ public class ApplicationProfile : Profile
 
     public void ApiContractsToApplicationServiceModels()
     {
-        CreateMap<GetApplicationsModel, GetApplications>()
+        CreateMap<GetApplicationsDto, GetApplications>()
             .ConstructUsing(x => new GetApplications(x.Name, x.AbbreviatedName, x.IsActive, x.SearchQuery, x.PageNumber, x.PageSize, x.OrderBy));
     }
 
     public void ApplicationServiceModelsToApiContracts()
     {
-        CreateMap<Application, ApplicationModel>()
-            .ConstructUsing(x => new ApplicationModel(x.Id, x.UniqueName, x.Name, x.AbbreviatedName, x.Description, x.IsActive));
+        CreateMap<Application, ApplicationDto>()
+            .ConstructUsing(x => new ApplicationDto(x.Id, x.UniqueName, x.Name, x.AbbreviatedName, x.Description, x.IsActive));
 
-        CreateMap<Application, ApplicationModel>()
-            .ConstructUsing(x => new ApplicationModel(x.Id, x.UniqueName, x.Name, x.AbbreviatedName, x.Description, x.IsActive));
+        CreateMap<Application, ApplicationDto>()
+            .ConstructUsing(x => new ApplicationDto(x.Id, x.UniqueName, x.Name, x.AbbreviatedName, x.Description, x.IsActive));
 
-        CreateMap<Application, UpdateApplicationModel>()
-            .ConstructUsing(x => new UpdateApplicationModel
+        CreateMap<Application, UpdateApplicationDto>()
+            .ConstructUsing(x => new UpdateApplicationDto
             {
                 Name = x.Name,
                 AbbreviatedName = x.AbbreviatedName,

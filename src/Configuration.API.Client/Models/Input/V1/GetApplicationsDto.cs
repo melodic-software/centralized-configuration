@@ -1,6 +1,6 @@
 ﻿namespace Configuration.API.Client.Models.Input.V1;
 
-public class GetApplicationsModel
+public class GetApplicationsDto
 {
     public string? Name { get; set; }
     public string? AbbreviatedName { get; set; }

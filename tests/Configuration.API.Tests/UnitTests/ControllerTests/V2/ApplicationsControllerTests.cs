@@ -37,20 +37,20 @@ public class ApplicationsControllerTests
         queryHandlerMock.Setup(x => x.HandleAsync(It.IsAny<GetApplicationById>())).ReturnsAsync(application);
 
         // ACT
-        ActionResult<ApplicationModel> result = await applicationsController.GetApplicationById(applicationId, queryHandlerMock.Object);
+        ActionResult<ApplicationDto> result = await applicationsController.GetApplicationById(applicationId, queryHandlerMock.Object);
 
         // ASSERT
-        ActionResult<ApplicationModel> actionResult = Assert.IsType<ActionResult<ApplicationModel>>(result);
+        ActionResult<ApplicationDto> actionResult = Assert.IsType<ActionResult<ApplicationDto>>(result);
         OkObjectResult okObjectResult = Assert.IsType<OkObjectResult>(actionResult.Result);
-        ApplicationModel applicationModel = Assert.IsType<ApplicationModel>(okObjectResult.Value);
+        ApplicationDto dto = Assert.IsType<ApplicationDto>(okObjectResult.Value);
 
-        // if the controller and action under test has an IEnumerable<TModel>, we could test it using this
-        //IEnumerable<ApplicationModel> enumerable = Assert.IsAssignableFrom<IEnumerable<ApplicationModel>>(okObjectResult.Value);
+        // if the controller and action under test has an IEnumerable<TDto>, we could test it using this
+        //IEnumerable<ApplicationDto> enumerable = Assert.IsAssignableFrom<IEnumerable<ApplicationDto>>(okObjectResult.Value);
 
         // this tests the actual mapping code (see comment above w/ mapping dependency)
-        Assert.True(applicationModel.Id == application.Id);
-        Assert.True(applicationModel.Name == application.Name);
-        Assert.True(applicationModel.UniqueName == application.UniqueName);
-        Assert.True(applicationModel.IsActive == application.IsActive);
+        Assert.True(dto.Id == application.Id);
+        Assert.True(dto.Name == application.Name);
+        Assert.True(dto.UniqueName == application.UniqueName);
+        Assert.True(dto.IsActive == application.IsActive);
     }
 }

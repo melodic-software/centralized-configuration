@@ -9,7 +9,7 @@ public class HttpConnectionInfoProfile : Profile
 {
     public HttpConnectionInfoProfile()
     {
-        CreateMap<IHttpConnectionFeature, HttpConnectionInfoModel>()
+        CreateMap<IHttpConnectionFeature, HttpConnectionInfoDto>()
             .ConstructUsing((feature, context) =>
             {
                 string connectionId = feature.ConnectionId;
@@ -18,7 +18,7 @@ public class HttpConnectionInfoProfile : Profile
                 IPAddress? remoteIpAddress = feature.RemoteIpAddress;
                 int remotePort = feature.RemotePort;
 
-                HttpConnectionInfoModel model = new HttpConnectionInfoModel
+                HttpConnectionInfoDto model = new HttpConnectionInfoDto
                 {
                     ConnectionId = connectionId,
                     LocalIpAddress = localIpAddress?.ToString(),

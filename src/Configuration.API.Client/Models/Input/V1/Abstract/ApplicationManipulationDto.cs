@@ -5,7 +5,7 @@ using static Configuration.API.Client.Models.Input.V1.Validation.Constants.Appli
 namespace Configuration.API.Client.Models.Input.V1.Abstract;
 
 [NameCannotEqualDescription]
-public abstract class ApplicationManipulationModel
+public abstract class ApplicationManipulationDto
 {
     /// <summary>
     /// The name of the application.
