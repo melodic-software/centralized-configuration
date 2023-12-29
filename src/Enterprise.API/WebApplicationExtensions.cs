@@ -91,6 +91,9 @@ public static class WebApplicationExtensions
         // Can be added via attribute or via "WithRequestTimeout()" for minimal APIs.
         app.UseRequestTimeouts();
 
+        // These are generic pre-built middleware for specific purposes that are not environment specific
+        app.UseMiddleware<IgnoreFaviconMiddleware>();
+        
         // This is an extensibility hook for custom middleware registration.
         options.AddCustomMiddleware?.Invoke(app);
 
