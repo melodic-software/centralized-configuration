@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Enterprise.API.Security.Constants;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Enterprise.API.Swagger.Options;
@@ -25,7 +26,7 @@ public class SwaggerConfigurationOptions
     /// Use Proof Key for Code Exchange.
     /// This only applies to authorization code flows.
     /// </summary>
-    public bool UsePkce { get; set; }
+    public bool UsePKCE { get; set; }
 
     /// <summary>
     /// The available OAuth scopes.
@@ -78,13 +79,13 @@ public class SwaggerConfigurationOptions
     public SwaggerConfigurationOptions()
     {
         EnableSwagger = true;
-        Authority = string.Empty;
-        OAuthClientId = string.Empty;
-        UsePkce = true;
-        OAuthScopes = new Dictionary<string, string>();
-        OAuthAppName = string.Empty;
-        ApplicationName = string.Empty;
-        ApplicationDescription = string.Empty;
+        Authority = SecurityConstants.DemoAuthority;
+        OAuthClientId = SecurityConstants.DemoOAuthClientId;
+        UsePKCE = true;
+        OAuthScopes = SecurityConstants.DemoOAuthScopes;
+        OAuthAppName = SecurityConstants.DemoOAuthAppName;
+        ApplicationName = "Web API";
+        ApplicationDescription = "This is a .NET Web API.";
         GetApiClientAssembly = null;
         PostConfigure = null;
         CustomConfigure = null;

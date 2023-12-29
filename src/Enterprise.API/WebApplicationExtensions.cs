@@ -37,7 +37,7 @@ public static class WebApplicationExtensions
 
         app.UseLogging(loggingConfigOptions);
 
-        app.ConfigureErrorHandling(errorHandlingConfigOptions);
+        app.UseErrorHandling(errorHandlingConfigOptions);
 
         // This will forward proxy headers to the current request.
         // https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/proxy-load-balancer?view=aspnetcore-7.0

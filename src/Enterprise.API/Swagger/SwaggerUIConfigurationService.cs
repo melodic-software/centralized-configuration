@@ -1,4 +1,5 @@
-﻿using Asp.Versioning.ApiExplorer;
+﻿using System.Reflection;
+using Asp.Versioning.ApiExplorer;
 using Enterprise.API.Swagger.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -18,7 +19,7 @@ public static class SwaggerUIConfigurationService
             options.OAuthClientId(swaggerConfigOptions.OAuthClientId);
             options.OAuthAppName(swaggerConfigOptions.OAuthAppName);
 
-            if (swaggerConfigOptions.UsePkce)
+            if (swaggerConfigOptions.UsePKCE)
                 options.OAuthUsePkce();
         }
 
@@ -70,16 +71,21 @@ public static class SwaggerUIConfigurationService
         // allows for complete customization with an embedded index.html resource
         // https://github.com/domaindrivendev/Swashbuckle.AspNetCore/blob/master/src/Swashbuckle.AspNetCore.SwaggerUI/index.html
 
-        //options.IndexStream = () =>
-        //{
-        //    Type type = typeof(SwaggerConfigurationOptions);
-        //    Assembly assembly = type.Assembly;
-        //    string? assemblyName = assembly.GetName().Name;
-        //    string relativeNamespace = "Swagger.EmbeddedAssets";
-        //    string fileName = "index.html";
-        //    string embeddedAssetName = $"{assemblyName}.{relativeNamespace}.{fileName}";
-        //    Stream? indexStream = assembly.GetManifestResourceStream(embeddedAssetName);
-        //    return indexStream;
-        //};
+        //CustomizeIndex(options);
+    }
+
+    private static void CustomizeIndex(SwaggerUIOptions options)
+    {
+        options.IndexStream = () =>
+        {
+            Type type = typeof(SwaggerConfigurationOptions);
+            Assembly assembly = type.Assembly;
+            string? assemblyName = assembly.GetName().Name;
+            string relativeNamespace = "Swagger.EmbeddedAssets";
+            string fileName = "index.html";
+            string embeddedAssetName = $"{assemblyName}.{relativeNamespace}.{fileName}";
+            Stream? indexStream = assembly.GetManifestResourceStream(embeddedAssetName);
+            return indexStream;
+        };
     }
 }

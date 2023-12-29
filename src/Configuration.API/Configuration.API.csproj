@@ -53,4 +53,8 @@
     <InternalsVisibleTo Include="Configuration.API.Test" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Security\" />
+  </ItemGroup>
+
 </Project>

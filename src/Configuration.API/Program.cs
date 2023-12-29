@@ -3,7 +3,6 @@ using Configuration.API.Constants;
 using Configuration.API.Dependencies;
 using Configuration.API.EntityFramework;
 using Configuration.API.Redis.Constants;
-using Configuration.API.Security.Constants;
 using Configuration.API.Swagger;
 using Configuration.API.Swagger.Constants;
 using Configuration.AutoMapper;
@@ -13,6 +12,7 @@ using Enterprise.API.Controllers.Options;
 using Enterprise.API.Events;
 using Enterprise.API.Mapping.Options;
 using Enterprise.API.Options;
+using Enterprise.API.Security.Constants;
 using Enterprise.API.Security.Options;
 using Enterprise.API.Swagger.Options;
 using Enterprise.Logging.Options;
@@ -29,7 +29,7 @@ ApiConfigurationService.Configure(args, options =>
 
     options.HealthCheckOptions = new HealthCheckOptions
     {
-        OpenIdConnectAuthorityUri = SecurityConstants.Authority,
+        OpenIdConnectAuthorityUri = SecurityConstants.DemoAuthority,
         AddHealthChecks = builder =>
         {
             EntityFrameworkConfiguration.AddDbContextHealthChecks(builder);
@@ -64,9 +64,9 @@ ApiConfigurationService.Configure(args, options =>
         JwtBearerTokenOptions = new JwtBearerTokenOptions
         {
             // TODO: all this can be defaulted (either pre-built options objects OR ultimately non-configurable (hardcoded - this goes away)
-            Authority = SecurityConstants.Authority,
-            Audience = SecurityConstants.Audience,
-            NameClaimType = SecurityConstants.NameClaimType,
+            Authority = SecurityConstants.DemoAuthority,
+            Audience = SecurityConstants.DemoAudience,
+            NameClaimType = SecurityConstants.DefaultJwtNameClaimType,
             ConfigureJwtBearerOptions = null
         },
         ControllerConfigurationOptions = new ControllerConfigurationOptions
@@ -79,9 +79,9 @@ ApiConfigurationService.Configure(args, options =>
     options.SwaggerConfigurationOptions = new SwaggerConfigurationOptions
     {
         EnableSwagger = true,
-        Authority = SecurityConstants.Authority,
-        OAuthClientId = SwaggerConstants.OAuthClientId,
-        OAuthScopes = SecurityConstants.OAuthScopes,
+        Authority = SecurityConstants.DemoAuthority,
+        OAuthClientId = SecurityConstants.DemoOAuthClientId,
+        OAuthScopes = SwaggerConstants.OAuthScopes,
         OAuthAppName = SwaggerConstants.OAuthAppName,
         ApplicationName = ApplicationConstants.ApplicationDisplayName,
         ApplicationDescription = ApplicationConstants.ApplicationDescription,

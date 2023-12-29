@@ -15,6 +15,19 @@ public static class SecurityConstants
     public const string JwtValidAudienceConfigKey = "JWT:ValidAudience";
     public const string JwtValidIssuerConfigKey = "JWT:ValidIssuer";
 
+    public const string DemoAuthority = "https://demo.duendesoftware.com"; // TODO: this needs to be updated
+    public const string DemoAudience = "api";
+    public const string DemoOAuthClientId = "interactive.public.short";
+    public const string DemoOAuthAppName = "Web API";
+
+    public static readonly Dictionary<string, string> DemoOAuthScopes = new()
+    {
+        { "api", "Access to the API" },
+        { "openid", "OpenID information" },
+        { "profile", "User profile information" },
+        { "email", "User email address" }
+    };
+
     public static class Swagger
     {
         public const string ApiKeySecurityDefinitionName = "ApiKey";

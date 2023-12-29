@@ -24,10 +24,5 @@ public class HealthCheckOptions
     /// Allows for custom registrations of health checks specific to the executing application.
     /// These can be entity framework DB contexts, SQL server databases, etc.
     /// </summary>
-    public Action<IHealthChecksBuilder> AddHealthChecks { get; set; }
-
-    public HealthCheckOptions()
-    {
-        AddHealthChecks = _ => { };
-    }
+    public Action<IHealthChecksBuilder> AddHealthChecks { get; set; } = _ => { };
 }

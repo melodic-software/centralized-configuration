@@ -39,8 +39,8 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.ConfigureCors(builder.Environment, corsConfigOptions);
         builder.Services.ConfigureIISIntegration(options.IISIntegrationOptions);
-            
-        builder.Services.ConfigureProblemDetails(builder, errorHandlingConfigOptions);
+
+        builder.Services.ConfigureErrorHandling(builder, errorHandlingConfigOptions);
         builder.Services.ConfigureSecurity(builder, options.JwtBearerTokenOptions);
 
         builder.Services.ConfigureControllers(options.ControllerConfigurationOptions);

@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
 namespace Enterprise.API.ErrorHandling.Controllers;
-// NOTE: this has to be routed to in the request pipeline registration with "UseExceptionHandler()"
 
 [ApiExplorerSettings(IgnoreApi = true)]
 [Route(RouteTemplates.ErrorHandlers)]
@@ -20,7 +19,7 @@ public class ErrorHandlersController : ControllerBase
         if (hostEnvironment.IsProduction())
             return NotFound();
 
-        // we can customize pre production error responses
+        // We can customize pre-production error responses.
 
         IExceptionHandlerFeature? exceptionHandlerFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
 
