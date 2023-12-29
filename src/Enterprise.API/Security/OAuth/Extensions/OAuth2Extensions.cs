@@ -37,6 +37,12 @@ public static class OAuth2Extensions
 
     public static void AddOAuth2SecurityDefinition(this SwaggerGenOptions options, SwaggerConfigurationOptions swaggerConfigOptions)
     {
+        if (string.IsNullOrWhiteSpace(swaggerConfigOptions.Authority))
+        {
+            Console.WriteLine("The trusted authority has not been configured. The Swagger OAuth2 security definition will not be defined.");
+            return;
+        }
+
         string authority = swaggerConfigOptions.Authority;
         Dictionary<string, string> oAuthScopes = swaggerConfigOptions.OAuthScopes;
 

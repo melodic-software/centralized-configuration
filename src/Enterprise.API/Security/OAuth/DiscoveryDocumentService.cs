@@ -6,6 +6,9 @@ public class DiscoveryDocumentService
 {
     public static async Task<DiscoveryDocumentResponse> GetDiscoveryDocumentAsync(string authority)
     {
+        if (string.IsNullOrWhiteSpace(authority))
+            throw new ArgumentException("The trusted authority must be provided.", nameof(authority));
+
         DiscoveryDocumentResponse discoveryDocumentResponse;
 
         try

@@ -2,7 +2,7 @@
 
 public class IISIntegrationOptions
 {
-    public bool EnableIISIntegration { get; set; }
+    public bool EnableIISIntegration { get; set; } = true;
 
     /// <summary>
     /// When set to true, the authentication middleware sets the HttpContext.User and responds to generic challenges.
@@ -10,24 +10,17 @@ public class IISIntegrationOptions
     /// when explicitly requested by the authentication scheme.
     /// NOTE: Windows authentication must be enabled in IIS for automatic authentication to function.
     /// </summary>
-    public bool AutomaticAuthentication { get; set; }
+    public bool AutomaticAuthentication { get; set; } = true;
 
     /// <summary>
     /// Sets the display name shown to users on login pages.
+    /// The default is null.
     /// </summary>
-    public string? AuthenticationDisplayName { get; set; }
+    public string? AuthenticationDisplayName { get; set; } = null;
 
     /// <summary>
-    /// The HttpContext.Connection.ClientCertificate is populated when this is set to true,
+    /// The HttpContext.Connection.ClientCertificate (ITLSConnectionFeature) is populated when this is set to true,
     /// AND the "MS-ASPNETCORE-CLIENTCERT" request header is present.
     /// </summary>
-    public bool ForwardClientCertificate { get; set; }
-
-    public IISIntegrationOptions()
-    {
-        EnableIISIntegration = true;
-        AutomaticAuthentication = true;
-        AuthenticationDisplayName = null;
-        ForwardClientCertificate = true;
-    }
+    public bool ForwardClientCertificate { get; set; } = true;
 }

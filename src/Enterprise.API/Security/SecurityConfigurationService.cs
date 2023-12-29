@@ -16,6 +16,9 @@ namespace Enterprise.API.Security;
 
 public static class SecurityConfigurationService
 {
+    // TODO: Add option to enable/disable security.
+    // Only allow disabling if running locally. Throw an error if running in any other environment.
+
     public static void ConfigureSecurity(this IServiceCollection services, WebApplicationBuilder builder, JwtBearerTokenOptions jwtBearerTokenOptions)
     {
         JwtSecurityTokenHandler.DefaultMapInboundClaims = false;

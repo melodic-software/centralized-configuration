@@ -8,7 +8,7 @@ namespace Enterprise.Logging.Providers;
 
 public static class NLogConfigurationService
 {
-    public static Logger HandleNLogPreConfiguration()
+    public static Logger? HandleNLogPreConfiguration()
     {
         string currentDirectory = Directory.GetCurrentDirectory();
 
@@ -20,7 +20,11 @@ public static class NLogConfigurationService
         bool fileExists = File.Exists(nLogConfigFile);
 
         if (!fileExists)
-            throw new FileNotFoundException(nLogConfigFile);
+        {
+            Console.WriteLine("nlog.config file NOT FOUND!");
+            //throw new FileNotFoundException(nLogConfigFile);
+            return null;
+        }
 
         ISetupBuilder setupBuilder = LogManager.Setup();
         setupBuilder.LoadConfigurationFromFile(configFile: nLogConfigFile, optional: false);

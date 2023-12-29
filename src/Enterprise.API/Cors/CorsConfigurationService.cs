@@ -10,6 +10,14 @@ namespace Enterprise.API.Cors;
 
 public static class CorsConfigurationService
 {
+    /// <summary>
+    /// Configure CORS (Cross-Origin Resource Sharing).
+    /// This is a mechanism to give or restrict access rights to applications from different domains.
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="environment"></param>
+    /// <param name="options"></param>
+    /// <exception cref="Exception"></exception>
     public static void ConfigureCors(this IServiceCollection services, IWebHostEnvironment environment, CorsConfigurationOptions options)
     {
         if (!options.EnableCors)
@@ -24,7 +32,7 @@ public static class CorsConfigurationService
 
         if (!environment.IsProduction())
         {
-            // this should only be used in pre production environments
+            // this should only be used in pre-production environments
             services.AddCors(RelaxedCorsConfiguration);
             return;
         }

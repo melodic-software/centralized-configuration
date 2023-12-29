@@ -13,6 +13,9 @@ public static class W3CLoggingConfigurer
 
     public static void ConfigureW3CLogging(this IServiceCollection services, LoggingConfigurationOptions loggingConfigOptions)
     {
+        if (!loggingConfigOptions.EnableW3CLogging)
+            return;
+
         // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/w3c-logger
 
         if (string.IsNullOrWhiteSpace(loggingConfigOptions.LogFileApplicationName))
@@ -43,7 +46,9 @@ public static class W3CLoggingConfigurer
 
     public static void UseW3CLogging(this WebApplication app, LoggingConfigurationOptions loggingConfigOptions)
     {
+        if (!loggingConfigOptions.EnableW3CLogging)
+            return;
+
         app.UseW3CLogging();
     }
-    
 }
