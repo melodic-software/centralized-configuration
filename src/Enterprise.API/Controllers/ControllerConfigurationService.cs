@@ -34,6 +34,9 @@ public static class ControllerConfigurationService
             options.RespectBrowserAcceptHeader = true;
 
             // if the client tries to negotiate for the media type the server doesn't support, it will return 406 Not Acceptable
+            // NOTE: This can cause issues with versioning scheme involving media types. 
+            // The typical solution here is to register custom output formatters.
+            // https://github.com/dotnet/aspnet-api-versioning/issues/101
             options.ReturnHttpNotAcceptable = true;
 
             // formats the property names used as error keys
