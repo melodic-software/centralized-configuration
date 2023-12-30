@@ -7,14 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Core\Enterprise.Core.csproj" />
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\Model\Enums\" />
-    <Folder Include="Domain\Model\ValueObjects\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Exceptions\" />
   </ItemGroup>
 
 </Project>
