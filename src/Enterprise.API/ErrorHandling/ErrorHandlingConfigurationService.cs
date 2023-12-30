@@ -30,6 +30,8 @@ public static class ErrorHandlingConfigurationService
 
         }
 
+        // We're relying on the Hellang problem details middleware as our global exception handler
+        // This line can cause a runtime error if problem details service middleware (Microsoft default) is not registered
         app.UseExceptionHandler();
 
         app.UseProblemDetails(errorHandlingConfigOptions);

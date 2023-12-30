@@ -9,7 +9,7 @@ namespace Enterprise.API.ErrorHandling.ProblemDetailsMiddleware
         internal static void AddProblemDetails(this IServiceCollection services, WebApplicationBuilder builder, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
         {
             // The default out of the box Microsoft "ProblemDetails" registrations.
-            //services.AddProblemDetails();
+            services.AddProblemDetails();
 
             // This configures the problem details using the "Hellang" middleware.
             HellangMiddlewareService.AddProblemDetails(services, builder, errorHandlingConfigOptions);
