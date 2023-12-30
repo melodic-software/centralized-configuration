@@ -3,10 +3,28 @@
 public static class VersioningConstants
 {
     public const string CustomVersionRequestHeader = "api-version";
-    public const string VersionGroupNameFormat = "'v'VVV"; // alternative: "'v'VV"
 
     /// <summary>
-    /// Versioning via the accept header involves appending a version identifier suffix separated by a semi-colon.
+    /// The default name used by the reader is "api-version".
+    /// </summary>
+    public const string VersionQueryStringParameterName = "api-version";
+
+    /// <summary>
+    /// This is the .NET default.
+    /// Example: "application/json;v=2.0".
+    /// </summary>
+    public const string MediaTypeVersionParameterName = "v";
+
+    /// <summary>
+    /// This is the versioning format for the group name.
+    /// This will generate a three digit scheme prefixed by a "v".
+    /// Versions v000 -> v999 are supported.
+    /// This number represents the "MAJOR" version incremented when there is a breaking change.
+    /// </summary>
+    public const string VersionGroupNameFormat = "'v'VVV";
+
+    /// <summary>
+    /// Versioning via the accept header involves appending a version identifier suffix separated by a semicolon.
     /// For example: "application/json;version=v1";
     /// </summary>
     /// <param name="acceptHeaderValue"></param>

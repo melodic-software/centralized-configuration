@@ -82,7 +82,7 @@ public static class WebApplicationBuilderExtensions
         // https://app.pluralsight.com/course-player?clipId=7c5b839b-c11d-43ee-94fa-0f07892d53a3
         //builder.Services.AddHttpClient<IUserGateway, UserGateway>();
 
-        builder.Services.ConfigureApiVersioning();
+        builder.Services.ConfigureApiVersioning(options.VersioningConfigurationOptions);
 
         builder.Services.ConfigureAutoMapper(options.AutoMapperConfigurationOptions);
 

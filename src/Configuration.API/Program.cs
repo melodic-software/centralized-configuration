@@ -15,6 +15,7 @@ using Enterprise.API.Options;
 using Enterprise.API.Security.Constants;
 using Enterprise.API.Security.Options;
 using Enterprise.API.Swagger.Options;
+using Enterprise.API.Versioning.Options;
 using Enterprise.Logging.Options;
 using Enterprise.Monitoring.Health.Options;
 
@@ -73,7 +74,14 @@ ApiConfigurationService.Configure(args, options =>
         {
             EnableGlobalAuthorizeFilter = true
         },
-        RegisterCustomServices = ApplicationDependencyRegistrar.RegisterCustomServices
+        RegisterCustomServices = ApplicationDependencyRegistrar.RegisterCustomServices,
+        VersioningConfigurationOptions = new VersioningConfigurationOptions
+        {
+            EnableUrlVersioning = true,
+            EnableQueryStringVersioning = true,
+            EnableHeaderVersioning = true,
+            EnableMediaTypeVersioning = true
+        }
     };
 
     options.SwaggerConfigurationOptions = new SwaggerConfigurationOptions

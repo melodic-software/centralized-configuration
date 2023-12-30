@@ -11,8 +11,8 @@ public static class MediaTypeHeaderValueExtensions
     public static bool EndsWithHATEOAS(this MediaTypeHeaderValue mediaType)
     {
         StringSegment subTypeWithoutSuffix = mediaType.SubTypeWithoutSuffix;
-        bool endsWithHATEOS = subTypeWithoutSuffix.EndsWith(HATEOAS, InvariantCultureIgnoreCase);
-        return endsWithHATEOS;
+        bool endsWithHateos = subTypeWithoutSuffix.EndsWith(HATEOAS, InvariantCultureIgnoreCase);
+        return endsWithHateos;
     }
     
     public static StringSegment GetPrimaryMediaType(this MediaTypeHeaderValue mediaType, bool endsWithHATEOAS)

@@ -8,7 +8,7 @@ public static class SwaggerConstants
 
     public static readonly Dictionary<string, string> OAuthScopes = new()
     {
-        { "configuration-api", "Access to the Configuration API" },
+        { "api", "Access to the API" },
         { "openid", "OpenID information" },
         { "profile", "User profile information" },
         { "email", "User email address" }

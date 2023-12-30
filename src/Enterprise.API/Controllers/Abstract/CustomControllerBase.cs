@@ -24,6 +24,4 @@ public class CustomControllerBase : ControllerBase
 
         return result;
     }
-
-        
 }
