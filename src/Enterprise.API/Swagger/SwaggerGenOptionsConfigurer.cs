@@ -94,6 +94,8 @@ public class SwaggerGenOptionsConfigurer : IConfigureOptions<SwaggerGenOptions>
 
     private static void AddOperationFilters(SwaggerGenOptions options)
     {
+        options.OperationFilter<NonApplicableParametersFilter>();
+        options.OperationFilter<RemoveVersionParametersFilter>(true);
         options.OperationFilter<CustomOperationFilter>();
     }
 

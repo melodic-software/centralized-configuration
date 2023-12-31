@@ -37,7 +37,8 @@ public static class ControllerConfigurationService
             // NOTE: This can cause issues with versioning scheme involving media types. 
             // The typical solution here is to register custom output formatters.
             // https://github.com/dotnet/aspnet-api-versioning/issues/101
-            options.ReturnHttpNotAcceptable = true;
+            // For now, we're using a custom output formatter that handles returning 406 response.
+            //options.ReturnHttpNotAcceptable = true;
 
             // formats the property names used as error keys
             options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider());
