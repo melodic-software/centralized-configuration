@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Enum\Examples\" />
+    <Folder Include="Repository\Example\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,6 @@
-﻿using Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
+﻿using Enterprise.DomainDrivenDesign.Events.Abstract;
+using Enterprise.DomainDrivenDesign.Events.Example;
+using Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
 
 namespace Enterprise.DomainDrivenDesign.Entity.Examples;
 
@@ -18,6 +20,10 @@ public sealed class User : Entity
     public static User Create(Guid id, FirstName firstName, LastName lastName, Email email)
     {
         User user = new User(id, firstName, lastName, email);
+
+        UserCreatedDomainEvent userCreated = new UserCreatedDomainEvent(user.Id);
+
+        user.AddDomainEvent(userCreated);
 
         return user;
     }

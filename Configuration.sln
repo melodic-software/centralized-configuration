@@ -144,6 +144,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Core", "src\Ente
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.MediatR", "src\Enterprise.MediatR\Enterprise.MediatR.csproj", "{A2BADDAB-7F10-4533-A215-EDCE3B10B656}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.DesignPatterns", "src\Enterprise.DesignPatterns\Enterprise.DesignPatterns.csproj", "{7A630F7B-2F8E-41B4-8E1F-E16398AE16CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -370,6 +372,10 @@ Global
 		{A2BADDAB-7F10-4533-A215-EDCE3B10B656}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2BADDAB-7F10-4533-A215-EDCE3B10B656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2BADDAB-7F10-4533-A215-EDCE3B10B656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A630F7B-2F8E-41B4-8E1F-E16398AE16CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A630F7B-2F8E-41B4-8E1F-E16398AE16CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A630F7B-2F8E-41B4-8E1F-E16398AE16CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A630F7B-2F8E-41B4-8E1F-E16398AE16CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -440,6 +446,7 @@ Global
 		{991D878D-D231-4750-B7CF-CEE021735D5E} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{8300FC7D-2CE1-4D09-A8FE-06C74F12E8B4} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{A2BADDAB-7F10-4533-A215-EDCE3B10B656} = {E2239087-AC19-4FCA-82C4-33D60753D688}
+		{7A630F7B-2F8E-41B4-8E1F-E16398AE16CB} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {081E96BF-0574-4A9D-86A7-982CDF05EBC9}
