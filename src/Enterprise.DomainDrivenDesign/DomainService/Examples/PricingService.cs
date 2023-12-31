@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Enterprise.DomainDrivenDesign.Entity.Examples;
+﻿using Enterprise.DomainDrivenDesign.Entity.Examples;
 using Enterprise.DomainDrivenDesign.Enum.Examples;
 using Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
 
-namespace Enterprise.DomainDrivenDesign.DomainServices.Examples
+namespace Enterprise.DomainDrivenDesign.DomainService.Examples
 {
     public class PricingService
     {

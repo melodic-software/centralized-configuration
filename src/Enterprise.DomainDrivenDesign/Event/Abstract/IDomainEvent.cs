@@ -1,6 +1,6 @@
 ﻿using Enterprise.Events.Model;
 
-namespace Enterprise.DomainDrivenDesign.Events.Abstract;
+namespace Enterprise.DomainDrivenDesign.Event.Abstract;
 
 /// <summary>
 /// Represents an event that can be raised within the domain.

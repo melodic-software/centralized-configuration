@@ -1,6 +1,6 @@
-﻿using Enterprise.DomainDrivenDesign.Events.Abstract;
+﻿using Enterprise.DomainDrivenDesign.Event.Abstract;
 
-namespace Enterprise.DomainDrivenDesign.Events;
+namespace Enterprise.DomainDrivenDesign.Event;
 
 public class ValidationFailure(string message, string context) : DomainEvent
 {

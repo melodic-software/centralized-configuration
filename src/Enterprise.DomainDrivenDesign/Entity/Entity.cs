@@ -2,10 +2,5 @@
 
 namespace Enterprise.DomainDrivenDesign.Entity
 {
-    public abstract class Entity : Entity<Guid>
-    {
-        protected Entity(Guid id) : base(id)
-        {
-        }
-    }
+    public abstract class Entity(Guid id) : Entity<Guid>(id);
 }

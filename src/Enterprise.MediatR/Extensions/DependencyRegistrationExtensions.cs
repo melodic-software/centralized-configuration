@@ -1,7 +1,7 @@
-﻿using Enterprise.DomainDrivenDesign.Events.Abstract;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Enterprise.DomainDrivenDesign.Event.Abstract;
 using Enterprise.Reflection.Assemblies;
 
 namespace Enterprise.MediatR.Extensions;

@@ -20,7 +20,7 @@ using System.Dynamic;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
-using Enterprise.DomainDrivenDesign.Events;
+using Enterprise.DomainDrivenDesign.Event;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

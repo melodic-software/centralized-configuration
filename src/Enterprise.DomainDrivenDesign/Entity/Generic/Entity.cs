@@ -1,5 +1,4 @@
-﻿using Enterprise.DomainDrivenDesign.Events.Abstract;
-using Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
+﻿using Enterprise.DomainDrivenDesign.Event.Abstract;
 
 namespace Enterprise.DomainDrivenDesign.Entity.Generic
 {

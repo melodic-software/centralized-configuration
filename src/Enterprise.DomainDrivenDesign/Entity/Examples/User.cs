@@ -1,5 +1,4 @@
-﻿using Enterprise.DomainDrivenDesign.Events.Abstract;
-using Enterprise.DomainDrivenDesign.Events.Example;
+﻿using Enterprise.DomainDrivenDesign.Event.Example;
 using Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
 
 namespace Enterprise.DomainDrivenDesign.Entity.Examples;
