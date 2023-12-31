@@ -1,8 +1,5 @@
-﻿using Configuration.Core.Domain.Model.Entities;
-using Configuration.Core.Domain.Model.Events;
-using Configuration.Core.Domain.Services.Abstract;
-using Configuration.Core.Domain.Services.Abstract.Repositories;
-using Configuration.Core.Domain.Services.Validation;
+﻿using Configuration.Domain.Applications;
+using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.DomainDrivenDesign.Event;

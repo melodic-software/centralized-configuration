@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Domain.Model.Events;
+﻿using Configuration.Domain.Applications.Events;
 using Configuration.EventHandlers.Applications;
 using Enterprise.Events.Services.Handling.Generic;
 using Microsoft.Extensions.DependencyInjection;

@@ -1,15 +1,16 @@
-﻿namespace Configuration.Core.Domain.Model.Entities;
+﻿using Enterprise.DomainDrivenDesign.Entity;
 
-public class Application
+namespace Configuration.Domain.Applications;
+
+public class Application : Entity
 {
-    public Guid Id { get; }
     public string UniqueName => GetUniqueName();
     public string Name { get; private set; }
     public string? AbbreviatedName { get; private set; }
     public string? Description { get; private set; }
     public bool IsActive { get; private set; }
 
-    public Application(Guid id, string name, string? abbreviatedName, string? description, bool isActive)
+    public Application(Guid id, string name, string? abbreviatedName, string? description, bool isActive) : base(id)
     {
         Id = id;
         Name = name;

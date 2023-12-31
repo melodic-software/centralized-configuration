@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Domain.Services.Abstract;
+﻿using Configuration.Domain.Applications;
 
 namespace Configuration.Dapper.Commands.Services
 {

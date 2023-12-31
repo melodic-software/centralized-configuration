@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Domain.Services.Abstract.Repositories;
+﻿using Configuration.Domain.Applications;
 using Configuration.EntityFramework.Commands.Repositories;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Microsoft.Extensions.DependencyInjection;

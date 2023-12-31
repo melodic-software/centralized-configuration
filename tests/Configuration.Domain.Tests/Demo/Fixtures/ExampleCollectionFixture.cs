@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Configuration.Core.Tests.Demo.Fixtures;
+namespace Configuration.Domain.Tests.Demo.Fixtures;
 // if the fixture needs to be shared across tests use a collection fixture
 // https://app.pluralsight.com/course-player?clipId=5a0c365c-257a-4e96-b192-33d73325b482
 

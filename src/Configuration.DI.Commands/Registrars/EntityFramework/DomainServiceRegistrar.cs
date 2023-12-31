@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Domain.Services.Abstract;
+﻿using Configuration.Domain.Applications;
 using Configuration.EntityFramework.Commands.Services;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Microsoft.Extensions.DependencyInjection;

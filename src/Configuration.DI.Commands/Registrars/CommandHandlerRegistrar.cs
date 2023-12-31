@@ -1,8 +1,6 @@
 ﻿using Configuration.ApplicationServices.Commands.Applications;
 using Configuration.ApplicationServices.Commands.Applications.Handlers;
-using Configuration.Core.Domain.Services.Abstract;
-using Configuration.Core.Domain.Services.Abstract.Repositories;
-using Configuration.Core.Domain.Services.Validation;
+using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Microsoft.Extensions.DependencyInjection;

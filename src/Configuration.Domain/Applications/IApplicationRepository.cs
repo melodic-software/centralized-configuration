@@ -1,6 +1,4 @@
-﻿using Configuration.Core.Domain.Model.Entities;
-
-namespace Configuration.Core.Domain.Services.Abstract.Repositories;
+﻿namespace Configuration.Domain.Applications;
 
 public interface IApplicationRepository
 {

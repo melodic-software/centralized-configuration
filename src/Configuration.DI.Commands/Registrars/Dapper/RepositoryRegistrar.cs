@@ -1,5 +1,5 @@
-﻿using Configuration.Core.Domain.Services.Abstract.Repositories;
-using Configuration.Dapper.Commands.Repositories;
+﻿using Configuration.Dapper.Commands.Repositories;
+using Configuration.Domain.Applications;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 

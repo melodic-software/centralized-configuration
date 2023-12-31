@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Domain.Model.Events;
+﻿using Configuration.Domain.Applications.Events;
 using Enterprise.Events.Services.Handling.Generic;
 
 namespace Configuration.EventHandlers.Applications;

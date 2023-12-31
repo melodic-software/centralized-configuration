@@ -3,7 +3,7 @@ using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Routing.Constants;
 using Configuration.ApplicationServices.Commands.Applications;
-using Configuration.Core.Domain.Model.Events;
+using Configuration.Domain.Applications.Events;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.API.ModelBinding;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;

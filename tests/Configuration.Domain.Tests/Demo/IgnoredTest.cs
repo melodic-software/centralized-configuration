@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace Configuration.Core.Tests.Demo;
+namespace Configuration.Domain.Tests.Demo;
 
 public class IgnoredTest
 {

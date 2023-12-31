@@ -1,7 +1,7 @@
-using Configuration.Core.Domain.Model.Entities;
+using Configuration.Domain.Applications;
 using Xunit;
 
-namespace Configuration.Core.Tests.Domain.Models.Entities;
+namespace Configuration.Domain.Tests.Domain.Models.Entities;
 
 public class ApplicationTests : IDisposable
 {

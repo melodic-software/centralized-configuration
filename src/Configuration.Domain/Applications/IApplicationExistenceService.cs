@@ -1,4 +1,4 @@
-﻿namespace Configuration.Core.Domain.Services.Abstract;
+﻿namespace Configuration.Domain.Applications;
 
 public interface IApplicationExistenceService
 {

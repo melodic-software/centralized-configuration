@@ -1,8 +1,6 @@
-﻿using Configuration.Core.Domain.Model.Entities;
-using Configuration.Core.Domain.Services.Abstract;
-using Enterprise.DomainDrivenDesign.Event;
+﻿using Enterprise.DomainDrivenDesign.Event;
 
-namespace Configuration.Core.Domain.Services.Validation;
+namespace Configuration.Domain.Applications;
 
 public class ApplicationValidationService
 {

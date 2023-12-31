@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.Core.Tests.Demo.Fixtures;
+namespace Configuration.Domain.Tests.Demo.Fixtures;
 
 // test classes will implement the IClassFixture with the fixture using DI
 // the fixture will also need to be a constructor parameter and stored in a private field

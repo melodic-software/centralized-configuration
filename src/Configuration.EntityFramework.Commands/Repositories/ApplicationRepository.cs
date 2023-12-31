@@ -1,10 +1,9 @@
-﻿using Configuration.Core.Domain.Model.Entities;
-using Configuration.Core.Domain.Services.Abstract.Repositories;
-using Configuration.EntityFramework.DbContexts.Configuration;
+﻿using Configuration.EntityFramework.DbContexts.Configuration;
 using Configuration.EntityFramework.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using Configuration.Domain.Applications;
 
 namespace Configuration.EntityFramework.Commands.Repositories;
 

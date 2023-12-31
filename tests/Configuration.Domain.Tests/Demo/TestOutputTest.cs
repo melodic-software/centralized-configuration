@@ -1,7 +1,7 @@
 ﻿using Xunit;
 using Xunit.Abstractions;
 
-namespace Configuration.Core.Tests.Demo;
+namespace Configuration.Domain.Tests.Demo;
 
 public class TestOutputTest
 {

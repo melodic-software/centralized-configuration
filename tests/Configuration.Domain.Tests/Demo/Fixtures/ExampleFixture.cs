@@ -1,4 +1,4 @@
-﻿namespace Configuration.Core.Tests.Demo.Fixtures;
+﻿namespace Configuration.Domain.Tests.Demo.Fixtures;
 // this fixture type can be used as a generic type parameter of "IClassFixture"
 // test classes can implement this interface
 // the test class will need to add a constructor parameter of the fixture type

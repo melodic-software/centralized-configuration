@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration.ApplicationServices.Commands\Configuration.ApplicationServices.Commands.csproj" />
     <ProjectReference Include="..\Configuration.Dapper.Commands\Configuration.Dapper.Commands.csproj" />
+    <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.Commands\Configuration.EntityFramework.Commands.csproj" />
     <ProjectReference Include="..\Configuration.EventHandlers\Configuration.EventHandlers.csproj" />
   </ItemGroup>

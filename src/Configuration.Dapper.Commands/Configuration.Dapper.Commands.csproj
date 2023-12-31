@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Configuration.Core\Configuration.Core.csproj" />
     <ProjectReference Include="..\Configuration.Dapper\Configuration.Dapper.csproj" />
+    <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
   </ItemGroup>
 
 </Project>

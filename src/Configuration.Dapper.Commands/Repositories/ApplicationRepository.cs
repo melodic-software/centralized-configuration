@@ -1,5 +1,4 @@
-﻿using Configuration.Core.Domain.Model.Entities;
-using Configuration.Core.Domain.Services.Abstract.Repositories;
+﻿using Configuration.Domain.Applications;
 using Microsoft.Extensions.Logging;
 
 namespace Configuration.Dapper.Commands.Repositories

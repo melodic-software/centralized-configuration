@@ -1,6 +1,6 @@
 ﻿using Enterprise.DomainDrivenDesign.Event.Abstract;
 
-namespace Configuration.Core.Domain.Model.Events;
+namespace Configuration.Domain.Applications.Events;
 
 public class ApplicationNotFound : DomainEvent
 {

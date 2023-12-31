@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Configuration.API.Routing.Constants;
 using Configuration.ApplicationServices.Commands.Applications;
-using Configuration.Core.Domain.Model.Events;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DataShaping.Extensions;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
+using Configuration.Domain.Applications.Events;
 using Enterprise.DomainDrivenDesign.Event;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;

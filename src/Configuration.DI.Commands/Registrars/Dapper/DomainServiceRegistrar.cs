@@ -1,5 +1,5 @@
-﻿using Configuration.Core.Domain.Services.Abstract;
-using Configuration.Dapper.Commands.Services;
+﻿using Configuration.Dapper.Commands.Services;
+using Configuration.Domain.Applications;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuration.DI.Commands.Registrars.Dapper;

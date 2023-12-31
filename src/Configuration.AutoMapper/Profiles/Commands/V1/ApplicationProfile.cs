@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V1;
-using Configuration.Core.Domain.Model.Entities;
-using Configuration.Core.Domain.Model.Events;
+using Configuration.Domain.Applications;
+using Configuration.Domain.Applications.Events;
 using Configuration.EntityFramework.Entities;
 
 namespace Configuration.AutoMapper.Profiles.Commands.V1;
