@@ -4,135 +4,135 @@
         <name>Configuration.API.Client</name>
     </assembly>
     <members>
-        <member name="P:Configuration.API.Client.Models.Input.V1.Abstract.ApplicationManipulationDto.Name">
+        <member name="P:Configuration.API.Client.DTOs.Input.V1.Abstract.ApplicationManipulationDto.Name">
             <summary>
             The name of the application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Input.V1.Abstract.ApplicationManipulationDto.AbbreviatedName">
+        <member name="P:Configuration.API.Client.DTOs.Input.V1.Abstract.ApplicationManipulationDto.AbbreviatedName">
             <summary>
             An optional abbreviated name of the application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Input.V1.Abstract.ApplicationManipulationDto.Description">
+        <member name="P:Configuration.API.Client.DTOs.Input.V1.Abstract.ApplicationManipulationDto.Description">
             <summary>
             An optional brief description of the application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Input.V1.CreateApplicationDto.Id">
+        <member name="P:Configuration.API.Client.DTOs.Input.V1.CreateApplicationDto.Id">
             <summary>
             The unique identifier of the application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Input.V1.CreateApplicationDto.IsActive">
+        <member name="P:Configuration.API.Client.DTOs.Input.V1.CreateApplicationDto.IsActive">
             <summary>
             The active state of the application.
             </summary>
         </member>
-        <member name="T:Configuration.API.Client.Models.Output.V1.ApplicationDto">
+        <member name="T:Configuration.API.Client.DTOs.Output.V1.ApplicationDto">
             <summary>
             The model contract for an application resource.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationDto.Id">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.Id">
             <summary>
             The unique identifier for an application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationDto.UniqueName">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.UniqueName">
             <summary>
             The human readable unique name for an application.
             This is a combination of the name and the application ID.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationDto.Name">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.Name">
             <summary>
             The application name.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationDto.AbbreviatedName">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.AbbreviatedName">
             <summary>
             The optional abbreviated name.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationDto.Description">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.Description">
             <summary>
             An optional description of the application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ApplicationDto.IsActive">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.IsActive">
             <summary>
             The active status of an application.
             </summary>
         </member>
-        <member name="T:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto">
+        <member name="T:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto">
             <summary>
             The model for a configuration entry resource.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto.ConfigurationEntryType">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto.ConfigurationEntryType">
             <summary>
             This is the type of configuration entry?
             Examples: ApplicationSetting, ConnectionString, FeatureToggle (flag).
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto.DataType">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto.DataType">
             <summary>
             An optional attribute that stores information about the data type of the value (string, boolean, etc.).
             This can be inspected and used to ensure applications process the value properly. 
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto.Label">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto.Label">
             <summary>
             An optional descriptor used to differentiate configuration entries (outside of environment and application descriptors).
             Use labels as a way to create multiple versions of a configuration entry.
             For example, you can input an application version number or a Git commit ID in labels to identify key-values associated with a particular software build.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto.DisplayName">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto.DisplayName">
             <summary>
             An optional display name for the configuration entry.
             If one is not provided, the key will be used.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto.Key">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto.Key">
             <summary>
             Keys serve as case-sensitive, unicode-based string identifiers for key-value pairs and are referenced when storing and retrieving corresponding values.
             Hierarchical namespaces are created by using a ":" separator (by convention).
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V1.ConfigurationEntryDto.Value">
+        <member name="P:Configuration.API.Client.DTOs.Output.V1.ConfigurationEntryDto.Value">
             <summary>
             The configuration value.
             </summary>
         </member>
-        <member name="T:Configuration.API.Client.Models.Output.V1.EnvironmentDto">
+        <member name="T:Configuration.API.Client.DTOs.Output.V1.EnvironmentDto">
             <summary>
             The model for a specific application environment.
             </summary>
         </member>
-        <member name="T:Configuration.API.Client.Models.Output.V1.HttpConnectionInfoDto">
+        <member name="T:Configuration.API.Client.DTOs.Output.V1.HttpConnectionInfoDto">
             <summary>
             The model for HTTP connection information.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationDto.Id">
+        <member name="P:Configuration.API.Client.DTOs.Output.V2.ApplicationDto.Id">
             <summary>
             The unique identifier for an application.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationDto.UniqueName">
+        <member name="P:Configuration.API.Client.DTOs.Output.V2.ApplicationDto.UniqueName">
             <summary>
-            The human readable unique name for an application.
+            The human-readable unique name for an application.
             This is a combination of the name and the application ID.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationDto.Name">
+        <member name="P:Configuration.API.Client.DTOs.Output.V2.ApplicationDto.Name">
             <summary>
             The application name.
             </summary>
         </member>
-        <member name="P:Configuration.API.Client.Models.Output.V2.ApplicationDto.IsActive">
+        <member name="P:Configuration.API.Client.DTOs.Output.V2.ApplicationDto.IsActive">
             <summary>
             The active status of an application.
             </summary>

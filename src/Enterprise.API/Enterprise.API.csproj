@@ -42,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\Projects\Git\enterprise-hosting\src\Enterprise.MediatR\Enterprise.MediatR.csproj" />
     <ProjectReference Include="..\Enterprise.API.Client\Enterprise.API.Client.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.Core.Queries\Enterprise.Core.Queries.csproj" />
