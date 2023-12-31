@@ -14,6 +14,7 @@ using Enterprise.API.Swagger.Options;
 using Enterprise.API.Versioning;
 using Enterprise.Logging;
 using Enterprise.Logging.Options;
+using Enterprise.MediatR.Extensions;
 using Enterprise.Monitoring.Health;
 using Enterprise.Monitoring.Health.Options;
 using Microsoft.AspNetCore.Builder;
@@ -85,6 +86,13 @@ public static class WebApplicationBuilderExtensions
         builder.Services.ConfigureApiVersioning(options.VersioningConfigurationOptions);
 
         builder.Services.ConfigureAutoMapper(options.AutoMapperConfigurationOptions);
+
+        // TODO: Test this further, ensure it is only referenced indirectly and is not coupled to our core objects
+        builder.Services.RegisterDomainEventsAsMediatRNotifications();
+        builder.Services.AddMediatR(configuration =>
+        {
+
+        });
 
         // this is a hook for adding custom service registrations
         options.RegisterCustomServices?.Invoke(builder.Services, builder);

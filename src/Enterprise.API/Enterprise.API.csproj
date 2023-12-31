@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\Projects\Git\enterprise-hosting\src\Enterprise.MediatR\Enterprise.MediatR.csproj" />
     <ProjectReference Include="..\Enterprise.API.Client\Enterprise.API.Client.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.Core.Queries\Enterprise.Core.Queries.csproj" />
@@ -51,6 +52,7 @@
     <ProjectReference Include="..\Enterprise.Library\Enterprise.Library.csproj" />
     <ProjectReference Include="..\Enterprise.Logging.NLog\Enterprise.Logging.NLog.csproj" />
     <ProjectReference Include="..\Enterprise.Logging.Serilog\Enterprise.Logging.Serilog.csproj" />
+    <ProjectReference Include="..\Enterprise.MediatR\Enterprise.MediatR.csproj" />
     <ProjectReference Include="..\Enterprise.Middleware\Enterprise.Middleware.csproj" />
     <ProjectReference Include="..\Enterprise.Monitoring\Enterprise.Monitoring.csproj" />
     <ProjectReference Include="..\Enterprise.Traceability\Enterprise.Traceability.csproj" />
