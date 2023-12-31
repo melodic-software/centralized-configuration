@@ -1,4 +1,5 @@
 ﻿namespace Configuration.API.Routing.Constants;
+
 // if individual routes are versioned and NOT controller, the [MapToApiVersion] attribute can be used on controller action methods
 
 public static class RouteTemplates
@@ -13,12 +14,4 @@ public static class RouteTemplates
     public const string Exceptions = "exceptions";
     public const string HttpConnectionInfo = "http-connection-info";
     public const string ScheduledConfigurationChanges = "scheduled-configuration-changes";
-
-    /// <summary>
-    /// This can be used to construct a versioned resource identifier.
-    /// For example: [Route("api/v{version:apiVersion}/[controller]")]
-    /// You may need to define multiple routes if you want to allow for URLs without a version qualifier to fall back to version 1.0.
-    /// NOTE: It shouldn't be used by itself.
-    /// </summary>
-    public const string VersionSegment = "v{version:apiVersion}";
 }

@@ -20,17 +20,10 @@ namespace Configuration.API.Controllers.Applications.V2;
 [ApiController]
 [ApiVersion("2.0")]
 [ControllerName("Applications")]
-public class ApplicationsControllerV2 : CustomControllerBase
+public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
 {
-    private readonly IMapper _mapper;
-
-    public ApplicationsControllerV2(IMapper mapper)
-    {
-        _mapper = mapper;
-    }
-
     /// <summary>
-    /// Get an application by ID. (Version 2)
+    /// Get an application by ID.
     /// </summary>
     /// <remarks>
     /// Sample request:
@@ -70,7 +63,7 @@ public class ApplicationsControllerV2 : CustomControllerBase
             return NotFound();
 
         // normally we'd use auto mapper here to map from the query object to the specific API model (v2) contract
-        ApplicationDto result = _mapper.Map<ApplicationDto>(application);
+        ApplicationDto result = mapper.Map<ApplicationDto>(application);
 
         return Ok(result);
     }

@@ -2,6 +2,8 @@
 using Enterprise.API.Swagger.Extensions;
 using Enterprise.API.Swagger.OperationFilters;
 using Enterprise.API.Swagger.Options;
+using Enterprise.API.Versioning.Constants;
+using Enterprise.API.Versioning.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,16 +17,19 @@ namespace Enterprise.API.Swagger;
 public class SwaggerGenOptionsConfigurer : IConfigureOptions<SwaggerGenOptions>
 {
     private readonly SwaggerConfigurationOptions _swaggerConfigOptions;
+    private readonly VersioningConfigurationOptions _versioningConfigOptions;
     private readonly IConfiguration _config;
     private readonly ILogger<SwaggerGenOptionsConfigurer> _logger;
     private readonly IServiceProvider _serviceProvider;
 
     public SwaggerGenOptionsConfigurer(SwaggerConfigurationOptions swaggerConfigOptions,
+        VersioningConfigurationOptions versioningConfigOptions,
         IConfiguration config,
         ILogger<SwaggerGenOptionsConfigurer> logger,
         IServiceProvider serviceProvider)
     {
         _swaggerConfigOptions = swaggerConfigOptions;
+        _versioningConfigOptions = versioningConfigOptions;
         _config = config;
         _logger = logger;
         _serviceProvider = serviceProvider;
@@ -72,7 +77,7 @@ public class SwaggerGenOptionsConfigurer : IConfigureOptions<SwaggerGenOptions>
             options.AddXmlComments(_swaggerConfigOptions);
 
             AddDocumentFilters(options);
-            AddOperationFilters(options);
+            AddOperationFilters(options, _versioningConfigOptions);
 
             OrderActions(options);
 
@@ -92,11 +97,22 @@ public class SwaggerGenOptionsConfigurer : IConfigureOptions<SwaggerGenOptions>
         options.DocumentFilter<CustomDocumentFilter>();
     }
 
-    private static void AddOperationFilters(SwaggerGenOptions options)
+    private static void AddOperationFilters(SwaggerGenOptions options, VersioningConfigurationOptions versionConfigOptions)
     {
-        options.OperationFilter<NonApplicableParametersFilter>();
-        options.OperationFilter<RemoveVersionParametersFilter>(true);
-        options.OperationFilter<CustomOperationFilter>();
+        bool mediaTypeVersioningEnabled = versionConfigOptions.EnableMediaTypeVersioning;
+
+        // TODO: Inject this in as configuration, particularly if this can be customized by each API instance.
+        // For now, we're just going to rely on the preconfigured constant values.
+        List<string> allVersionNames =
+        [
+            VersioningConstants.VersionQueryStringParameterName,
+            VersioningConstants.CustomVersionRequestHeader,
+            // Add other version parameter names as needed
+        ];
+
+        options.OperationFilter<NonApplicableParamFilter>();
+        options.OperationFilter<RemoveVersionParamsFilter>(mediaTypeVersioningEnabled, allVersionNames);
+        options.OperationFilter<SetDefaultVersionParamValueFilter>(allVersionNames);
     }
 
     private static void OrderActions(SwaggerGenOptions options)

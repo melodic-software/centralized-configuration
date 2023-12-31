@@ -166,7 +166,7 @@
         </member>
         <member name="M:Configuration.API.Controllers.Applications.V2.ApplicationsControllerV2.GetApplicationById(System.Guid,Enterprise.ApplicationServices.Queries.Handlers.Generic.IHandleQuery{Configuration.ApplicationServices.Queries.Applications.GetApplicationById,Configuration.Core.Queries.Model.Application})">
             <summary>
-            Get an application by ID. (Version 2)
+            Get an application by ID.
             </summary>
             <remarks>
             Sample request:
@@ -189,14 +189,6 @@
             <response code="200">Returns the requested application.</response>
             <response code="400">Bad request.</response>
             <response code="404">Application not found.</response>
-        </member>
-        <member name="F:Configuration.API.Routing.Constants.RouteTemplates.VersionSegment">
-            <summary>
-            This can be used to construct a versioned resource identifier.
-            For example: [Route("api/v{version:apiVersion}/[controller]")]
-            You may need to define multiple routes if you want to allow for URLs without a version qualifier to fall back to version 1.0.
-            NOTE: It shouldn't be used by itself.
-            </summary>
         </member>
     </members>
 </doc>

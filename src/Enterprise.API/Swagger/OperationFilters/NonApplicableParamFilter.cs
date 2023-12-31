@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Enterprise.API.Swagger.OperationFilters
 {
-    public class NonApplicableParametersFilter : IOperationFilter
+    public class NonApplicableParamFilter : IOperationFilter
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {

@@ -1,5 +1,6 @@
 ﻿using Enterprise.API.Swagger.Constants;
 using Enterprise.API.Swagger.Options;
+using Enterprise.API.Versioning.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +14,7 @@ namespace Enterprise.API.Swagger;
 
 public static class SwaggerConfigurationService
 {
-    public static void ConfigureSwagger(this IServiceCollection services, SwaggerConfigurationOptions swaggerConfigOptions)
+    public static void ConfigureSwagger(this IServiceCollection services, SwaggerConfigurationOptions swaggerConfigOptions, VersioningConfigurationOptions versionConfigOptions)
     {
         if (!swaggerConfigOptions.EnableSwagger)
             return;
@@ -28,7 +29,8 @@ public static class SwaggerConfigurationService
 
             // this is our primary configurer for swagger generation instead of the setupAction that can be passed into services.AddSwaggerGen()
             // we can inject other services in here as needed, which is one advantage over calling .AddSwaggerGen on the IServiceCollection instance
-            IConfigureOptions<SwaggerGenOptions> result = new SwaggerGenOptionsConfigurer(swaggerConfigOptions, configuration, logger, serviceProvider);
+            IConfigureOptions<SwaggerGenOptions> result = new SwaggerGenOptionsConfigurer(swaggerConfigOptions,
+                versionConfigOptions, configuration, logger, serviceProvider);
 
             return result;
         });

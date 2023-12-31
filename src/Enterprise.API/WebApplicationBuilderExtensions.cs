@@ -52,7 +52,7 @@ public static class WebApplicationBuilderExtensions
         // customize problem detail results
         //builder.Services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
 
-        builder.Services.ConfigureSwagger(swaggerConfigOptions);
+        builder.Services.ConfigureSwagger(swaggerConfigOptions, options.VersioningConfigurationOptions);
 
         // determines the content type of files
         builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
