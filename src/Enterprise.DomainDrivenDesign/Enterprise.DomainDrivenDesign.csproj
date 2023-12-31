@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.Core\Enterprise.Core.csproj" />
+    <ProjectReference Include="..\Enterprise.Domain\Enterprise.Domain.csproj" />
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
   </ItemGroup>
 
