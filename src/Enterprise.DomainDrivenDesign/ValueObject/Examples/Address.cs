@@ -1,12 +1,29 @@
-﻿namespace Enterprise.DomainDrivenDesign.ValueObject.Examples;
+﻿namespace Enterprise.DomainDrivenDesign.ValueObject.Examples
+{
+    public sealed class Address : ValueObject
+    {
+        public string Street { get; init; }
+        public string City { get; init; }
+        public string State { get; init; }
+        public string Country { get; init; }
+        public string ZipCode { get; init; }
 
-// Records have been available since C# 9 and .NET 5
-// They natively support all the immutability and equality functionality that previously would have been implemented in a base class.
+        public Address(string street, string city, string state, string country, string zipCode)
+        {
+            Street = street;
+            City = city;
+            State = state;
+            Country = country;
+            ZipCode = zipCode;
+        }
 
-public record Address(
-    string Street,
-    string City,
-    string StateProvince,
-    string ZipCode,
-    string Country
-);
+        protected override IEnumerable<object> GetAtomicValues()
+        {
+            yield return Street;
+            yield return City;
+            yield return State;
+            yield return Country;
+            yield return ZipCode;
+        }
+    }
+}

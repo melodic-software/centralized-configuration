@@ -1,5 +1,5 @@
 ﻿using Enterprise.Core.Queries.Sorting;
-using Enterprise.Events.Model.Domain.Concrete;
+using Enterprise.DomainDrivenDesign.Events;
 using Enterprise.Mapping.Properties.Services.Abstract;
 
 namespace Configuration.EntityFramework.Queries.Sorting;

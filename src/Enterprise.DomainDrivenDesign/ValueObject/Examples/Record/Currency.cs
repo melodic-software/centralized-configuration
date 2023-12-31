@@ -1,4 +1,4 @@
-﻿namespace Enterprise.DomainDrivenDesign.ValueObject.Examples;
+﻿namespace Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
 
 public record Currency
 {

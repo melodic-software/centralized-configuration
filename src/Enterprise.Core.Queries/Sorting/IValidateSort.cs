@@ -1,4 +1,4 @@
-﻿using Enterprise.Events.Model.Domain.Concrete;
+﻿using Enterprise.DomainDrivenDesign.Events;
 
 namespace Enterprise.Core.Queries.Sorting;
 

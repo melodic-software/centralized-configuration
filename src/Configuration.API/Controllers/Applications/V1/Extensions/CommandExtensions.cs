@@ -5,11 +5,11 @@ using Configuration.Core.Domain.Model.Events;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DataShaping.Extensions;
-using Enterprise.Events.Model.Domain.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
+using Enterprise.DomainDrivenDesign.Events;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

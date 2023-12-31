@@ -5,7 +5,7 @@ using Configuration.Core.Domain.Services.Abstract.Repositories;
 using Configuration.Core.Domain.Services.Validation;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers;
-using Enterprise.Events.Model.Domain.Concrete;
+using Enterprise.DomainDrivenDesign.Events;
 
 namespace Configuration.ApplicationServices.Commands.Applications.Handlers;
 

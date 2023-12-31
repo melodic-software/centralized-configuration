@@ -11,7 +11,6 @@ using Enterprise.API.Pagination;
 using Enterprise.API.Results;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.DataShaping.Extensions;
-using Enterprise.Events.Model.Domain.Concrete;
 using Enterprise.Reflection.Properties.Abstract;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +20,7 @@ using System.Dynamic;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
+using Enterprise.DomainDrivenDesign.Events;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

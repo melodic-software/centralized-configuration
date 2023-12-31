@@ -1,4 +1,4 @@
-﻿using Enterprise.DomainDrivenDesign.ValueObject.Examples;
+﻿using Enterprise.DomainDrivenDesign.ValueObject.Examples.Record;
 
 namespace Enterprise.DomainDrivenDesign.Entity.Examples;
 

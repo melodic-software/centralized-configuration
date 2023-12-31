@@ -12,7 +12,7 @@ using Enterprise.API.Constants;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
-using Enterprise.Events.Model.Domain.Concrete;
+using Enterprise.DomainDrivenDesign.Events;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;

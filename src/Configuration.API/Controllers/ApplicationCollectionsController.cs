@@ -7,7 +7,7 @@ using Configuration.Core.Domain.Model.Events;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.API.ModelBinding;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
-using Enterprise.Events.Model.Domain.Concrete;
+using Enterprise.DomainDrivenDesign.Events;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Configuration.API.Controllers;

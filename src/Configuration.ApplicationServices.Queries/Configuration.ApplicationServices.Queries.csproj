@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration.Core.Queries\Configuration.Core.Queries.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Enterprise.DomainDrivenDesign\Enterprise.DomainDrivenDesign.csproj" />
   </ItemGroup>
 
 </Project>

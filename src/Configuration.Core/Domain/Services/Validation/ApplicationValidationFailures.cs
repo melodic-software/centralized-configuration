@@ -1,5 +1,5 @@
 ﻿using Configuration.Core.Domain.Model.Entities;
-using Enterprise.Events.Model.Domain.Concrete;
+using Enterprise.DomainDrivenDesign.Events;
 
 namespace Configuration.Core.Domain.Services.Validation;
 

@@ -1,4 +1,4 @@
-﻿using Enterprise.Events.Model.Domain.Abstract;
+﻿using Enterprise.DomainDrivenDesign.Events.Abstract;
 
 namespace Configuration.Core.Domain.Model.Events;
 
