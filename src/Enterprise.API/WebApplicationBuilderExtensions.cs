@@ -87,11 +87,16 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.ConfigureAutoMapper(options.AutoMapperConfigurationOptions);
 
+        // We don't want to pollute our application service and domain objects with third party library references
+        // We dynamically register types as MediatR interface implementations at runtime.
+        // The alternative to this approach is to use wrapper objects.
         // TODO: Test this further, ensure it is only referenced indirectly and is not coupled to our core objects
-        builder.Services.RegisterDomainEventsAsMediatRNotifications();
+        builder.Services.RegisterQueriesAsRequests();
+        builder.Services.RegisterQueryHandlersAsRequestHandlers();
+        builder.Services.RegisterDomainEventsAsNotifications();
         builder.Services.AddMediatR(configuration =>
         {
-
+            //configuration.RegisterServicesFromAssemblies();
         });
 
         // this is a hook for adding custom service registrations
