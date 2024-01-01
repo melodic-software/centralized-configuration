@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Enterprise.API.ErrorHandling.ExceptionHandlers
+namespace Enterprise.API.ErrorHandling.ExceptionHandlers;
+
+public class TimeOutExceptionHandler(ILogger<TimeOutExceptionHandler> logger) : IExceptionHandler
 {
-    public class TimeOutExceptionHandler(ILogger<TimeOutExceptionHandler> logger) : IExceptionHandler
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
-        {
             logger.LogError(exception, "A timeout occurred.");
 
             if (exception is not TimeoutException)
@@ -31,5 +31,4 @@ namespace Enterprise.API.ErrorHandling.ExceptionHandlers
 
             return true;
         }
-    }
 }

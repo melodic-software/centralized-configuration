@@ -9,44 +9,43 @@ using Microsoft.Extensions.Logging;
 using System.Data.SqlClient;
 using Dapper;
 
-namespace Configuration.Dapper.Queries.Repositories
+namespace Configuration.Dapper.Queries.Repositories;
+
+public class ApplicationRepository(string? connectionString, ILogger<ApplicationRepository> logger) : IApplicationRepository
 {
-    public class ApplicationRepository(string? connectionString, ILogger<ApplicationRepository> logger) : IApplicationRepository
+    private readonly IDbConnection _db = new SqlConnection(connectionString);
+    private readonly ILogger<ApplicationRepository> _logger = logger;
+
+    public Task<PagedList<Application>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions,
+        PagingOptions pagingOptions, SortOptions sortOptions)
     {
-        private readonly IDbConnection _db = new SqlConnection(connectionString);
-        private readonly ILogger<ApplicationRepository> _logger = logger;
+        throw new NotImplementedException();
+    }
 
-        public Task<PagedList<Application>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions,
-            PagingOptions pagingOptions, SortOptions sortOptions)
-        {
-            throw new NotImplementedException();
-        }
+    public async Task<Application?> GetByIdAsync(Guid id)
+    {
+        DynamicParameters dynamicParameters = new DynamicParameters();
+        dynamicParameters.Add("ApplicationGuid", id);
 
-        public async Task<Application?> GetByIdAsync(Guid id)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("ApplicationGuid", id);
+        dynamic? result = await _db
+            .QueryFirstOrDefaultAsync("dbo.usp_GetApplicationById", dynamicParameters, commandType: CommandType.StoredProcedure);
 
-            dynamic? result = await _db
-                .QueryFirstOrDefaultAsync("dbo.usp_GetApplicationById", dynamicParameters, commandType: CommandType.StoredProcedure);
+        if (result == null)
+            return null;
 
-            if (result == null)
-                return null;
+        string uniqueName = result.UniqueName;
+        string applicationName = result.ApplicationName;
+        string abbreviatedName = result.AbbreviatedName;
+        string? description = result.ApplicationDescription;
+        bool isActive = result.IsActive;
 
-            string uniqueName = result.UniqueName;
-            string applicationName = result.ApplicationName;
-            string abbreviatedName = result.AbbreviatedName;
-            string? description = result.ApplicationDescription;
-            bool isActive = result.IsActive;
+        Application application = new Application(id, uniqueName, applicationName, abbreviatedName, description, isActive);
 
-            Application application = new Application(id, uniqueName, applicationName, abbreviatedName, description, isActive);
+        return application;
+    }
 
-            return application;
-        }
-
-        public Task<Application?> GetByUniqueNameAsync(string uniqueName)
-        {
-            throw new NotImplementedException();
-        }
+    public Task<Application?> GetByUniqueNameAsync(string uniqueName)
+    {
+        throw new NotImplementedException();
     }
 }

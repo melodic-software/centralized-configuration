@@ -1,9 +1,8 @@
 ﻿using Enterprise.DomainDrivenDesign.Event.Abstract;
 
-namespace Enterprise.DomainDrivenDesign.Event.Example
+namespace Enterprise.DomainDrivenDesign.Event.Example;
+
+public class BookingReservedDomainEvent(Guid bookingId) : DomainEvent
 {
-    public class BookingReservedDomainEvent(Guid bookingId) : DomainEvent
-    {
-        public Guid BookingId { get; } = bookingId;
-    }
+    public Guid BookingId { get; } = bookingId;
 }

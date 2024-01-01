@@ -1,7 +1,6 @@
-﻿namespace Enterprise.Hosting.Constants
+﻿namespace Enterprise.Hosting.Constants;
+
+public class EnvironmentConstants
 {
-    public class EnvironmentConstants
-    {
-        public const string LocalEnvironment = "Local";
-    }
+    public const string LocalEnvironment = "Local";
 }

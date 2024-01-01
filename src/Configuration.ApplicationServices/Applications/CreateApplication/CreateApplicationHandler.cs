@@ -4,6 +4,7 @@ using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.DateTimes.Current.Abstract;
 using Enterprise.DomainDrivenDesign.Event;
+using Enterprise.MediatR.Adapters;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 

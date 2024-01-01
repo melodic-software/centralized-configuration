@@ -2,24 +2,23 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Enterprise.API.Swagger.OperationFilters
+namespace Enterprise.API.Swagger.OperationFilters;
+
+public class NonApplicableParamFilter : IOperationFilter
 {
-    public class NonApplicableParamFilter : IOperationFilter
+    public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        public void Apply(OpenApiOperation operation, OperationFilterContext context)
-        {
-            List<OpenApiParameter> parametersToRemove = operation.Parameters
-                .Where(p =>
-                {
-                    bool isAcceptHeader = p.In == ParameterLocation.Header &&
-                                          p.Name.Equals(HttpHeaderConstants.Accept, StringComparison.OrdinalIgnoreCase);
+        List<OpenApiParameter> parametersToRemove = operation.Parameters
+            .Where(p =>
+            {
+                bool isAcceptHeader = p.In == ParameterLocation.Header &&
+                                      p.Name.Equals(HttpHeaderConstants.Accept, StringComparison.OrdinalIgnoreCase);
 
-                    return isAcceptHeader;
-                })
-                .ToList();
+                return isAcceptHeader;
+            })
+            .ToList();
 
-            foreach (OpenApiParameter parameter in parametersToRemove)
-                operation.Parameters.Remove(parameter);
-        }
+        foreach (OpenApiParameter parameter in parametersToRemove)
+            operation.Parameters.Remove(parameter);
     }
 }

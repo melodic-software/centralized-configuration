@@ -3,11 +3,12 @@ using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.Domain.Generic;
 using Enterprise.Domain.Validation;
+using Enterprise.MediatR.Adapters;
 using MediatR;
 
-namespace Enterprise.MediatR.Adapters;
+namespace Enterprise.MediatR;
 
-public class QueryHandlerAdapter<TQuery, TResult>(
+public class MediatRQueryHandler<TQuery, TResult>(
     IApplicationServiceDependencies appServiceDependencies,
     IMediator mediator)
     : QueryHandler<TQuery, TResult>(appServiceDependencies),

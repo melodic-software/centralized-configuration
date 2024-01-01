@@ -2,11 +2,10 @@
 using Enterprise.Domain.Generic;
 using MediatR;
 
-namespace Enterprise.MediatR.Adapters
+namespace Enterprise.MediatR.Adapters;
+
+public class QueryAdapter<TQuery, TResult>(TQuery query)
+    : IQuery, IRequest<Result<TResult>>, IRequest where TQuery : IQuery
 {
-    public class QueryAdapter<TQuery, TResult>(TQuery query)
-        : IQuery, IRequest<Result<TResult>>, IRequest where TQuery : IQuery
-    {
-        public TQuery Query { get; } = query;
-    }
+    public TQuery Query { get; } = query;
 }

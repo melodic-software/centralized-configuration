@@ -4,14 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Net;
 
-namespace Enterprise.API.ErrorHandling.ExceptionHandlers
-{
-    // https://anthonygiretti.com/2023/06/14/asp-net-core-8-improved-exception-handling-with-iexceptionhandler/
+namespace Enterprise.API.ErrorHandling.ExceptionHandlers;
+// https://anthonygiretti.com/2023/06/14/asp-net-core-8-improved-exception-handling-with-iexceptionhandler/
 
-    internal class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
+internal class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
+{
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
-        {
             logger.LogError(exception, "An unexpected error occurred.");
 
             ProblemDetails problemDetails = new ProblemDetails
@@ -27,5 +26,4 @@ namespace Enterprise.API.ErrorHandling.ExceptionHandlers
 
             return true;
         }
-    }
 }

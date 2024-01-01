@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />
+    <ProjectReference Include="..\Enterprise.MediatR\Enterprise.MediatR.csproj" />
   </ItemGroup>
 
 </Project>
