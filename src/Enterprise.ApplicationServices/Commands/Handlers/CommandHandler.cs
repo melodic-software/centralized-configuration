@@ -4,14 +4,9 @@ using Enterprise.ApplicationServices.Commands.Model;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers;
 
-public abstract class CommandHandler<T> : ApplicationService,
-    IHandleCommand, IHandleCommand<T> where T : ICommand
+public abstract class CommandHandler<T>(IApplicationServiceDependencies applicationServiceDependencies)
+    : ApplicationService(applicationServiceDependencies), IHandleCommand<T> where T : ICommand
 {
-    protected CommandHandler(IApplicationServiceDependencies applicationServiceDependencies)
-        : base(applicationServiceDependencies)
-    {
-    }
-
     public async Task HandleAsync(ICommand command)
     {
         Validate(command);
