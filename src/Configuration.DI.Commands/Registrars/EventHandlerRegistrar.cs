@@ -21,12 +21,5 @@ internal static class EventHandlerRegistrar
 
             return eventHandler;
         });
-
-        services.RegisterEventHandler(provider =>
-        {
-            DemoEventHandler eventHandler = new DemoEventHandler();
-
-            return eventHandler;
-        });
     }
 }
