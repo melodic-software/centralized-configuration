@@ -4,8 +4,8 @@ using Enterprise.ApplicationServices.Commands.Model;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers;
 
-public abstract class CommandHandler<T>(IApplicationServiceDependencies applicationServiceDependencies)
-    : ApplicationService(applicationServiceDependencies), IHandleCommand<T> where T : ICommand
+public abstract class CommandHandler<T>(IApplicationServiceDependencies appServiceDependencies)
+    : ApplicationService(appServiceDependencies), IHandleCommand<T> where T : ICommand
 {
     public async Task HandleAsync(ICommand command)
     {

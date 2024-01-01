@@ -12,10 +12,10 @@ public class UpdateApplicationHandler : CommandHandler<UpdateApplication>
     private readonly ApplicationValidationService _applicationValidationService;
     private readonly IApplicationRepository _applicationRepository;
 
-    public UpdateApplicationHandler(IApplicationServiceDependencies applicationServiceDependencies,
+    public UpdateApplicationHandler(IApplicationServiceDependencies appServiceDependencies,
         IApplicationExistenceService applicationExistenceService,
         ApplicationValidationService applicationValidationService,
-        IApplicationRepository applicationRepository) : base(applicationServiceDependencies)
+        IApplicationRepository applicationRepository) : base(appServiceDependencies)
     {
         _applicationExistenceService = applicationExistenceService;
         _applicationValidationService = applicationValidationService;

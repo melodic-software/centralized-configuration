@@ -9,8 +9,8 @@ public class GetApplicationByUniqueNameHandler : QueryHandler<GetApplicationByUn
 {
     private readonly IApplicationRepository _applicationRepository;
 
-    public GetApplicationByUniqueNameHandler(IApplicationServiceDependencies applicationServiceDependencies,
-        IApplicationRepository applicationRepository) : base(applicationServiceDependencies)
+    public GetApplicationByUniqueNameHandler(IApplicationServiceDependencies appServiceDependencies,
+        IApplicationRepository applicationRepository) : base(appServiceDependencies)
     {
         _applicationRepository = applicationRepository;
     }

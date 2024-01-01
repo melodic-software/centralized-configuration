@@ -9,8 +9,8 @@ public class DeleteApplicationHandler : CommandHandler<DeleteApplication>
 {
     private readonly IApplicationRepository _applicationRepository;
 
-    public DeleteApplicationHandler(IApplicationServiceDependencies applicationServiceDependencies,
-        IApplicationRepository applicationRepository) : base(applicationServiceDependencies)
+    public DeleteApplicationHandler(IApplicationServiceDependencies appServiceDependencies,
+        IApplicationRepository applicationRepository) : base(appServiceDependencies)
     {
         _applicationRepository = applicationRepository;
     }

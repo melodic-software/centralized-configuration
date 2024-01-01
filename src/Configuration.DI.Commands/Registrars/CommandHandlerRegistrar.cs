@@ -29,22 +29,22 @@ internal static class CommandHandlerRegistrar
 
         services.AddTransient(provider =>
         {
-            IApplicationServiceDependencies applicationServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
-            IHandleCommand<UpdateApplication> updateApplicationHandler = new UpdateApplicationHandler(applicationServiceDependencies, applicationExistenceService, validationService, applicationRepository);
+            IHandleCommand<UpdateApplication> updateApplicationHandler = new UpdateApplicationHandler(appServiceDependencies, applicationExistenceService, validationService, applicationRepository);
 
             return updateApplicationHandler;
         });
 
         services.AddTransient(provider =>
         {
-            IApplicationServiceDependencies applicationServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
-            IHandleCommand<DeleteApplication> deleteApplicationHandler = new DeleteApplicationHandler(applicationServiceDependencies, applicationRepository);
+            IHandleCommand<DeleteApplication> deleteApplicationHandler = new DeleteApplicationHandler(appServiceDependencies, applicationRepository);
 
             return deleteApplicationHandler;
         });

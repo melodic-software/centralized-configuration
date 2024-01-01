@@ -7,8 +7,8 @@ namespace Enterprise.ApplicationServices.Queries.Handlers;
 public abstract class QueryHandler<TQuery, TResult> : ApplicationService, 
     IHandleQuery<TResult>, IHandleQuery<TQuery, TResult> where TQuery : IQuery
 {
-    protected QueryHandler(IApplicationServiceDependencies applicationServiceDependencies)
-        : base(applicationServiceDependencies)
+    protected QueryHandler(IApplicationServiceDependencies appServiceDependencies)
+        : base(appServiceDependencies)
     {
 
     }

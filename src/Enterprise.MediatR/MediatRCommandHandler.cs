@@ -7,9 +7,9 @@ using MediatR;
 namespace Enterprise.MediatR;
 
 public class MediatRCommandHandler<T>(
-    IApplicationServiceDependencies applicationServiceDependencies,
+    IApplicationServiceDependencies appServiceDependencies,
     IMediator mediator)
-    : CommandHandler<T>(applicationServiceDependencies)
+    : CommandHandler<T>(appServiceDependencies)
     where T : ICommand
 {
     public override async Task HandleAsync(T command)

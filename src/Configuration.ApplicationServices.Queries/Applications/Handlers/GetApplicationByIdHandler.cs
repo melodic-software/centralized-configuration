@@ -9,8 +9,8 @@ public class GetApplicationByIdHandler : QueryHandler<GetApplicationById, Applic
 {
     private readonly IApplicationRepository _applicationRepository;
 
-    public GetApplicationByIdHandler(IApplicationServiceDependencies applicationServiceDependencies, IApplicationRepository applicationRepository)
-        : base(applicationServiceDependencies)
+    public GetApplicationByIdHandler(IApplicationServiceDependencies appServiceDependencies, IApplicationRepository applicationRepository)
+        : base(appServiceDependencies)
     {
         _applicationRepository = applicationRepository;
     }

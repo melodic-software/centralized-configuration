@@ -23,8 +23,7 @@ public static class DependencyRegistrar
 
         services.Add(new ServiceDescriptor(typeof(IHandleCommand<T>), provider =>
         {
-            IApplicationServiceDependencies appServiceDependencies =
-                provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IMediator mediator = provider.GetRequiredService<IMediator>();
             IHandleCommand<T> commandHandler = new MediatRCommandHandler<T>(appServiceDependencies, mediator);
             return commandHandler;

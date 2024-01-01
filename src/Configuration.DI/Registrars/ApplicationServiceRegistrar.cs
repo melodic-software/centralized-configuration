@@ -15,9 +15,9 @@ internal class ApplicationServiceRegistrar
             IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
             IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
 
-            IApplicationServiceDependencies applicationServiceDependencies = new ApplicationServiceDependencies(eventRaiser, eventCallbackService);
+            IApplicationServiceDependencies appServiceDependencies = new ApplicationServiceDependencies(eventRaiser, eventCallbackService);
 
-            return applicationServiceDependencies;
+            return appServiceDependencies;
         });
     }
 }

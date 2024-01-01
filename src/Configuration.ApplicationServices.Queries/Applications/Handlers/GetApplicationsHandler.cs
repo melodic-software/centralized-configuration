@@ -18,9 +18,9 @@ public class GetApplicationsHandler : QueryHandler<GetApplications, GetApplicati
     private readonly IValidateSort _sortValidator;
     private readonly IApplicationRepository _applicationRepository;
 
-    public GetApplicationsHandler(IApplicationServiceDependencies applicationServiceDependencies,
+    public GetApplicationsHandler(IApplicationServiceDependencies appServiceDependencies,
         IValidateSort sortValidator, IApplicationRepository applicationRepository)
-        : base(applicationServiceDependencies)
+        : base(appServiceDependencies)
     {
         _sortValidator = sortValidator;
         _applicationRepository = applicationRepository;

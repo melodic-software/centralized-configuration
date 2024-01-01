@@ -15,11 +15,11 @@ public class CreateApplicationHandler : CommandHandler<CreateApplication>
     private readonly IApplicationRepository _applicationRepository;
     private readonly ICurrentDateTimeService _currentDateTimeService;
 
-    public CreateApplicationHandler(IApplicationServiceDependencies applicationServiceDependencies,
+    public CreateApplicationHandler(IApplicationServiceDependencies appServiceDependencies,
         ApplicationValidationService applicationValidationService,
         IApplicationExistenceService applicationExistenceService,
         IApplicationRepository applicationRepository,
-        ICurrentDateTimeService currentDateTimeService) : base(applicationServiceDependencies)
+        ICurrentDateTimeService currentDateTimeService) : base(appServiceDependencies)
     {
         _applicationValidationService = applicationValidationService;
         _applicationExistenceService = applicationExistenceService;

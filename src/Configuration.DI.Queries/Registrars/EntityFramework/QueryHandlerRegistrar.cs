@@ -19,28 +19,28 @@ internal static class QueryHandlerRegistrar
     {
         services.AddTransient(provider =>
         {
-            IApplicationServiceDependencies applicationServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
             IValidateSort sortValidator = new SortValidator<Application, ApplicationEntity>(propertyMappingService);
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplications, GetApplicationsResult> getApplicationsHandler = new GetApplicationsHandler(applicationServiceDependencies, sortValidator, applicationRepository);
+            IHandleQuery<GetApplications, GetApplicationsResult> getApplicationsHandler = new GetApplicationsHandler(appServiceDependencies, sortValidator, applicationRepository);
             return getApplicationsHandler;
         });
 
         services.AddTransient(provider =>
         {
-            IApplicationServiceDependencies applicationServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplicationById, Application?> getApplicationByIdHandler = new GetApplicationByIdHandler(applicationServiceDependencies, applicationRepository);
+            IHandleQuery<GetApplicationById, Application?> getApplicationByIdHandler = new GetApplicationByIdHandler(appServiceDependencies, applicationRepository);
             return getApplicationByIdHandler;
         });
 
         services.AddTransient(provider =>
         {
-            IApplicationServiceDependencies applicationServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplicationByUniqueName, Application?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(applicationServiceDependencies, applicationRepository);
+            IHandleQuery<GetApplicationByUniqueName, Application?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(appServiceDependencies, applicationRepository);
             return getApplicationByUniqueNameHandler;
         });
     }
