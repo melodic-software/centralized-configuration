@@ -65,7 +65,8 @@ public static class DependencyRegistrar
     /// <typeparam name="THandler">The type of the event handler.</typeparam>
     /// <param name="services">The service collection to which the event handler will be added.</param>
     /// <param name="factory">A factory method to create instances of the event handler.</param>
-    public static void RegisterEventHandler<THandler>(this IServiceCollection services, Func<IServiceProvider, THandler> factory)
+    /// <param name="serviceLifetime">The lifetime of the event handler.</param>
+    public static void RegisterEventHandler<THandler>(this IServiceCollection services, Func<IServiceProvider, THandler> factory, ServiceLifetime serviceLifetime = ServiceLifetime.Transient)
         where THandler : class, IHandleEvent
     {
         List<Type> handlerInterfaces = typeof(THandler).GetInterfaces()
@@ -82,22 +83,32 @@ public static class DependencyRegistrar
             Type adapterFactoryType = typeof(EventHandlerAdapterFactory<>).MakeGenericType(eventType);
 
             // Register the adapter factory for each specific TEvent type.
-            services.AddSingleton(adapterFactoryType,
-                Activator.CreateInstance(adapterFactoryType)
-                ?? throw new InvalidOperationException($"Failed to create an instance of {adapterFactoryType}."));
+            object? adapterFactoryInstance = Activator.CreateInstance(adapterFactoryType);
+
+            if (adapterFactoryInstance == null)
+                throw new InvalidOperationException($"Failed to create an instance of {adapterFactoryType}.");
+
+            // Use singleton since we are creating a lambda expression.
+            // We keep the event handlers as transient, but don't want to rebuild the lambda expression every time.
+            services.AddSingleton(adapterFactoryType, adapterFactoryInstance);
 
             // Register the adapter in the MediatR pipeline.
             services.Add(new ServiceDescriptor(eventHandlerType, provider =>
             {
                 THandler handlerInstance = factory(provider);
+                
                 // Resolve the specific adapter factory for the TEvent type.
                 IEventHandlerAdapterFactory adapterFactory = (IEventHandlerAdapterFactory)provider.GetRequiredService(adapterFactoryType);
-                return adapterFactory.CreateAdapter(handlerInstance);
-            }, ServiceLifetime.Transient));
+                
+                // These will be EventHandlerAdapter<T> where T is a domain event type.
+                object adapter = adapterFactory.CreateAdapter(handlerInstance);
+
+                return adapter;
+            }, serviceLifetime));
         }
 
         // Register THandler implementation
-        services.Add(ServiceDescriptor.Describe(typeof(THandler), factory, ServiceLifetime.Transient));
+        services.Add(ServiceDescriptor.Describe(typeof(THandler), factory, serviceLifetime));
     }
 
     public static void RegisterEventRaiser(this IServiceCollection services)
