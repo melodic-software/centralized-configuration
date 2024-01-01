@@ -2,28 +2,34 @@
 using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers;
+using Enterprise.DateTimes.Current.Abstract;
 using Enterprise.DomainDrivenDesign.Event;
 
-namespace Configuration.ApplicationServices.Commands.Applications.Handlers;
+namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
 public class CreateApplicationHandler : CommandHandler<CreateApplication>
 {
     private readonly ApplicationValidationService _applicationValidationService;
     private readonly IApplicationExistenceService _applicationExistenceService;
     private readonly IApplicationRepository _applicationRepository;
+    private readonly ICurrentDateTimeService _currentDateTimeService;
 
     public CreateApplicationHandler(IApplicationServiceDependencies applicationServiceDependencies,
         ApplicationValidationService applicationValidationService,
         IApplicationExistenceService applicationExistenceService,
-        IApplicationRepository applicationRepository) : base(applicationServiceDependencies)
+        IApplicationRepository applicationRepository,
+        ICurrentDateTimeService currentDateTimeService) : base(applicationServiceDependencies)
     {
         _applicationValidationService = applicationValidationService;
         _applicationExistenceService = applicationExistenceService;
         _applicationRepository = applicationRepository;
+        _currentDateTimeService = currentDateTimeService;
     }
 
     public override async Task HandleAsync(CreateApplication command)
     {
+        DateTime currentDateTime = _currentDateTimeService.GetUtcNow();
+
         Application application = Application.New(command.Id, command.Name, command.AbbreviatedName, command.Description, command.IsActive);
 
         List<ValidationFailure> validationFailures = await _applicationValidationService.ValidateNewAsync(application, _applicationExistenceService);

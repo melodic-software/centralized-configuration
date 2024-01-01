@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />
   </ItemGroup>
 
 </Project>

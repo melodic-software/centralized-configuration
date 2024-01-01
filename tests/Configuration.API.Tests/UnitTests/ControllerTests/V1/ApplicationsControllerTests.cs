@@ -3,7 +3,7 @@ using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Controllers.Applications.V1.Partial;
 using Configuration.API.Tests.UnitTests.Mocking;
 using Configuration.API.Tests.UnitTests.Services;
-using Configuration.ApplicationServices.Commands.Applications;
+using Configuration.ApplicationServices.Applications.CreateApplication;
 using Configuration.AutoMapper.Profiles.Queries.V1;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Hellang.Middleware.ProblemDetails;

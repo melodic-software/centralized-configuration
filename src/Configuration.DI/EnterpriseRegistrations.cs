@@ -10,5 +10,6 @@ public static class EnterpriseRegistrations
         ApplicationServiceRegistrar.RegisterApplicationServiceDependencies(services);
         EventServiceRegistrar.RegisterEventServices(services);
         ReflectionServiceRegistrar.RegisterReflectionServices(services);
+        TemporalityServiceRegistrar.RegisterTemporalityServices(services);
     }
 }

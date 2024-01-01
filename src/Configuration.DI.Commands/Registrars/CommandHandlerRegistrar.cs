@@ -1,8 +1,12 @@
-﻿using Configuration.ApplicationServices.Commands.Applications;
+﻿using Configuration.ApplicationServices.Applications.CreateApplication;
+using Configuration.ApplicationServices.Commands.Applications;
 using Configuration.ApplicationServices.Commands.Applications.Handlers;
 using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.DateTimes.Current.Abstract;
+using Enterprise.MediatR.Adapters;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuration.DI.Commands.Registrars;
@@ -13,12 +17,16 @@ internal static class CommandHandlerRegistrar
     {
         services.AddTransient(provider =>
         {
-            IApplicationServiceDependencies applicationServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
+            ICurrentDateTimeService currentDateTimeService = provider.GetRequiredService<ICurrentDateTimeService>();
 
-            IHandleCommand<CreateApplication> createApplicationHandler = new CreateApplicationHandler(applicationServiceDependencies, validationService, applicationExistenceService, applicationRepository);
+            //IHandleCommand<CreateApplication> createApplicationHandler = new CreateApplicationHandler(appServiceDependencies, validationService, applicationExistenceService, applicationRepository, currentDateTimeService);
+
+            IMediator mediator = provider.GetRequiredService<IMediator>();
+            IHandleCommand<CreateApplication> createApplicationHandler = new CommandHandlerAdapter<CreateApplication>(appServiceDependencies, mediator);
 
             return createApplicationHandler;
         });

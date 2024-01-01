@@ -4,6 +4,7 @@ using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Controllers.Applications.V1.Extensions;
 using Configuration.API.Logging.Constants;
 using Configuration.API.Routing.Constants;
+using Configuration.ApplicationServices.Applications.CreateApplication;
 using Configuration.ApplicationServices.Commands.Applications;
 using Configuration.ApplicationServices.Queries.Applications;
 using Configuration.Core.Queries.Model;
