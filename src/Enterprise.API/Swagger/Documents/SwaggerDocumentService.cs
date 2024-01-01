@@ -23,7 +23,7 @@ public static class SwaggerDocumentService
         {
             string swaggerDocumentName = description.GroupName;
             string version = description.ApiVersion.ToString();
-            var title = swaggerConfigOptions.ApplicationName;
+            string title = swaggerConfigOptions.ApplicationName;
 
             if (!string.IsNullOrWhiteSpace(environmentName))
                 title += $" ({environmentName})";

@@ -36,7 +36,7 @@ public class PricingService
                 currency);
         }
 
-        var totalPrice = Money.Zero();
+        Money totalPrice = Money.Zero();
 
         totalPrice += priceForPeriod;
 

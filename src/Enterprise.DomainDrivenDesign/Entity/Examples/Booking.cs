@@ -42,9 +42,9 @@ public sealed class Booking : Entity
 
     public static Booking Reserve(Apartment apartment, Guid userId, DateRange duration, DateTime utcNow, PricingService pricingService)
     {
-        var pricingDetails = pricingService.CalculatePrice(apartment, duration);
+        PricingDetails pricingDetails = pricingService.CalculatePrice(apartment, duration);
 
-        var booking = new Booking(
+        Booking booking = new Booking(
             Guid.NewGuid(),
             apartment.Id,
             userId,

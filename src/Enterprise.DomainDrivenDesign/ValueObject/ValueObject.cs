@@ -30,7 +30,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
         if (other == null)
             return false;
 
-        var areEqual = ValuesAreEqual(other);
+        bool areEqual = ValuesAreEqual(other);
 
         return areEqual;
     }

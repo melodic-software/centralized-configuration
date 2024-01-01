@@ -20,7 +20,7 @@ namespace Enterprise.MediatR
 
         private async Task RaiseAsync<T>(T @event) where T : IEvent
         {
-            var notification = new EventAdapter<T>(@event);
+            INotification notification = new EventAdapter<T>(@event);
             await mediator.Publish(notification, CancellationToken.None);
         }
     }
