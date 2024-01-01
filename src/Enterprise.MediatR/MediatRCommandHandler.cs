@@ -14,7 +14,7 @@ public class MediatRCommandHandler<T>(
 {
     public override async Task HandleAsync(T command)
     {
-        CommandAdapter<T> adaptedCommand = new CommandAdapter<T>(command);
-        await mediator.Send(adaptedCommand);
+        IRequest request = new CommandAdapter<T>(command);
+        await mediator.Send(request, CancellationToken.None);
     }
 }

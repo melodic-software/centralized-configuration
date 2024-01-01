@@ -4,7 +4,6 @@ using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.DateTimes.Current.Abstract;
 using Enterprise.DomainDrivenDesign.Event;
-using Enterprise.MediatR.Adapters;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
@@ -43,14 +42,16 @@ public class CreateApplicationHandler : CommandHandler<CreateApplication>
         {
             await _applicationRepository.Save(application);
 
-            await RaiseEventAsync(new ApplicationCreated(
+            ApplicationCreated applicationCreated = new ApplicationCreated(
                 application.Id,
                 application.UniqueName,
                 application.Name,
                 application.AbbreviatedName,
                 application.Description,
                 application.IsActive
-            ));
+            );
+
+            await RaiseEventAsync(applicationCreated);
         }
     }
 }

@@ -4,8 +4,8 @@ using MediatR;
 
 namespace Enterprise.MediatR.Adapters;
 
-public class CommandHandlerAdapter<T>(IHandleCommand<T> commandHandler) : IRequestHandler<CommandAdapter<T>>
-    where T : ICommand
+public class CommandHandlerAdapter<T>(IHandleCommand<T> commandHandler)
+    : IRequestHandler<CommandAdapter<T>> where T : ICommand
 {
     public async Task Handle(CommandAdapter<T> request, CancellationToken cancellationToken)
     {

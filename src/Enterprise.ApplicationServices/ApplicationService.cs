@@ -46,8 +46,8 @@ public abstract class ApplicationService : IApplicationService
     {
         if (_processedEventIds.Contains(@event.Id))
         {
-            // we keep track of every unique event ID
-            // so we can be sure that event handlers and callbacks are only executed once per event occurrence
+            // We keep track of every unique event ID, so we can be sure that
+            // event handlers and callbacks are only executed once per event occurrence
             return;
         }
 
