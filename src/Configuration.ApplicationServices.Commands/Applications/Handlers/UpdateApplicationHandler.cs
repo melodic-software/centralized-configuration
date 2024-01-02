@@ -6,25 +6,16 @@ using Enterprise.DomainDrivenDesign.Event;
 
 namespace Configuration.ApplicationServices.Commands.Applications.Handlers;
 
-public class UpdateApplicationHandler : CommandHandler<UpdateApplication>
+public sealed class UpdateApplicationHandler(
+    IApplicationServiceDependencies appServiceDependencies,
+    IApplicationExistenceService applicationExistenceService,
+    ApplicationValidationService applicationValidationService,
+    IApplicationRepository applicationRepository)
+    : CommandHandler<UpdateApplication>(appServiceDependencies)
 {
-    private readonly IApplicationExistenceService _applicationExistenceService;
-    private readonly ApplicationValidationService _applicationValidationService;
-    private readonly IApplicationRepository _applicationRepository;
-
-    public UpdateApplicationHandler(IApplicationServiceDependencies appServiceDependencies,
-        IApplicationExistenceService applicationExistenceService,
-        ApplicationValidationService applicationValidationService,
-        IApplicationRepository applicationRepository) : base(appServiceDependencies)
-    {
-        _applicationExistenceService = applicationExistenceService;
-        _applicationValidationService = applicationValidationService;
-        _applicationRepository = applicationRepository;
-    }
-
     public override async Task HandleAsync(UpdateApplication command)
     {
-        bool applicationExists = await _applicationExistenceService.ApplicationExistsAsync(command.Id);
+        bool applicationExists = await applicationExistenceService.ApplicationExistsAsync(command.Id);
 
         if (!applicationExists)
         {
@@ -33,11 +24,11 @@ public class UpdateApplicationHandler : CommandHandler<UpdateApplication>
             return;
         }
 
-        Application application = (await _applicationRepository.GetByIdAsync(command.Id))!;
+        Application application = (await applicationRepository.GetByIdAsync(command.Id))!;
 
         application.Update(command.Name, command.AbbreviatedName, command.Description, command.IsActive);
 
-        List<ValidationFailure> validationFailures = _applicationValidationService.Validate(application);
+        List<ValidationFailure> validationFailures = applicationValidationService.Validate(application);
 
         if (validationFailures.Any())
         {
@@ -45,7 +36,7 @@ public class UpdateApplicationHandler : CommandHandler<UpdateApplication>
             return;
         }
 
-        await _applicationRepository.Save(application);
+        await applicationRepository.Save(application);
 
         ApplicationUpdated applicationUpdated = new ApplicationUpdated(
             application.Id,

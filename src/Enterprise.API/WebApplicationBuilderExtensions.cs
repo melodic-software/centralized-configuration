@@ -14,6 +14,7 @@ using Enterprise.API.Swagger.Options;
 using Enterprise.API.Versioning;
 using Enterprise.Logging;
 using Enterprise.Logging.Options;
+using Enterprise.MediatR.Behaviors;
 using Enterprise.Monitoring.Health;
 using Enterprise.Monitoring.Health.Options;
 using Enterprise.Reflection.Assemblies;
@@ -99,6 +100,8 @@ public static class WebApplicationBuilderExtensions
                 );
 
             configuration.RegisterServicesFromAssemblies(allAssemblies);
+
+            configuration.AddOpenBehavior(typeof(CommandLoggingBehavior<,>));
         });
 
         // this is a hook for adding custom service registrations

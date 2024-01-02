@@ -5,19 +5,14 @@ using Enterprise.ApplicationServices.Commands.Handlers;
 
 namespace Configuration.ApplicationServices.Commands.Applications.Handlers;
 
-public class DeleteApplicationHandler : CommandHandler<DeleteApplication>
+public sealed class DeleteApplicationHandler(
+    IApplicationServiceDependencies appServiceDependencies,
+    IApplicationRepository applicationRepository)
+    : CommandHandler<DeleteApplication>(appServiceDependencies)
 {
-    private readonly IApplicationRepository _applicationRepository;
-
-    public DeleteApplicationHandler(IApplicationServiceDependencies appServiceDependencies,
-        IApplicationRepository applicationRepository) : base(appServiceDependencies)
-    {
-        _applicationRepository = applicationRepository;
-    }
-
     public override async Task HandleAsync(DeleteApplication command)
     {
-        Application? application = await _applicationRepository.GetByIdAsync(command.Id);
+        Application? application = await applicationRepository.GetByIdAsync(command.Id);
 
         if (application == null)
         {
@@ -26,7 +21,7 @@ public class DeleteApplicationHandler : CommandHandler<DeleteApplication>
             return;
         }
 
-        await _applicationRepository.DeleteApplicationAsync(application.Id);
+        await applicationRepository.DeleteApplicationAsync(application.Id);
 
         ApplicationDeleted applicationDeleted = new ApplicationDeleted(application.Id, application.UniqueName,
             application.Name, application.AbbreviatedName);

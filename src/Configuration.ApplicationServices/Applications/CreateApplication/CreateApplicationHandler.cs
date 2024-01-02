@@ -7,32 +7,21 @@ using Enterprise.DomainDrivenDesign.Event;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
-public class CreateApplicationHandler : CommandHandler<CreateApplication>
+public sealed class CreateApplicationHandler(
+    IApplicationServiceDependencies appServiceDependencies,
+    ApplicationValidationService applicationValidationService,
+    IApplicationExistenceService applicationExistenceService,
+    IApplicationRepository applicationRepository,
+    ICurrentDateTimeService currentDateTimeService)
+    : CommandHandler<CreateApplication>(appServiceDependencies)
 {
-    private readonly ApplicationValidationService _applicationValidationService;
-    private readonly IApplicationExistenceService _applicationExistenceService;
-    private readonly IApplicationRepository _applicationRepository;
-    private readonly ICurrentDateTimeService _currentDateTimeService;
-
-    public CreateApplicationHandler(IApplicationServiceDependencies appServiceDependencies,
-        ApplicationValidationService applicationValidationService,
-        IApplicationExistenceService applicationExistenceService,
-        IApplicationRepository applicationRepository,
-        ICurrentDateTimeService currentDateTimeService) : base(appServiceDependencies)
-    {
-        _applicationValidationService = applicationValidationService;
-        _applicationExistenceService = applicationExistenceService;
-        _applicationRepository = applicationRepository;
-        _currentDateTimeService = currentDateTimeService;
-    }
-
     public override async Task HandleAsync(CreateApplication command)
     {
-        DateTime currentDateTime = _currentDateTimeService.GetUtcNow();
+        DateTime currentDateTime = currentDateTimeService.GetUtcNow();
 
         Application application = Application.New(command.Id, command.Name, command.AbbreviatedName, command.Description, command.IsActive);
 
-        List<ValidationFailure> validationFailures = await _applicationValidationService.ValidateNewAsync(application, _applicationExistenceService);
+        List<ValidationFailure> validationFailures = await applicationValidationService.ValidateNewAsync(application, applicationExistenceService);
 
         if (validationFailures.Any())
         {
@@ -40,7 +29,7 @@ public class CreateApplicationHandler : CommandHandler<CreateApplication>
         }
         else
         {
-            await _applicationRepository.Save(application);
+            await applicationRepository.Save(application);
 
             ApplicationCreated applicationCreated = new ApplicationCreated(
                 application.Id,

@@ -13,19 +13,12 @@ using static Configuration.Core.Queries.Constants.ApplicationQueryConstants;
 
 namespace Configuration.ApplicationServices.Queries.Applications.Handlers;
 
-public class GetApplicationsHandler : QueryHandler<GetApplications, GetApplicationsResult>
+public sealed class GetApplicationsHandler(
+    IApplicationServiceDependencies appServiceDependencies,
+    IValidateSort sortValidator,
+    IApplicationRepository applicationRepository)
+    : QueryHandler<GetApplications, GetApplicationsResult>(appServiceDependencies)
 {
-    private readonly IValidateSort _sortValidator;
-    private readonly IApplicationRepository _applicationRepository;
-
-    public GetApplicationsHandler(IApplicationServiceDependencies appServiceDependencies,
-        IValidateSort sortValidator, IApplicationRepository applicationRepository)
-        : base(appServiceDependencies)
-    {
-        _sortValidator = sortValidator;
-        _applicationRepository = applicationRepository;
-    }
-
     public override async Task<GetApplicationsResult> HandleAsync(GetApplications query)
     {
         // TODO: this is where security / permission checks will go
@@ -36,7 +29,7 @@ public class GetApplicationsHandler : QueryHandler<GetApplications, GetApplicati
         PagingOptions pagingOptions = new PagingOptions(query.PageNumber, query.PageSize, DefaultPageSize, MaxPageSize);
         SortOptions sortOptions = new SortOptions(query.OrderBy);
 
-        ValidationFailure? sortValidationFailure = _sortValidator.Validate(sortOptions);
+        ValidationFailure? sortValidationFailure = sortValidator.Validate(sortOptions);
 
         if (sortValidationFailure != null)
         {
@@ -45,7 +38,7 @@ public class GetApplicationsHandler : QueryHandler<GetApplications, GetApplicati
         }
 
         Activity.Current?.AddEvent(new ActivityEvent("Getting applications from repository"));
-        PagedList<Application> pagedList = await _applicationRepository.GetApplicationsAsync(filterOptions, searchOptions, pagingOptions, sortOptions);
+        PagedList<Application> pagedList = await applicationRepository.GetApplicationsAsync(filterOptions, searchOptions, pagingOptions, sortOptions);
         Activity.Current?.AddEvent(new ActivityEvent("Retrieved applications from repository"));
 
         GetApplicationsResult queryResult = new GetApplicationsResult(pagedList, pagedList.PaginationMetadata);
