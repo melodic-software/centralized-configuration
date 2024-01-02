@@ -14,6 +14,7 @@ internal static class HellangMiddlewareService
 {
     internal static void AddProblemDetails(IServiceCollection services, WebApplicationBuilder builder, ErrorHandlingConfigurationOptions errorHandlingConfigOptions)
     {
+        // Only show exception details in non production environments.
         bool includeExceptionDetails = !builder.Environment.IsProduction();
 
         // This uses a middleware package that transforms exceptions to consistent problem responses based on RFC7807.
@@ -24,8 +25,16 @@ internal static class HellangMiddlewareService
         // https://andrewlock.net/handling-web-api-exceptions-with-problemdetails-middleware/
         services.AddProblemDetails(options =>
         {
-            // Only show errors in non production environments.
-            options.IncludeExceptionDetails = (httpContext, exception) => includeExceptionDetails;
+            options.IsProblem = HellangMiddlewareDelegates.IsProblem;
+
+            options.IncludeExceptionDetails = (httpContext, exception) =>
+            {
+                if (exception is NotFoundException)
+                    return false;
+
+                return includeExceptionDetails;
+            };
+
             options.OnBeforeWriteDetails = (httpContext, problemDetails) =>
             {
                 // We want to obfuscate exception details to clients of the API.
@@ -37,13 +46,12 @@ internal static class HellangMiddlewareService
             options.Rethrow<SqlException>();
             //options.Rethrow<Exception>();
 
+            // This is available for use, but is entirely optional.
+            // Null values can be handled and explicit NotFound results can be returned OR the exception can be raised, and caught here.
+            options.MapToStatusCode<NotFoundException>(StatusCodes.Status404NotFound);
+
             // This is an application "fault", which is semantically different from an "error".
             options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
-
-            // The following are available for use, but are entirely optional.
-            // For instance, null values can be handled and explicit NotFound results can be returned
-            // OR the exception can be raised, and caught here.
-            options.MapToStatusCode<NotFoundException>(StatusCodes.Status404NotFound);
         });
     }
 

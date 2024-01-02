@@ -172,6 +172,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Exceptions", "src\Enterprise.Exceptions\Enterprise.Exceptions.csproj", "{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Logging.NLog", "src\Enterprise.Logging.NLog\Enterprise.Logging.NLog.csproj", "{FC5F7889-0E75-4E1F-B601-66E65690CD4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Logging.Serilog", "src\Enterprise.Logging.Serilog\Enterprise.Logging.Serilog.csproj", "{6A137183-9D0C-4823-9C88-CC8E2F05EDC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -426,6 +430,14 @@ Global
 		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5F7889-0E75-4E1F-B601-66E65690CD4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5F7889-0E75-4E1F-B601-66E65690CD4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC5F7889-0E75-4E1F-B601-66E65690CD4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5F7889-0E75-4E1F-B601-66E65690CD4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A137183-9D0C-4823-9C88-CC8E2F05EDC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A137183-9D0C-4823-9C88-CC8E2F05EDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A137183-9D0C-4823-9C88-CC8E2F05EDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A137183-9D0C-4823-9C88-CC8E2F05EDC5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -510,6 +522,8 @@ Global
 		{FB735992-6EAC-4C69-897D-AC0861C3C87B} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{8896447C-7738-4856-B2A3-BD625F927D21} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C} = {E2239087-AC19-4FCA-82C4-33D60753D688}
+		{FC5F7889-0E75-4E1F-B601-66E65690CD4E} = {E2239087-AC19-4FCA-82C4-33D60753D688}
+		{6A137183-9D0C-4823-9C88-CC8E2F05EDC5} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {081E96BF-0574-4A9D-86A7-982CDF05EBC9}

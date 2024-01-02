@@ -1,10 +1,10 @@
-﻿using System.Reflection;
-using Asp.Versioning.ApiExplorer;
+﻿using Asp.Versioning.ApiExplorer;
 using Enterprise.API.Swagger.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.SwaggerUI;
+using System.Reflection;
 using static Enterprise.API.Swagger.Constants.SwaggerConstants;
 using static Enterprise.Constants.CharacterConstants;
 
@@ -23,7 +23,8 @@ public static class SwaggerUIConfigurationService
                 options.OAuthUsePkce();
         }
 
-        IApiVersionDescriptionProvider? apiVersionDescriptionProvider = serviceProvider.GetService<IApiVersionDescriptionProvider>();
+        IApiVersionDescriptionProvider? apiVersionDescriptionProvider = serviceProvider
+            .GetService<IApiVersionDescriptionProvider>();
 
         if (apiVersionDescriptionProvider == null)
             throw new Exception($"{nameof(apiVersionDescriptionProvider)} cannot be null");
