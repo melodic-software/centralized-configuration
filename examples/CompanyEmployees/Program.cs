@@ -1,3 +1,4 @@
+using CompanyEmployees.OutputFormatters;
 using CompanyEmployees.Presentation;
 using Contracts;
 using Enterprise.API;
@@ -15,9 +16,14 @@ ApiConfigurationService.Configure(args, options =>
         
     };
 
-    options.ServiceConfigurationOptions.ControllerConfigurationOptions = new ControllerConfigurationOptions()
+    options.ServiceConfigurationOptions.ControllerConfigurationOptions = new ControllerConfigurationOptions
     {
         ControllerAssemblyTypes = [typeof(AssemblyReference)],
+        FormatterConfigurationOptions = new FormatterConfigurationOptions
+        {
+            InputFormatters = [],
+            OutputFormatters = [new CsvOutputFormatter()]
+        },
         EnableGlobalAuthorizeFilter = false
     };
 

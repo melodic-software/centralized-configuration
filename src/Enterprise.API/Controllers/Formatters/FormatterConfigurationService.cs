@@ -24,7 +24,10 @@ public static class FormatterConfigurationService
 
     private static IMvcBuilder ConfigureInputFormatters(this IMvcBuilder builder, List<IInputFormatter> inputFormatters)
     {
-        builder.Services.TryAddEnumerable(ServiceDescriptor.Transient<IConfigureOptions<MvcOptions>, InputFormatterConfigurer>());
+        builder.Services.TryAddEnumerable(ServiceDescriptor
+            .Transient<IConfigureOptions<MvcOptions>, InputFormatterConfigurer>(
+                provider => new InputFormatterConfigurer(inputFormatters))
+        );
             
         return builder;
     }
@@ -43,10 +46,10 @@ public static class FormatterConfigurationService
     {
         //builder.AddXmlSerializerFormatters();
 
-        // add XML input and output formatters
-        // the data contract serializer supports types like DateTimeOffset
-        // the regular XML serializer requires that a type is designed in a specific way in order to completely serialize
-        // it requires a default public constructor, public read/write members, etc.
+        // Add XML input and output formatters.
+        // The data contract serializer supports types like DateTimeOffset.
+        // The regular XML serializer requires that a type is designed in a specific way in order to completely serialize.
+        // It requires a default public constructor, public read/write members, etc.
         builder.AddXmlDataContractSerializerFormatters();
 
         // configure System.Text.Json-based formatters
@@ -57,7 +60,7 @@ public static class FormatterConfigurationService
             serializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             serializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
             serializerOptions.PropertyNameCaseInsensitive = true;
-            serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // prevents cyclical data references
+            serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // This prevents cyclical data references.
             serializerOptions.WriteIndented = true;
         });
 

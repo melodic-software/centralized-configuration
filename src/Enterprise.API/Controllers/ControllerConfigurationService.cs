@@ -59,11 +59,12 @@ public static class ControllerConfigurationService
             // By default, other response types are visible to swagger (like "text/json" and "text/xml") which are not accurate.
             // These can be overridden at the controller or action level.
             // TODO: Add option to enable/disable XML and configure this dynamically?
-            options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
+            // NOTE: This seemed to interfere with custom output formatters and media types like "text/csv".
+            //options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
             
             // If problem details middleware is enabled, these are possible response types.
             // TODO: Make this configurable (if problem details middleware is enabled).
-            options.Filters.Add(new ProducesAttribute("application/problem+json", "application/problem+xml"));
+            //options.Filters.Add(new ProducesAttribute("application/problem+json", "application/problem+xml"));
 
             // Register custom filters.
             if (controllerConfigOptions.EnableGlobalAuthorizeFilter)
