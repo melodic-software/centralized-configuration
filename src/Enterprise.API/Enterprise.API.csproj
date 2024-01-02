@@ -47,6 +47,7 @@
     <ProjectReference Include="..\Enterprise.Core.Queries\Enterprise.Core.Queries.csproj" />
     <ProjectReference Include="..\Enterprise.DataShaping\Enterprise.DataShaping.csproj" />
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
+    <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
     <ProjectReference Include="..\Enterprise.Hosting\Enterprise.Hosting.csproj" />
     <ProjectReference Include="..\Enterprise.Library\Enterprise.Library.csproj" />
     <ProjectReference Include="..\Enterprise.Logging.NLog\Enterprise.Logging.NLog.csproj" />

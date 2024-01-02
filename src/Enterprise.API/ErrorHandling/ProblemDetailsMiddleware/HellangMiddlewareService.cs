@@ -1,4 +1,5 @@
 ﻿using Enterprise.API.ErrorHandling.Options;
+using Enterprise.Exceptions;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +39,11 @@ internal static class HellangMiddlewareService
 
             // This is an application "fault", which is semantically different from an "error".
             options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);
+
+            // The following are available for use, but are entirely optional.
+            // For instance, null values can be handled and explicit NotFound results can be returned
+            // OR the exception can be raised, and caught here.
+            options.MapToStatusCode<NotFoundException>(StatusCodes.Status404NotFound);
         });
     }
 

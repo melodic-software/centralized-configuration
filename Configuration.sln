@@ -170,6 +170,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application Services", "App
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Access", "Data Access", "{8896447C-7738-4856-B2A3-BD625F927D21}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enterprise.Exceptions", "src\Enterprise.Exceptions\Enterprise.Exceptions.csproj", "{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -420,6 +422,10 @@ Global
 		{9E8B2EF4-1E75-4735-BD75-2B0EF5DF6FC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8B2EF4-1E75-4735-BD75-2B0EF5DF6FC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8B2EF4-1E75-4735-BD75-2B0EF5DF6FC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -503,6 +509,7 @@ Global
 		{A9470655-87D1-4CA2-8164-17B9E5BD1495} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{FB735992-6EAC-4C69-897D-AC0861C3C87B} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{8896447C-7738-4856-B2A3-BD625F927D21} = {E2239087-AC19-4FCA-82C4-33D60753D688}
+		{0CE57D80-EDB2-40A6-8FC7-530B42BA9C4C} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {081E96BF-0574-4A9D-86A7-982CDF05EBC9}
