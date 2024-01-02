@@ -44,7 +44,7 @@ public static class FormatterConfigurationService
 
     private static IMvcBuilder Configure(this IMvcBuilder builder)
     {
-        //builder.AddXmlSerializerFormatters();
+        builder.AddXmlSerializerFormatters();
 
         // Add XML input and output formatters.
         // The data contract serializer supports types like DateTimeOffset.
@@ -62,6 +62,11 @@ public static class FormatterConfigurationService
             serializerOptions.PropertyNameCaseInsensitive = true;
             serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // This prevents cyclical data references.
             serializerOptions.WriteIndented = true;
+        });
+
+        builder.AddXmlOptions(options =>
+        {
+
         });
 
         return builder;
