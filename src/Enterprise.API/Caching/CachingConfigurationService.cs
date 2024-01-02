@@ -99,7 +99,7 @@ public static class CachingConfigurationService
 
         //UseResponseCompression(app);
         //UseResponseCaching(app);
-        //UseHttpCacheHeaders(app);
+        UseHttpCacheHeaders(app);
     }
 
     private static void UseResponseCompression(WebApplication app)
