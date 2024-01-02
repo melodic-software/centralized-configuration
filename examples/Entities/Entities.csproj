@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
+  </ItemGroup>
+
 </Project>
