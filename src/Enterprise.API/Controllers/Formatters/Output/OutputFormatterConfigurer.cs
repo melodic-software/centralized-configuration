@@ -6,24 +6,24 @@ using Microsoft.Extensions.Options;
 
 namespace Enterprise.API.Controllers.Formatters.Output;
 
-public class OutputFormatterConfigurer : IConfigureOptions<MvcOptions>
+public class OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters) : IConfigureOptions<MvcOptions>
 {
     public void Configure(MvcOptions options)
     {
         List<IOutputFormatter> initialFormatters = options.OutputFormatters.ToList();
 
-        HandleNewtonSoftJsonFormatter(options.OutputFormatters);
-        RemoveOutputFormatters(options.OutputFormatters);
-        AddOutputFormatters(options.OutputFormatters);
-        AddVersionMediaTypeDelegatingFormatter(options.OutputFormatters);
-        //ReOrderOutputFormatters(options.OutputFormatters);
+        HandleNewtonSoftJsonFormatter(options);
+        RemoveOutputFormatters(options);
+        AddOutputFormatters(options);
+        AddVersionMediaTypeDelegatingFormatter(options);
+        //ReOrderOutputFormatters(options);
 
         List<IOutputFormatter> configuredFormatters = options.OutputFormatters.ToList();
     }
 
-    private void HandleNewtonSoftJsonFormatter(FormatterCollection<IOutputFormatter> outputFormatters)
+    private void HandleNewtonSoftJsonFormatter(MvcOptions options)
     {
-        NewtonsoftJsonOutputFormatter? newtonSoftJsonOutputFormatter = outputFormatters
+        NewtonsoftJsonOutputFormatter? newtonSoftJsonOutputFormatter = options.OutputFormatters
             .OfType<NewtonsoftJsonOutputFormatter>()
             .FirstOrDefault();
 
@@ -34,11 +34,11 @@ public class OutputFormatterConfigurer : IConfigureOptions<MvcOptions>
         newtonSoftJsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
     }
 
-    public void RemoveOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
+    public void RemoveOutputFormatters(MvcOptions options)
     {
         // By default, string return types are formatted as text/plain (text/html if requested via the Accept header).
         // This behavior can be deleted by removing the StringOutputFormatter.
-        outputFormatters.RemoveType<StringOutputFormatter>();
+        options.OutputFormatters.RemoveType<StringOutputFormatter>();
 
         // Actions that have a model object return type return 204 No Content when returning null.
         // This behavior can be deleted by removing the HttpNoContentOutputFormatter.
@@ -47,42 +47,46 @@ public class OutputFormatterConfigurer : IConfigureOptions<MvcOptions>
         // The JSON formatter returns a response with a body of null.
         // The XML formatter returns an empty XML element with the attribute xsi:nil="true" set.
 
-        //outputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+        //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
     }
 
-    public void AddOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
+    public void AddOutputFormatters(MvcOptions options)
     {
-        // Add output formatters here.
+        // Adds output formatters here.
+
+        // Add custom (application specific) output formatters.
+        foreach (IOutputFormatter outputFormatter in outputFormatters)
+            options.OutputFormatters.Add(outputFormatter);
     }
 
-    private void AddVersionMediaTypeDelegatingFormatter(FormatterCollection<IOutputFormatter> outputFormatters)
+    private void AddVersionMediaTypeDelegatingFormatter(MvcOptions options)
     {
-        List<IOutputFormatter> currentFormatters = outputFormatters.ToList();
+        List<IOutputFormatter> currentFormatters = options.OutputFormatters.ToList();
 
         // This parses and strips out the version parameter.
         // Then delegates to any and all existing formatters.
         // It is important that this is added last.
 
-        outputFormatters.Add(new MediaTypeVersionDelegatingFormatter(currentFormatters, VersioningConstants.MediaTypeVersionParameterName));
+        options.OutputFormatters.Add(new MediaTypeVersionDelegatingFormatter(currentFormatters, VersioningConstants.MediaTypeVersionParameterName));
     }
 
-    private void ReOrderOutputFormatters(FormatterCollection<IOutputFormatter> outputFormatters)
+    private void ReOrderOutputFormatters(MvcOptions options)
     {
         // NOTE: The System.Text.Json formatter should already be the default.
         // But this will ensure it is the first output formatter in the list.
 
         // Find the System.Text.Json formatter.
-        SystemTextJsonOutputFormatter? jsonFormatter = outputFormatters
+        SystemTextJsonOutputFormatter? jsonFormatter = options.OutputFormatters
             .OfType<SystemTextJsonOutputFormatter>()
             .FirstOrDefault();
 
         if (jsonFormatter == null)
             return;
-        
+
         // Remove the existing JSON formatter.
-        outputFormatters.Remove(jsonFormatter);
+        options.OutputFormatters.Remove(jsonFormatter);
 
         // Re-insert it at the beginning of the collection.
-        outputFormatters.Insert(0, jsonFormatter);
+        options.OutputFormatters.Insert(0, jsonFormatter);
     }
 }

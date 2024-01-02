@@ -5,8 +5,12 @@ using Microsoft.Extensions.Options;
 
 namespace Enterprise.API.Controllers.Formatters.Input;
 
-public class InputFormatterConfigurer : IConfigureOptions<MvcOptions>
+public class InputFormatterConfigurer(List<IInputFormatter> inputFormatters) : IConfigureOptions<MvcOptions>
 {
+    public InputFormatterConfigurer() : this(new())
+    {
+    }
+
     public void Configure(MvcOptions options)
     {
         // this adds support for JSON patch using Newtonsoft.Json while leaving other input and output formatters unchanged
@@ -14,6 +18,10 @@ public class InputFormatterConfigurer : IConfigureOptions<MvcOptions>
         // https://learn.microsoft.com/en-us/aspnet/core/web-api/jsonpatch
         // https://datatracker.ietf.org/doc/html/rfc6902
         options.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
+
+        // Add custom (application specific) input formatters.
+        foreach (IInputFormatter inputFormatter in inputFormatters)
+            options.InputFormatters.Add(inputFormatter);
     }
 
     private static NewtonsoftJsonPatchInputFormatter GetJsonPatchInputFormatter()

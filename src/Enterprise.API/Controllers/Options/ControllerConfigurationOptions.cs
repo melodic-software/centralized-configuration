@@ -13,4 +13,9 @@ public class ControllerConfigurationOptions
     /// The type reference is used to get the assembly reference, which is added as an application part.
     /// </summary>
     public List<Type> ControllerAssemblyTypes { get; set; } = new();
+
+    /// <summary>
+    /// Options for configuring input and output formatters.
+    /// </summary>
+    public FormatterConfigurationOptions FormatterConfigurationOptions { get; set; } = new();
 }

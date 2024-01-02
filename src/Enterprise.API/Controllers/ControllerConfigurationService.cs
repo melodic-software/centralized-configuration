@@ -15,6 +15,8 @@ public static class ControllerConfigurationService
 {
     public static void ConfigureControllers(this IServiceCollection services, ControllerConfigurationOptions controllerConfigOptions)
     {
+        FormatterConfigurationOptions formatterConfigOptions = controllerConfigOptions.FormatterConfigurationOptions;
+
         // this registers ONLY the controllers in the service collection and not views or pages
         // because they are not required in most web API projects
         IMvcBuilder builder = services.AddControllers();
@@ -26,7 +28,7 @@ public static class ControllerConfigurationService
             builder.AddApplicationPart(assembly);
         }
 
-        builder.ConfigureFormatters();
+        builder.ConfigureFormatters(formatterConfigOptions);
 
         builder.AddMvcOptions(options =>
         {
@@ -36,7 +38,7 @@ public static class ControllerConfigurationService
             // If the client tries to negotiate for the media type the server doesn't support, it will return 406 Not Acceptable.
             options.ReturnHttpNotAcceptable = true;
 
-            // Formats the property names used as error keys
+            // Formats the property names used as error keys.
             options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider());
 
             List<IInputFormatter> inputFormatters = options.InputFormatters.ToList();
@@ -56,10 +58,11 @@ public static class ControllerConfigurationService
             // In MOST cases, responses will be in either JSON or XML.
             // By default, other response types are visible to swagger (like "text/json" and "text/xml") which are not accurate.
             // These can be overridden at the controller or action level.
-            // TODO: add option to enable/disable XML and configure this dynamically?
+            // TODO: Add option to enable/disable XML and configure this dynamically?
             options.Filters.Add(new ProducesAttribute("application/json", "application/xml"));
             
             // If problem details middleware is enabled, these are possible response types.
+            // TODO: Make this configurable (if problem details middleware is enabled).
             options.Filters.Add(new ProducesAttribute("application/problem+json", "application/problem+xml"));
 
             // Register custom filters.
