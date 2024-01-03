@@ -11,17 +11,11 @@ public class ArrayModelBinder : IModelBinder
 {
     public Task BindModelAsync(ModelBindingContext bindingContext)
     {
-        if (bindingContext == null) 
+        if (bindingContext == null)
             throw new ArgumentNullException(nameof(bindingContext));
 
         ModelMetadata modelMetadata = bindingContext.ModelMetadata;
         bool isNotEnumerableType = !modelMetadata.IsEnumerableType;
-
-        // NOTE: This currently requires the model type to be an IEnumerable<T>.
-        // If it is typed as a List<T>, it will blow up in the conversion / casting process either here or at the controller level.
-        // TODO: Ensure these types of exceptions do not occur.
-        // We could implement a model binder base and implement specific collection types
-        // OR change this to a collection model binder and attempt to account for all the conversions.
 
         // Our binder currently only works on enumerable types.
         if (isNotEnumerableType)
@@ -38,7 +32,7 @@ public class ArrayModelBinder : IModelBinder
 
         if (valueProviderResult == ValueProviderResult.None)
             return Task.CompletedTask;
-            
+
         StringValues values = valueProviderResult.Values;
         string? firstValue = valueProviderResult.FirstValue;
 
@@ -56,10 +50,6 @@ public class ArrayModelBinder : IModelBinder
         // TODO: Implement type checking.
         Type modelType = bindingContext.ModelType;
 
-        // For now, we're just returning if it's a concrete collection type.
-        if (bindingContext.ModelMetadata.IsCollectionType)
-            return Task.CompletedTask;
-
         // Now we know that the value isn't null or whitespace and the type of the model is enumerable.
         // We need to get the enumerable's type, and a converter (using reflection).
 
@@ -76,8 +66,49 @@ public class ArrayModelBinder : IModelBinder
         }
 
         TypeConverter converter = TypeDescriptor.GetConverter(elementType);
-
         bool isCommaSeparated = valueString.Contains(',');
+
+        if (bindingContext.ModelMetadata.IsCollectionType)
+        {
+            // NOTE: This currently only works for List<T>.
+            // TODO: Add factory pattern based off the type
+            // We need to make sure that we're working with a List<T> before running the following code.
+            // Structure this so we can add support for additional collection types down the road.
+
+            // ALSO: If possible, refactor ALL this code into separate classes or methods that make this code easier to read and maintain.
+            // It'd be nice if we could return early if it's not a concrete collection type.
+
+            Type listType = typeof(List<>).MakeGenericType([elementType]);
+
+            if (listType.IsAssignableFrom(modelType))
+            {
+                object? list = Activator.CreateInstance(listType);
+                MethodInfo? addMethod = listType.GetMethod(nameof(List<object>.Add));
+
+                if (addMethod == null)
+                    return Task.CompletedTask;
+
+                if (isCommaSeparated)
+                {
+                    string[] split = valueString.Split([","], StringSplitOptions.RemoveEmptyEntries);
+
+                    foreach (string item in split)
+                    {
+                        string trimmedValue = item.Trim();
+                        object? convertedValue = converter.ConvertFromString(trimmedValue);
+                        addMethod.Invoke(list, [convertedValue]);
+                    }
+                }
+                else
+                {
+                    addMethod.Invoke(list, [converter.ConvertFromString(valueString.Trim())]);
+                }
+
+                bindingContext.Model = list;
+                bindingContext.Result = ModelBindingResult.Success(bindingContext.Model);
+                return Task.CompletedTask;
+            }
+        }
 
         if (isCommaSeparated)
         {
