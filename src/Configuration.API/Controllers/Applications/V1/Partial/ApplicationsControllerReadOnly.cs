@@ -69,9 +69,10 @@ public partial class ApplicationsController
     /// <returns></returns>
     [HttpHead]
     [HttpGet(Name = RouteNames.GetApplications)]
-    [RequestHeaderMatchesMediaType(HttpHeaderConstants.Accept, VendorMediaTypeConstants.HypermediaJson)] // routing constraint
-    [Consumes(VendorMediaTypeConstants.HypermediaJson)]
-    [Produces(VendorMediaTypeConstants.HypermediaJson)] // TODO: add hypermedia model type?
+    [RequestHeaderMatchesMediaType(HttpHeaderConstants.Accept, VendorMediaTypeConstants.HypermediaJson, VendorMediaTypeConstants.HypermediaXml)] // routing constraint
+    [Consumes(VendorMediaTypeConstants.HypermediaJson, VendorMediaTypeConstants.HypermediaXml)]
+    [Produces(VendorMediaTypeConstants.HypermediaJson, VendorMediaTypeConstants.HypermediaXml)] // TODO: add hypermedia model type?
+    // NOTE: The XML vendor media type will return 406 unless an XML output formatter has been added that can handle dynamic and anonymous objects (see below return type).
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> GetApplicationsWithLinks([FromQuery] GetApplicationsDto getApplicationsDto,
         [FromServices] IPropertyExistenceService propertyExistenceService,

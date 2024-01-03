@@ -4,6 +4,12 @@
         <name>Configuration.API</name>
     </assembly>
     <members>
+        <member name="F:Configuration.API.ContentNegotiation.Constants.VendorMediaTypeConstants.HypermediaXml">
+            <summary>
+            This cannot be used with dynamic or anonymous types
+            unless a custom XML output formatter has been added to handle dynamic serialization.
+            </summary>
+        </member>
         <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Put(System.Guid,Configuration.API.Client.DTOs.Input.V1.UpdateApplicationDto,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Commands.Applications.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication})">
             <summary>
             Update an application.
