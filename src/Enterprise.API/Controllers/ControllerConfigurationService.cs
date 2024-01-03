@@ -2,6 +2,7 @@
 using Enterprise.API.Controllers.Behavior;
 using Enterprise.API.Controllers.Formatters;
 using Enterprise.API.Controllers.Options;
+using Enterprise.API.Validation.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -37,6 +38,12 @@ public static class ControllerConfigurationService
 
             // If the client tries to negotiate for the media type the server doesn't support, it will return 406 Not Acceptable.
             options.ReturnHttpNotAcceptable = true;
+
+            // Since non-nullable properties are treated as if they had a [Required(AllowEmptyStrings = true)] attribute,
+            // missing Title in the request will also result in a validation error.
+            // This can be overridden by setting this to "true". The default value is "false".
+            // TODO: Disable this by default, but make it configurable.
+            options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = false;
 
             // Formats the property names used as error keys.
             options.ModelMetadataDetailsProviders.Add(new SystemTextJsonValidationMetadataProvider());
@@ -77,6 +84,10 @@ public static class ControllerConfigurationService
             // Controllers can refer to the key names here by setting the CacheProfileName property of the ResponseCache attribute.
             //options.CacheProfiles.Add("120SecondsCacheProfile", new() { Duration = 120 });
         });
+
+        // These are action filters that are not globally enabled and must be manually added to an API controller or action method.
+        // https://code-maze.com/action-filters-aspnetcore/
+        builder.Services.AddScoped<ModelStateValidationFilter>();
 
         builder.ConfigureApiBehavior();
     }

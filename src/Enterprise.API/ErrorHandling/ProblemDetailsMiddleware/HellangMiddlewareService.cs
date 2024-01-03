@@ -46,9 +46,10 @@ internal static class HellangMiddlewareService
             options.Rethrow<SqlException>();
             //options.Rethrow<Exception>();
 
-            // This is available for use, but is entirely optional.
-            // Null values can be handled and explicit NotFound results can be returned OR the exception can be raised, and caught here.
+            // These are available for use, but are entirely optional.
+            // These can be handled manually in controller / framework code OR exceptions can be raised and caught here
             options.MapToStatusCode<NotFoundException>(StatusCodes.Status404NotFound);
+            options.MapToStatusCode<BadRequestException>(StatusCodes.Status400BadRequest);
 
             // This is an application "fault", which is semantically different from an "error".
             options.MapToStatusCode<Exception>(StatusCodes.Status500InternalServerError);

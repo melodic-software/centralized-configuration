@@ -18,6 +18,8 @@ public static class ApiBehaviorConfigurationService
 
             // NOTE: This suppresses the default model state validation that is implemented due to the existence of the ApiController attribute.
             // This requires controllers to check for null model/DTO objects.
+            // If nullable context is enabled in the .csproj, specifying a nullable input model will allow null request bodies and not trigger this validation.
+            // https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references#nullable-contexts
             // TODO: Disable this by default, but make it configurable.
             options.SuppressModelStateInvalidFilter = false;
 
@@ -54,7 +56,12 @@ public static class ApiBehaviorConfigurationService
 
         IActionResult result = new UnprocessableEntityObjectResult(validationProblemDetails)
         {
-            ContentTypes = { ContentTypeConstants.ApplicationProblemPlusJson } // Part of the RFC.
+            ContentTypes =
+            {
+                // Part of the RFC.
+                ContentTypeConstants.ApplicationProblemPlusJson, 
+                ContentTypeConstants.ApplicationProblemPlusJson
+            }
         };
 
         return result;

@@ -38,4 +38,21 @@ internal sealed class EmployeeService(IRepositoryManager repository, ILoggerMana
 
         return employee;
     }
+
+    public EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employeeForCreation, bool trackChanges)
+    {
+        Company? company = repository.Company.GetCompany(companyId, trackChanges);
+
+        if (company is null)
+            throw new CompanyNotFoundException(companyId);
+
+        Employee? employeeEntity = mapper.Map<Employee>(employeeForCreation);
+
+        repository.Employee.CreateEmployeeForCompany(companyId, employeeEntity);
+        repository.Save();
+
+        EmployeeDto? employeeToReturn = mapper.Map<EmployeeDto>(employeeEntity);
+
+        return employeeToReturn;
+    }
 }
