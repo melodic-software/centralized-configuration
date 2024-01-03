@@ -14,12 +14,14 @@ public static class ApiBehaviorConfigurationService
     {
         builder.ConfigureApiBehaviorOptions(options =>
         {
-            // here we are configuring how the [ApiController] attribute should behave
+            // Here we are configuring how the [ApiController] attribute should behave.
 
-            // NOTE: this suppresses the default model state validation that is implemented due to the existence of the ApiController attribute
-            //options.SuppressModelStateInvalidFilter = true;
+            // NOTE: This suppresses the default model state validation that is implemented due to the existence of the ApiController attribute.
+            // This requires controllers to check for null model/DTO objects.
+            // TODO: Disable this by default, but make it configurable.
+            options.SuppressModelStateInvalidFilter = false;
 
-            // this is what will execute when the model state is invalid
+            // This is what will execute when the model state is invalid.
             options.InvalidModelStateResponseFactory = GetInvalidModelStateResponseFactory;
 
             //CustomizeClientErrorMapping(options);
@@ -34,25 +36,25 @@ public static class ApiBehaviorConfigurationService
 
         // https://datatracker.ietf.org/doc/html/rfc7807
 
-        // create a validation problem details object
+        // Create a validation problem details object.
         ProblemDetailsFactory problemDetailsFactory = requestServices.GetRequiredService<ProblemDetailsFactory>();
 
-        // this will translate the model data to the RFC format
+        // This will translate the model data to the RFC format.
         ValidationProblemDetails validationProblemDetails = problemDetailsFactory
             .CreateValidationProblemDetails(httpContext, context.ModelState);
 
-        // add additional info not added by default
+        // Add additional info not added by default.
         validationProblemDetails.Detail = ProblemDetailsDetail;
         validationProblemDetails.Instance = requestPath;
 
-        // report invalid model state responses as validation issues
+        // Report invalid model state responses as validation issues.
         //validationProblemDetails.Type = ProblemDetailsType;
-        validationProblemDetails.Status = StatusCodes.Status422UnprocessableEntity; // use 422 instead of the default 400
+        validationProblemDetails.Status = StatusCodes.Status422UnprocessableEntity; // Use 422 instead of the default 400.
         validationProblemDetails.Title = ProblemDetailsTitle;
 
         IActionResult result = new UnprocessableEntityObjectResult(validationProblemDetails)
         {
-            ContentTypes = { ContentTypeConstants.ApplicationProblemPlusJson } // part of the RFC
+            ContentTypes = { ContentTypeConstants.ApplicationProblemPlusJson } // Part of the RFC.
         };
 
         return result;
@@ -60,14 +62,14 @@ public static class ApiBehaviorConfigurationService
 
     private static void CustomizeClientErrorMapping(ApiBehaviorOptions options)
     {
-        // we can customize the message and URL for specific status codes in error responses
+        // We can customize the message and URL for specific status codes in error responses.
         options.ClientErrorMapping[StatusCodes.Status500InternalServerError] = new ClientErrorData
         {
             Link = InternalServerErrorLink,
             Title = InternalServerErrorMessage
         };
 
-        // customize just the link (or title)
+        // Customize just the link (or title).
         options.ClientErrorMapping[StatusCodes.Status401Unauthorized].Link = UnauthorizedLink;
     }
 }
