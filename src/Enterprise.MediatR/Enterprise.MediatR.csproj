@@ -12,9 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Enterprise.FluentValidation\Enterprise.FluentValidation.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.DomainDrivenDesign\Enterprise.DomainDrivenDesign.csproj" />
+    <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
     <ProjectReference Include="..\Enterprise.Reflection\Enterprise.Reflection.csproj" />
+    <ProjectReference Include="..\Enterprise.Validation\Enterprise.Validation.csproj" />
   </ItemGroup>
 
   <ItemGroup>

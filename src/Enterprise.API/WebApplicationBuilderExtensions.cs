@@ -12,6 +12,7 @@ using Enterprise.API.Security.Options;
 using Enterprise.API.Swagger;
 using Enterprise.API.Swagger.Options;
 using Enterprise.API.Versioning;
+using Enterprise.FluentValidation;
 using Enterprise.Logging;
 using Enterprise.Logging.Options;
 using Enterprise.MediatR.Behaviors;
@@ -102,7 +103,10 @@ public static class WebApplicationBuilderExtensions
             configuration.RegisterServicesFromAssemblies(allAssemblies);
 
             configuration.AddOpenBehavior(typeof(CommandLoggingBehavior<,>));
+            configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
         });
+
+        builder.Services.RegisterFluentValidation();
 
         // this is a hook for adding custom service registrations
         options.RegisterCustomServices?.Invoke(builder.Services, builder);

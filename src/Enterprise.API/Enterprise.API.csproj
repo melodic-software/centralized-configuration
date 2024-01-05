@@ -42,6 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Enterprise.FluentValidation\Enterprise.FluentValidation.csproj" />
     <ProjectReference Include="..\Enterprise.API.Client\Enterprise.API.Client.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.Core.Queries\Enterprise.Core.Queries.csproj" />
@@ -56,6 +57,7 @@
     <ProjectReference Include="..\Enterprise.Middleware\Enterprise.Middleware.csproj" />
     <ProjectReference Include="..\Enterprise.Monitoring\Enterprise.Monitoring.csproj" />
     <ProjectReference Include="..\Enterprise.Traceability\Enterprise.Traceability.csproj" />
+    <ProjectReference Include="..\Enterprise.Validation\Enterprise.Validation.csproj" />
   </ItemGroup>
 
 </Project>

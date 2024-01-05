@@ -331,3 +331,4 @@ ASALocalRun/
 
 /src/DotNet/Configuration/Configuration.API/Configuration.API.xml
 /src/DotNet/Configuration/Configuration.API.Client/Configuration.API.Client.xml
+/src/Enterprise.MediatR/CommandAdapterValidator.cs

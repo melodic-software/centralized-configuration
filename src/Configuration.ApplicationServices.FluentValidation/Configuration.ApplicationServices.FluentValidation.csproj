@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Enterprise.FluentValidation\Enterprise.FluentValidation.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices.Commands\Configuration.ApplicationServices.Commands.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Enterprise.MediatR\Enterprise.MediatR.csproj" />
+  </ItemGroup>
+
+</Project>

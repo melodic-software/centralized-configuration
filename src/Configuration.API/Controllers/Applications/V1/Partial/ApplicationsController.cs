@@ -177,13 +177,16 @@ public partial class ApplicationsController : CustomControllerBase
     public async Task<IActionResult> Post(CreateApplicationDto? createDto,
         [FromServices] IHandleCommand<CreateApplication> commandHandler)
     {
-        // normally the ApiController attribute would catch this and automatically return a 400 "bad request"
-        // but we've overridden the default validation handling (SuppressModelStateInvalidFilter)
+        // Normally the ApiController attribute would catch this and automatically return a 400 "bad request".
+
+        // If the default validation handling is disabled (SuppressModelStateInvalidFilter = false)
+        // OR nullable annotations are enabled in the project AND the model type has been deemed nullable (adding ? to variable declaration)
+        // THEN this will also pass through and require manual validation.
 
         if (createDto == null)
-            return BadRequest(); // client error, not a 422 (unprocessable entity)
+            return BadRequest(); // This is a client error, not a 422 (unprocessable entity).
 
-        // typically when the ApiController attribute is used, we don't have to check model state
+        // See comments above on validation handling. Under specific (default) circumstances, we don't have to check model state.
         // however we've set "SuppressModelStateInvalidFilter" to false so a 422 to can be returned instead of the default 400 (which is less accurate)
         // normally these would be returned as ValidationProblem()
         if (!ModelState.IsValid)

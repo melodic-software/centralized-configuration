@@ -28,7 +28,7 @@ public class ApplicationCollectionsController : CustomControllerBase
     }
 
     [HttpGet("({applicationIds})", Name = RouteNames.GetApplicationCollection)]
-    public IActionResult Get([ModelBinder(BinderType = typeof(ArrayModelBinder))] [FromRoute] IEnumerable<Guid> applicationIds) 
+    public IActionResult Get([ModelBinder(BinderType = typeof(GenericEnumerableModelBinder))] [FromRoute] IEnumerable<Guid> applicationIds) 
     {
         // there's no implicit binding for collection of non primitives types - so we create a custom model binder
         // we could have used a List<string>, but then we'd have to parse them
