@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Configuration.API.Client.DTOs.Input.V1.Validation.Attributes;
+﻿using Configuration.API.Client.DTOs.Input.V1.Validation.Attributes;
+using System.ComponentModel.DataAnnotations;
 using static Configuration.API.Client.DTOs.Input.V1.Validation.Constants.ApplicationValidationMessages;
 
 namespace Configuration.API.Client.DTOs.Input.V1.Abstract;
@@ -10,8 +10,8 @@ public abstract class ApplicationManipulationDto
     /// <summary>
     /// The name of the application.
     /// </summary>
-    //[Required(ErrorMessage = NameRequired)]
-    //[MaxLength(100, ErrorMessage = NameMaxLength)]
+    [Required(ErrorMessage = NameRequired)]
+    [MaxLength(100, ErrorMessage = NameMaxLength)]
     public string Name { get; set; } = null!;
 
     /// <summary>
