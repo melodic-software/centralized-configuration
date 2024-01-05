@@ -1,10 +1,12 @@
-﻿using Configuration.DI;
+﻿using Configuration.ApplicationServices.FluentValidation;
+using Configuration.DI;
 using Configuration.DI.Commands;
 using Configuration.DI.Queries;
 using Enterprise.Applications.DotNet.Commands;
 using Enterprise.Applications.DotNet.Queries;
-using Enterprise.ApplicationServices.Commands.Handlers;
+using Enterprise.ApplicationServices.Commands.Handlers.Resolution;
 using Enterprise.ApplicationServices.Queries.Handlers;
+using FluentValidation;
 using static Configuration.API.EntityFramework.EntityFrameworkConfiguration;
 
 namespace Configuration.API.Dependencies;
@@ -40,5 +42,9 @@ public static class ApplicationDependencyRegistrar
 
             return queryHandlerResolver;
         });
+
+        // FluentValidation
+        // TODO: Where does this really need to live? Can it be automatic or configurable?
+        services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
     }
 }

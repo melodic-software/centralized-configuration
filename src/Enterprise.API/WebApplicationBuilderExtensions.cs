@@ -12,17 +12,13 @@ using Enterprise.API.Security.Options;
 using Enterprise.API.Swagger;
 using Enterprise.API.Swagger.Options;
 using Enterprise.API.Versioning;
-using Enterprise.FluentValidation;
 using Enterprise.Logging;
 using Enterprise.Logging.Options;
-using Enterprise.MediatR.Behaviors;
 using Enterprise.Monitoring.Health;
 using Enterprise.Monitoring.Health.Options;
-using Enterprise.Reflection.Assemblies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Enterprise.API;
 
@@ -88,25 +84,9 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.ConfigureApiVersioning(options.VersioningConfigurationOptions);
 
+        // Third party library registrations.
         builder.Services.ConfigureAutoMapper(options.AutoMapperConfigurationOptions);
-
-        builder.Services.AddMediatR(configuration =>
-        {
-            // TODO: Add configuration option to specify the specific assembly/assemblies
-            Assembly[] allAssemblies = AssemblyService
-                .GetSolutionAssemblies(x =>
-                    !string.IsNullOrWhiteSpace(x.Name) &&
-                    !x.Name.StartsWith("Microsoft") &&
-                    !x.Name.StartsWith("System")
-                );
-
-            configuration.RegisterServicesFromAssemblies(allAssemblies);
-
-            configuration.AddOpenBehavior(typeof(CommandLoggingBehavior<,>));
-            configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
-        });
-
-        builder.Services.RegisterFluentValidation();
+        // TODO: Does FluentValidation need to go here?
 
         // this is a hook for adding custom service registrations
         options.RegisterCustomServices?.Invoke(builder.Services, builder);

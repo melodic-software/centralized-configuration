@@ -7,21 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Enterprise.FluentValidation\Enterprise.FluentValidation.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
-    <ProjectReference Include="..\Enterprise.DomainDrivenDesign\Enterprise.DomainDrivenDesign.csproj" />
     <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
-    <ProjectReference Include="..\Enterprise.Reflection\Enterprise.Reflection.csproj" />
-    <ProjectReference Include="..\Enterprise.Validation\Enterprise.Validation.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Adapters\Abstract\" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using Configuration.Domain.Applications;
 using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.ApplicationServices.Commands.Handlers;
+using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DateTimes.Current.Abstract;
 using Enterprise.DomainDrivenDesign.Event;
 

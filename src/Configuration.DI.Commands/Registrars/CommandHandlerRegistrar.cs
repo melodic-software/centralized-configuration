@@ -4,8 +4,8 @@ using Configuration.ApplicationServices.Commands.Applications.Handlers;
 using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.DI;
 using Enterprise.DateTimes.Current.Abstract;
-using Enterprise.MediatR.Dependencies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuration.DI.Commands.Registrars;

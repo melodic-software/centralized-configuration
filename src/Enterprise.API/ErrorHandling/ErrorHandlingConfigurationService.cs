@@ -1,9 +1,10 @@
-﻿using Enterprise.API.ErrorHandling.Options;
+﻿using Enterprise.API.ErrorHandling.ExceptionHandlers;
+using Enterprise.API.ErrorHandling.Options;
 using Enterprise.API.ErrorHandling.ProblemDetailsMiddleware;
 using Enterprise.Hosting.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Enterprise.API.ErrorHandling;
 
@@ -14,7 +15,8 @@ public static class ErrorHandlingConfigurationService
         // https://www.milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-8
         // NOTE: This will not be run if the Hellang middleware is registered.
         //services.AddExceptionHandler<GlobalExceptionHandler>();
-        
+        services.AddExceptionHandler<ValidationExceptionHandler>();
+
         services.AddProblemDetails(builder, errorHandlingConfigOptions);
     }
     
@@ -30,8 +32,8 @@ public static class ErrorHandlingConfigurationService
 
         }
 
-        // We're relying on the Hellang problem details middleware as our global exception handler
-        // This line can cause a runtime error if problem details service middleware (Microsoft default) is not registered
+        // We're relying on the Hellang problem details middleware as our global exception handler.
+        // This line can cause a runtime error if problem details service middleware (Microsoft default) is not registered.
         app.UseExceptionHandler();
 
         app.UseProblemDetails(errorHandlingConfigOptions);

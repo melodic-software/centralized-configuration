@@ -3,6 +3,7 @@ using Enterprise.Exceptions;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,7 +30,7 @@ internal static class HellangMiddlewareService
 
             options.IncludeExceptionDetails = (httpContext, exception) =>
             {
-                if (exception is NotFoundException)
+                if (exception is NotFoundException or ValidationException)
                     return false;
 
                 return includeExceptionDetails;
@@ -42,12 +43,33 @@ internal static class HellangMiddlewareService
                     problemDetails.Detail = errorHandlingConfigOptions.InternalServerErrorResponseDetailMessage;
             };
 
+            // These are ignored by this middleware.
+            // This is convenient if you want to pass through up to other exception middleware components
+            //options.Ignore<T>();
+
+            // NOTE: Not sure if this works with the current setup.
             options.Rethrow<SqliteException>();
             options.Rethrow<SqlException>();
+            //options.Rethrow<ValidationException>();
             //options.Rethrow<Exception>();
+            //options.RethrowAll();
+
+            // TODO: Move to separate class.
+            options.Map<ValidationException>(exception =>
+            {
+                Dictionary<string, string[]> errorDictionary = exception.ValidationErrors
+                    .ToDictionary(x => x.PropertyName, x => new[] { x.ErrorMessage });
+
+                ValidationProblemDetails problemDetails = new ValidationProblemDetails(errorDictionary)
+                {
+                    Status = StatusCodes.Status422UnprocessableEntity
+                };
+
+                return problemDetails;
+            });
 
             // These are available for use, but are entirely optional.
-            // These can be handled manually in controller / framework code OR exceptions can be raised and caught here
+            // These can be handled manually in controller / framework code OR exceptions can be raised and caught here.
             options.MapToStatusCode<NotFoundException>(StatusCodes.Status404NotFound);
             options.MapToStatusCode<BadRequestException>(StatusCodes.Status400BadRequest);
 

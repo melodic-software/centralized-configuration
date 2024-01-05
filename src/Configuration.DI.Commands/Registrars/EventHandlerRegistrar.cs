@@ -1,5 +1,6 @@
-﻿using Configuration.EventHandlers.Applications;
-using Enterprise.MediatR.Dependencies;
+﻿using Configuration.Domain.Applications.Events;
+using Configuration.EventHandlers.Applications;
+using Enterprise.Events.Services.Handling.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuration.DI.Commands.Registrars;
@@ -15,9 +16,9 @@ internal static class EventHandlerRegistrar
     /// <param name="services">The service collection to which event handlers will be added.</param>
     internal static void RegisterEventHandlers(IServiceCollection services)
     {
-        services.RegisterEventHandler(provider =>
+        services.AddTransient(provider =>
         {
-            ApplicationCreatedEventHandler eventHandler = new ApplicationCreatedEventHandler();
+            IHandleEvent<ApplicationCreated> eventHandler = new ApplicationCreatedEventHandler();
 
             return eventHandler;
         });

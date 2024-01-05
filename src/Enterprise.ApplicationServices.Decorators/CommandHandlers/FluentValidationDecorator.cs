@@ -1,28 +1,26 @@
-﻿using Enterprise.MediatR.Adapters.Abstract;
+﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.Validation;
 using FluentValidation;
-using MediatR;
 using ValidationException = Enterprise.Exceptions.ValidationException;
 
-namespace Enterprise.MediatR.Behaviors;
+namespace Enterprise.ApplicationServices.Decorators.CommandHandlers;
 
-public class ValidationBehavior<TRequest, TResponse>(
-    IEnumerable<IValidator<TRequest>> validators,
-    IValidator<TRequest> validator)
-    : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : ICommandAdapter
+public class FluentValidationDecorator<T>(
+    IHandleCommand<T> commandHandler,
+    IEnumerable<IValidator<T>> validators)
+    : CommandHandlerDecorator<T>(commandHandler)
+    where T : ICommand
 {
-    private readonly IValidator<TRequest> _validator = validator;
-
-    public async Task<TResponse> Handle(
-        TRequest request, 
-        RequestHandlerDelegate<TResponse> next, 
-        CancellationToken cancellationToken)
+    public override async Task HandleAsync(T command)
     {
         if (!validators.Any())
-            return await next();
+        {
+            await DecoratedHandler.HandleAsync((dynamic)command);
+            return;
+        }
 
-        IValidationContext context = new ValidationContext<TRequest>(request);
+        IValidationContext context = new ValidationContext<T>(command);
 
         List<ValidationError> validationErrors = validators
             .Select(validator => validator.Validate(context))
@@ -39,6 +37,6 @@ public class ValidationBehavior<TRequest, TResponse>(
             throw new ValidationException(validationErrors);
         }
 
-        return await next();
+        await DecoratedHandler.HandleAsync(command);
     }
 }

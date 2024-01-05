@@ -7,10 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Enterprise.FluentValidation\Enterprise.FluentValidation.csproj" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Configuration.ApplicationServices.Commands\Configuration.ApplicationServices.Commands.csproj" />
     <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
-    <ProjectReference Include="..\Enterprise.MediatR\Enterprise.MediatR.csproj" />
   </ItemGroup>
 
 </Project>

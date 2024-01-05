@@ -10,8 +10,8 @@ public abstract class ApplicationManipulationDto
     /// <summary>
     /// The name of the application.
     /// </summary>
-    [Required(ErrorMessage = NameRequired)]
-    [MaxLength(100, ErrorMessage = NameMaxLength)]
+    //[Required(ErrorMessage = NameRequired)]
+    //[MaxLength(100, ErrorMessage = NameMaxLength)]
     public string Name { get; set; } = null!;
 
     /// <summary>

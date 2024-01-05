@@ -7,7 +7,7 @@ using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
 using Enterprise.API.Events.Decorators;
 using Enterprise.DI.DotNet.Extensions;
-using Enterprise.MediatR.Dependencies;
+using Enterprise.Events.Services.Raising;
 
 namespace Configuration.DI.Registrars;
 
@@ -36,14 +36,12 @@ internal class EventServiceRegistrar
                 return cachedEventHandlerResolver;
             });
 
-        services.RegisterEventRaiser();
-
-        //services.AddSingleton(provider =>
-        //{
-        //    IResolveEventHandlers eventHandlerResolver = provider.GetRequiredService<IResolveEventHandlers>();
-        //    IRaiseEvents eventRaiser = new EventRaiser(eventHandlerResolver);
-        //    return eventRaiser;
-        //});
+        services.AddSingleton(provider =>
+        {
+            IResolveEventHandlers eventHandlerResolver = provider.GetRequiredService<IResolveEventHandlers>();
+            IRaiseEvents eventRaiser = new EventRaiser(eventHandlerResolver);
+            return eventRaiser;
+        });
 
         // scoped lifetime services are created once per request within the scope
         // it is equivalent to a singleton in the current scope

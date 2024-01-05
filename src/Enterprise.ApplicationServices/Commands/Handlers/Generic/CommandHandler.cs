@@ -1,8 +1,7 @@
 ﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.Commands.Model;
 
-namespace Enterprise.ApplicationServices.Commands.Handlers;
+namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;
 
 public abstract class CommandHandler<T>(IApplicationServiceDependencies appServiceDependencies)
     : ApplicationService(appServiceDependencies), IHandleCommand<T> where T : ICommand

@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration.API.Client\Configuration.API.Client.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices.FluentValidation\Configuration.ApplicationServices.FluentValidation.csproj" />
     <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
     <ProjectReference Include="..\Configuration.AutoMapper\Configuration.AutoMapper.csproj" />
     <ProjectReference Include="..\Configuration.DI.Commands\Configuration.DI.Commands.csproj" />

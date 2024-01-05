@@ -13,8 +13,8 @@
     <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.Commands\Configuration.EntityFramework.Commands.csproj" />
     <ProjectReference Include="..\Configuration.EventHandlers\Configuration.EventHandlers.csproj" />
+    <ProjectReference Include="..\Enterprise.ApplicationServices.DI\Enterprise.ApplicationServices.DI.csproj" />
     <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />
-    <ProjectReference Include="..\Enterprise.MediatR\Enterprise.MediatR.csproj" />
   </ItemGroup>
 
 </Project>

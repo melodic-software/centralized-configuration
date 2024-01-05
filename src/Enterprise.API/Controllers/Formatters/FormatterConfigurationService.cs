@@ -1,13 +1,13 @@
 ﻿using Enterprise.API.Controllers.Formatters.Input;
 using Enterprise.API.Controllers.Formatters.Output;
 using Enterprise.API.Controllers.Options;
+using Enterprise.Serialization.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Enterprise.API.Controllers.Formatters;
 
@@ -58,11 +58,13 @@ public static class FormatterConfigurationService
         {
             JsonSerializerOptions serializerOptions = options.JsonSerializerOptions;
 
-            serializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            serializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
-            serializerOptions.PropertyNameCaseInsensitive = true;
-            serializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles; // This prevents cyclical data references.
-            serializerOptions.WriteIndented = true;
+            JsonSerializerOptions defaultSerializerOptions = JsonSerializerOptionsService.GetDefaultOptions();
+
+            serializerOptions.PropertyNamingPolicy = defaultSerializerOptions.PropertyNamingPolicy;
+            serializerOptions.DictionaryKeyPolicy = defaultSerializerOptions.DictionaryKeyPolicy;
+            serializerOptions.PropertyNameCaseInsensitive = defaultSerializerOptions.PropertyNameCaseInsensitive;
+            serializerOptions.ReferenceHandler = defaultSerializerOptions.ReferenceHandler;
+            serializerOptions.WriteIndented = defaultSerializerOptions.WriteIndented;
         });
     }
 }
