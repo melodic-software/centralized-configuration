@@ -8,7 +8,7 @@ using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
 using System.Diagnostics;
-using Enterprise.DomainDrivenDesign.Event;
+using Enterprise.DomainDrivenDesign.Events;
 using static Configuration.Core.Queries.Constants.ApplicationQueryConstants;
 
 namespace Configuration.ApplicationServices.Queries.Applications.Handlers;

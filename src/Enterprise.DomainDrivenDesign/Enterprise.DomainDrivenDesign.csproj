@@ -12,9 +12,4 @@
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Enum\Examples\" />
-    <Folder Include="Repository\Example\" />
-  </ItemGroup>
-
 </Project>

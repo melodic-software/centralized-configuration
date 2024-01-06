@@ -1,4 +1,4 @@
-﻿using Enterprise.DomainDrivenDesign.Entity;
+﻿using Enterprise.DomainDrivenDesign.Entities;
 
 namespace Configuration.Domain.Applications;
 

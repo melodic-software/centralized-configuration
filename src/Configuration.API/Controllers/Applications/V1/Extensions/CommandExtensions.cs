@@ -10,7 +10,7 @@ using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.ApplicationServices.Applications.CreateApplication;
 using Configuration.Domain.Applications.Events;
-using Enterprise.DomainDrivenDesign.Event;
+using Enterprise.DomainDrivenDesign.Events;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 
