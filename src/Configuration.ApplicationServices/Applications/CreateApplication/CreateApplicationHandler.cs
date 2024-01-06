@@ -3,6 +3,7 @@ using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
+using Enterprise.Exceptions;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
@@ -25,7 +26,21 @@ public sealed class CreateApplicationHandler(
         }
         else
         {
-            await applicationRepository.Save(application);
+            try
+            {
+                // TODO: Replace with "Add" method.
+                await applicationRepository.Save(application);
+
+                // TODO: Use IUnitOfWork to persist the changes.
+
+            }
+            catch (ConcurrencyException)
+            {
+                // TODO: Is this even needed here?
+                // Only concurrency issue would be if the application with the same ID was created at the same time this was created.
+                await RaiseEventAsync(new ValidationFailure("This application already exists.", nameof(application.Id)));
+                return;
+            }
 
             ApplicationCreated applicationCreated = new ApplicationCreated(
                 application.Id,

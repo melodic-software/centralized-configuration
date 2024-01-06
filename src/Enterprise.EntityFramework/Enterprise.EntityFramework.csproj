@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
     <ProjectReference Include="..\Enterprise.Hosting\Enterprise.Hosting.csproj" />
   </ItemGroup>
 

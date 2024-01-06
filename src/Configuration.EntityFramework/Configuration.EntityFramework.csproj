@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.DesignPatterns\Enterprise.DesignPatterns.csproj" />
     <ProjectReference Include="..\Enterprise.EntityFramework\Enterprise.EntityFramework.csproj" />
+    <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

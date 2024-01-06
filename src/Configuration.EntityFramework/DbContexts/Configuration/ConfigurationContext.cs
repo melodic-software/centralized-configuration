@@ -4,11 +4,12 @@ using Enterprise.DesignPatterns.UnitOfWork;
 using Enterprise.EntityFramework.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Enterprise.EntityFramework.Contexts;
 using static Configuration.EntityFramework.DbContexts.Configuration.Seeding.SeedService;
 
 namespace Configuration.EntityFramework.DbContexts.Configuration;
 
-public  sealed class ConfigurationContext : DbContext, IUnitOfWork
+public  sealed class ConfigurationContext : DbContextBase, IUnitOfWork
 {
     public ConfigurationContext(DbContextOptions<ConfigurationContext> options)
         : base(options)
