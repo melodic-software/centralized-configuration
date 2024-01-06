@@ -27,23 +27,25 @@ public partial class ApplicationsController
     /// <param name="getApplicationsDto"></param>
     /// <param name="propertyExistenceService"></param>
     /// <param name="queryHandler"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpHead(Name = RouteNames.HeadApplication)]
     [HttpGet(Name = RouteNames.GetApplications)]
-    [RequestHeaderMatchesMediaType(HttpHeaderConstants.Accept, MediaTypeConstants.Json, MediaTypeConstants.Xml)] // routing constraint
+    [RequestHeaderMatchesMediaType(HttpHeaderConstants.Accept, MediaTypeConstants.Json, MediaTypeConstants.Xml)] // This is a routing constraint.
     [Consumes(MediaTypeConstants.Json, MediaTypeConstants.Xml)]
     [Produces(MediaTypeConstants.Json, MediaTypeConstants.Xml, Type = typeof(List<ApplicationDto>))]
     public async Task<IActionResult> GetApplicationsWithoutLinks([FromQuery] GetApplicationsDto getApplicationsDto,
         [FromServices] IPropertyExistenceService propertyExistenceService,
-        [FromServices] IHandleQuery<GetApplications, GetApplicationsResult> queryHandler)
+        [FromServices] IHandleQuery<GetApplications, GetApplicationsResult> queryHandler,
+        CancellationToken cancellationToken)
     {
         try
         {
             // TODO: this object isn't being represented (just a plain .ToString())
-            using (_logger.BeginScope("ScopeModel: {ScopeModel}", getApplicationsDto)) 
+            using (_logger.BeginScope("ScopeModel: {ScopeModel}", getApplicationsDto))
             {
                 DataShapedQueryResult result = await this
-                    .GetApplications(getApplicationsDto, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory);
+                    .GetApplications(getApplicationsDto, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory, cancellationToken);
 
                 if (result.FailureActionResult != null)
                     return result.FailureActionResult;
@@ -66,6 +68,7 @@ public partial class ApplicationsController
     /// <param name="getApplicationsDto"></param>
     /// <param name="propertyExistenceService"></param>
     /// <param name="queryHandler"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpHead]
     [HttpGet(Name = RouteNames.GetApplications)]
@@ -76,12 +79,13 @@ public partial class ApplicationsController
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<IActionResult> GetApplicationsWithLinks([FromQuery] GetApplicationsDto getApplicationsDto,
         [FromServices] IPropertyExistenceService propertyExistenceService,
-        [FromServices] IHandleQuery<GetApplications, GetApplicationsResult> queryHandler)
+        [FromServices] IHandleQuery<GetApplications, GetApplicationsResult> queryHandler,
+        CancellationToken cancellationToken)
     {
         try
         {
             DataShapedQueryResult result = await this
-                .GetApplications(getApplicationsDto, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory);
+                .GetApplications(getApplicationsDto, propertyExistenceService, queryHandler, _mapper, _logger, _problemDetailsFactory, cancellationToken);
 
             if (result.FailureActionResult != null)
                 return result.FailureActionResult;
@@ -122,6 +126,7 @@ public partial class ApplicationsController
     /// <param name="mediaType"></param>
     /// <param name="propertyExistenceService"></param>
     /// <param name="queryHandler"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns>an IActionResult</returns>
     /// <response code="200">Returns the requested application.</response>
     /// <response code="400">Bad request.</response>
@@ -133,7 +138,8 @@ public partial class ApplicationsController
     public async Task<IActionResult> GetApplicationById(Guid id, string? properties,
         [FromHeader(Name = HttpHeaderConstants.Accept)] string? mediaType,
         [FromServices] IPropertyExistenceService propertyExistenceService,
-        [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler)
+        [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
+        CancellationToken cancellationToken)
     {
         LogGettingApplicationById(id);
 
@@ -156,7 +162,7 @@ public partial class ApplicationsController
             return this.BadDataShapingRequest(_problemDetailsFactory, properties);
 
         GetApplicationById query = new GetApplicationById(id);
-        Application? application = await queryHandler.HandleAsync(query);
+        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         if (application == null)
         {
@@ -194,6 +200,7 @@ public partial class ApplicationsController
     /// <param name="mediaType"></param>
     /// <param name="propertyExistenceService"></param>
     /// <param name="queryHandler"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{uniqueName}", Name = RouteNames.GetApplicationByUniqueName)]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApplicationDto))]
@@ -201,7 +208,8 @@ public partial class ApplicationsController
     public async Task<IActionResult> GetApplicationByUniqueName(string uniqueName, string? properties,
         [FromHeader(Name = HttpHeaderConstants.Accept)] string? mediaType,
         [FromServices] IPropertyExistenceService propertyExistenceService,
-        [FromServices] IHandleQuery<GetApplicationByUniqueName, Application?> queryHandler)
+        [FromServices] IHandleQuery<GetApplicationByUniqueName, Application?> queryHandler,
+        CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(uniqueName))
             return BadRequest();
@@ -223,7 +231,7 @@ public partial class ApplicationsController
             return this.BadDataShapingRequest(_problemDetailsFactory, properties);
 
         GetApplicationByUniqueName query = new GetApplicationByUniqueName(uniqueName);
-        Application? application = await queryHandler.HandleAsync(query);
+        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         if (application == null)
         {

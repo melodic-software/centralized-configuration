@@ -17,7 +17,6 @@ public static class ApplicationDependencyRegistrar
         ConfigureDbContexts(services, builder);
 
         // add additional custom service / DI registrations that are specific to this application below this line:
-
         
         services.RegisterCommandServices();
         services.RegisterQueryServices(builder.Configuration);

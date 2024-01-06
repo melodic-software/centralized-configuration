@@ -7,8 +7,8 @@ using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
-using System.Diagnostics;
 using Enterprise.DomainDrivenDesign.Events;
+using System.Diagnostics;
 using static Configuration.Core.Queries.Constants.ApplicationQueryConstants;
 
 namespace Configuration.ApplicationServices.Queries.Applications.Handlers;
@@ -19,7 +19,7 @@ public sealed class GetApplicationsHandler(
     IApplicationRepository applicationRepository)
     : QueryHandler<GetApplications, GetApplicationsResult>(appServiceDependencies)
 {
-    public override async Task<GetApplicationsResult> HandleAsync(GetApplications query)
+    public override async Task<GetApplicationsResult> HandleAsync(GetApplications query, CancellationToken cancellationToken)
     {
         // TODO: this is where security / permission checks will go
         // inject in a service that performs these checks (claim data?)
@@ -38,7 +38,7 @@ public sealed class GetApplicationsHandler(
         }
 
         Activity.Current?.AddEvent(new ActivityEvent("Getting applications from repository"));
-        PagedList<Application> pagedList = await applicationRepository.GetApplicationsAsync(filterOptions, searchOptions, pagingOptions, sortOptions);
+        PagedList<Application> pagedList = await applicationRepository.GetApplicationsAsync(filterOptions, searchOptions, pagingOptions, sortOptions, cancellationToken);
         Activity.Current?.AddEvent(new ActivityEvent("Retrieved applications from repository"));
 
         GetApplicationsResult queryResult = new GetApplicationsResult(pagedList, pagedList.PaginationMetadata);

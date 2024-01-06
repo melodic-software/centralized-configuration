@@ -1,13 +1,13 @@
-﻿using System.Data;
-using Configuration.Core.Queries.Filtering;
+﻿using Configuration.Core.Queries.Filtering;
 using Configuration.Core.Queries.Model;
 using Configuration.Core.Queries.Repositories;
+using Dapper;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
 using Microsoft.Extensions.Logging;
+using System.Data;
 using System.Data.SqlClient;
-using Dapper;
 
 namespace Configuration.Dapper.Queries.Repositories;
 
@@ -17,18 +17,24 @@ public class ApplicationRepository(string? connectionString, ILogger<Application
     private readonly ILogger<ApplicationRepository> _logger = logger;
 
     public Task<PagedList<Application>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions,
-        PagingOptions pagingOptions, SortOptions sortOptions)
+        PagingOptions pagingOptions, SortOptions sortOptions, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Application?> GetByIdAsync(Guid id)
+    public async Task<Application?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         DynamicParameters dynamicParameters = new DynamicParameters();
         dynamicParameters.Add("ApplicationGuid", id);
 
-        dynamic? result = await _db
-            .QueryFirstOrDefaultAsync("dbo.usp_GetApplicationById", dynamicParameters, commandType: CommandType.StoredProcedure);
+        CommandDefinition commandDefinition = new CommandDefinition(
+            "dbo.usp_GetApplicationById",
+            dynamicParameters,
+            commandType: CommandType.StoredProcedure,
+            cancellationToken: cancellationToken
+        );
+
+        dynamic? result = await _db.QueryFirstOrDefaultAsync(commandDefinition);
 
         if (result == null)
             return null;
@@ -44,7 +50,7 @@ public class ApplicationRepository(string? connectionString, ILogger<Application
         return application;
     }
 
-    public Task<Application?> GetByUniqueNameAsync(string uniqueName)
+    public Task<Application?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

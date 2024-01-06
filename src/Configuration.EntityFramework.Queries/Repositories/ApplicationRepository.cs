@@ -30,7 +30,7 @@ public class ApplicationRepository : IApplicationRepository
     }
 
     public async Task<PagedList<Application>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions, 
-        PagingOptions pagingOptions, SortOptions sortOptions)
+        PagingOptions pagingOptions, SortOptions sortOptions, CancellationToken cancellationToken)
     {
         // working with IQueryable<T> means we can sequentially build a query (expression tree of query commands)
         // execution is deferred until the query is iterated, a method like .ToList() is called, or an aggregate singleton query like "Count" is executed
@@ -81,12 +81,12 @@ public class ApplicationRepository : IApplicationRepository
         }
 
         PagedList<Application> result = await query
-            .ToPagedListAsync(pagingOptions, queryable => queryable.ToListAsync(), Map);
+            .ToPagedListAsync(pagingOptions, queryable => queryable.ToListAsync(cancellationToken), Map);
 
         return result;
     }
 
-    public async Task<Application?> GetByIdAsync(Guid id)
+    public async Task<Application?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Getting application in repository with ID: {id}", id);
 
@@ -94,7 +94,7 @@ public class ApplicationRepository : IApplicationRepository
 
         ApplicationEntity? entity = await _context.Applications.AsNoTracking()
             .Where(x => !x.IsDeleted)
-            .FirstOrDefaultAsync(x => x.DomainId == id);
+            .FirstOrDefaultAsync(x => x.DomainId == id, cancellationToken);
 
         stopWatch.Stop();
 
@@ -109,11 +109,11 @@ public class ApplicationRepository : IApplicationRepository
         return application;
     }
 
-    public async Task<Application?> GetByUniqueNameAsync(string uniqueName)
+    public async Task<Application?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)
     {
         ApplicationEntity? entity = await _context.Applications.AsNoTracking()
             .Where(x => !x.IsDeleted)
-            .FirstOrDefaultAsync(x => x.UniqueName == uniqueName);
+            .FirstOrDefaultAsync(x => x.UniqueName == uniqueName, cancellationToken);
 
         if (entity == null)
             return null;

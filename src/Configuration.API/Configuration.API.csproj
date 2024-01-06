@@ -11,6 +11,8 @@
 	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
 	  <UserSecretsId>3f178707-0e19-4179-bf2f-d919ef68d853</UserSecretsId>
 	  <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+	  <DockerfileContext>..\..</DockerfileContext>
+	  <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>

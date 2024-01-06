@@ -10,9 +10,9 @@ public sealed class GetApplicationByUniqueNameHandler(
     IApplicationRepository applicationRepository)
     : QueryHandler<GetApplicationByUniqueName, Application?>(appServiceDependencies)
 {
-    public override async Task<Application?> HandleAsync(GetApplicationByUniqueName query)
+    public override async Task<Application?> HandleAsync(GetApplicationByUniqueName query, CancellationToken cancellationToken)
     {
-        Application? application = await applicationRepository.GetByUniqueNameAsync(query.UniqueName);
+        Application? application = await applicationRepository.GetByUniqueNameAsync(query.UniqueName, cancellationToken);
 
         return application;
     }

@@ -79,6 +79,7 @@ public partial class ApplicationsController : CustomControllerBase
     /// <param name="queryHandler"></param>
     /// <param name="updateApplicationHandler"></param>
     /// <param name="createApplicationHandler"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     /// <remarks>
     /// Sample request:
@@ -101,7 +102,8 @@ public partial class ApplicationsController : CustomControllerBase
     public async Task<IActionResult> Patch(Guid id, JsonPatchDocument<UpdateApplicationDto>? patchDocument,
         [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
         [FromServices] IHandleCommand<UpdateApplication> updateApplicationHandler,
-        [FromServices] IHandleCommand<CreateApplication> createApplicationHandler)
+        [FromServices] IHandleCommand<CreateApplication> createApplicationHandler
+        , CancellationToken cancellationToken)
     {
         // https://datatracker.ietf.org/doc/html/rfc6902
         // https://datatracker.ietf.org/doc/html/rfc6902#section-4 (operations)
@@ -115,7 +117,7 @@ public partial class ApplicationsController : CustomControllerBase
         // the "Microsoft.AspNetCore.Mvc.NewtonsoftJson" adds a transitive dependency for "Microsoft.AspNetCore.JsonPatch"
 
         GetApplicationById query = new GetApplicationById(id);
-        Application? application = await queryHandler.HandleAsync(query);
+        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         UpdateApplicationDto? updateDto = application == null ?
             new UpdateApplicationDto() :

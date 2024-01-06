@@ -42,6 +42,7 @@ public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
     /// </remarks>
     /// <param name="id"></param>
     /// <param name="queryHandler"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns>an IActionResult</returns>
     /// <response code="200">Returns the requested application.</response>
     /// <response code="400">Bad request.</response>
@@ -50,14 +51,16 @@ public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Produces(typeof(ApplicationDto))] // this is the "V2" version of the model
-    public async Task<ActionResult<ApplicationDto>> GetApplicationById(Guid id, [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler)
+    public async Task<ActionResult<ApplicationDto>> GetApplicationById(Guid id,
+        [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
+        CancellationToken cancellationToken)
     {
         // the data shaping support has been stripped to keep this as a simple self-contained example
         // technically we could also use a versioned application service (query object, and result) if needed
 
         GetApplicationById query = new GetApplicationById(id);
 
-        Application? application = await queryHandler.HandleAsync(query);
+        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         if (application == null)
             return NotFound();

@@ -34,10 +34,14 @@ public class ApplicationsControllerTests
         );
 
         Mock<IHandleQuery<GetApplicationById, Application?>> queryHandlerMock = new Mock<IHandleQuery<GetApplicationById, Application?>>();
-        queryHandlerMock.Setup(x => x.HandleAsync(It.IsAny<GetApplicationById>())).ReturnsAsync(application);
+
+        queryHandlerMock
+            .Setup(x =>
+                x.HandleAsync(It.IsAny<GetApplicationById>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(application);
 
         // ACT
-        ActionResult<ApplicationDto> result = await applicationsController.GetApplicationById(applicationId, queryHandlerMock.Object);
+        ActionResult<ApplicationDto> result = await applicationsController.GetApplicationById(applicationId, queryHandlerMock.Object, CancellationToken.None);
 
         // ASSERT
         ActionResult<ApplicationDto> actionResult = Assert.IsType<ActionResult<ApplicationDto>>(result);

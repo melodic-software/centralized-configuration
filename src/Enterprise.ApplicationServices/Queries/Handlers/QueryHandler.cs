@@ -4,26 +4,21 @@ using Enterprise.ApplicationServices.Queries.Model;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 
-public abstract class QueryHandler<TQuery, TResult> : ApplicationService, 
-    IHandleQuery<TResult>, IHandleQuery<TQuery, TResult> where TQuery : IQuery
+public abstract class QueryHandler<TQuery, TResult>(IApplicationServiceDependencies appServiceDependencies)
+    : ApplicationService(appServiceDependencies), IHandleQuery<TResult>, IHandleQuery<TQuery, TResult>
+    where TQuery : IQuery
 {
-    protected QueryHandler(IApplicationServiceDependencies appServiceDependencies)
-        : base(appServiceDependencies)
-    {
-
-    }
-
-    public async Task<TResult> HandleAsync(IQuery query)
+    public async Task<TResult> HandleAsync(IQuery query, CancellationToken cancellationToken)
     {
         Validate(query);
 
         // this is a dynamic dispatch
-        TResult result = await HandleAsync((dynamic)query);
+        TResult result = await HandleAsync((dynamic)query, cancellationToken);
 
         return result;
     }
 
-    public abstract Task<TResult> HandleAsync(TQuery query);
+    public abstract Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
 
     private void Validate(IQuery query)
     {

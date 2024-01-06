@@ -5,12 +5,12 @@ namespace Enterprise.ApplicationServices.Queries.Handlers.Generic;
 
 public interface IHandleQuery<TResult>
 {
-    Task<TResult> HandleAsync(IQuery query);
+    Task<TResult> HandleAsync(IQuery query, CancellationToken cancellationToken);
 }
 
 public interface IHandleQuery<in TQuery, TResult> : IApplicationService where TQuery : IQuery
 {
-    Task<TResult> HandleAsync(TQuery query);
+    Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
 }
 
 // TODO: do the same type of dynamic dependency registration

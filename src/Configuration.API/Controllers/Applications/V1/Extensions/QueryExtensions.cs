@@ -28,7 +28,7 @@ public static class QueryExtensions
 {
     public static async Task<DataShapedQueryResult> GetApplications(this ControllerBase controller, GetApplicationsDto getApplicationsDto,
         IPropertyExistenceService propertyExistenceService, IHandleQuery<GetApplications, GetApplicationsResult> queryHandler, IMapper mapper,
-        ILogger logger, ProblemDetailsFactory problemDetailsFactory)
+        ILogger logger, ProblemDetailsFactory problemDetailsFactory, CancellationToken cancellationToken)
     {
         // here's some additional options for data shaping and filters:
         // https://app.pluralsight.com/course-player?clipId=1b109e50-d99a-4d6f-998f-5a4505539c21
@@ -50,7 +50,7 @@ public static class QueryExtensions
 
         // execute the query
         queryHandler.RegisterEventCallback(new Action<ValidationFailure>(validationFailures.Add));
-        GetApplicationsResult queryResult = await queryHandler.HandleAsync(query);
+        GetApplicationsResult queryResult = await queryHandler.HandleAsync(query, cancellationToken);
 
         // this can happen if the client specified invalid sort parameters
         if (validationFailures.Any())

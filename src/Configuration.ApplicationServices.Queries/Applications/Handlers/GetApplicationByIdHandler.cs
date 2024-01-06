@@ -10,9 +10,9 @@ public sealed class GetApplicationByIdHandler(
     IApplicationRepository applicationRepository)
     : QueryHandler<GetApplicationById, Application?>(appServiceDependencies)
 {
-    public override async Task<Application?> HandleAsync(GetApplicationById query)
+    public override async Task<Application?> HandleAsync(GetApplicationById query, CancellationToken cancellationToken)
     {
-        Application? application = await applicationRepository.GetByIdAsync(query.ApplicationId);
+        Application? application = await applicationRepository.GetByIdAsync(query.ApplicationId, cancellationToken);
 
         return application;
     }
