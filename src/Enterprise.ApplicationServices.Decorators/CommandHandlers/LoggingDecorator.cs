@@ -16,17 +16,7 @@ public class LoggingDecorator<T>(
         string commandTypeName = commandType.Name;
 
         logger.LogInformation("Executing command {Command}.", commandTypeName);
-
-        try
-        {
-            await DecoratedHandler.HandleAsync((dynamic)command);
-
-            logger.LogInformation("Command {Command} processed successfully.", commandTypeName);
-        }
-        catch (Exception exception)
-        {
-            logger.LogError(exception, "Command {Command} processing failed.", commandTypeName);
-            throw;
-        }
+        await DecoratedHandler.HandleAsync((dynamic)command);
+        logger.LogInformation("Command {Command} processed successfully.", commandTypeName);
     }
 }

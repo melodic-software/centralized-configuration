@@ -1,7 +1,6 @@
-﻿namespace Configuration.ApplicationServices.FluentValidation
-{
-    public static class AssemblyReference
-    {
+﻿namespace Configuration.ApplicationServices.FluentValidation;
 
-    }
+public static class AssemblyReference
+{
+
 }
