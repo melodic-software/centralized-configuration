@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Enterprise.DateTimes.Current;
+﻿using Enterprise.DateTimes.Current;
 using Enterprise.DateTimes.Current.Abstract;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Registrars;
+namespace Enterprise.Applications.DotNet.Dependencies.Registrars;
 
 internal class TemporalityServiceRegistrar
 {

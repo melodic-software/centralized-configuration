@@ -43,6 +43,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.API.Client\Enterprise.API.Client.csproj" />
+    <ProjectReference Include="..\Enterprise.Applications.DotNet\Enterprise.Applications.DotNet.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.Core.Queries\Enterprise.Core.Queries.csproj" />
     <ProjectReference Include="..\Enterprise.DataShaping\Enterprise.DataShaping.csproj" />

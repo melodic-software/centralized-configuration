@@ -4,7 +4,7 @@ using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Registrars;
+namespace Enterprise.Applications.DotNet.Dependencies.Registrars;
 
 internal class ApplicationServiceRegistrar
 {

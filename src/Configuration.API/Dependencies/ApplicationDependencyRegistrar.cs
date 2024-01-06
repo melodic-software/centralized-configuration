@@ -1,8 +1,8 @@
 ﻿using Configuration.ApplicationServices.FluentValidation;
-using Configuration.DI;
 using Configuration.DI.Commands;
 using Configuration.DI.Queries;
 using Enterprise.Applications.DotNet.Commands;
+using Enterprise.Applications.DotNet.Dependencies;
 using Enterprise.Applications.DotNet.Queries;
 using Enterprise.ApplicationServices.Commands.Handlers.Resolution;
 using Enterprise.ApplicationServices.Queries.Handlers;
@@ -19,7 +19,7 @@ public static class ApplicationDependencyRegistrar
 
         // add additional custom service / DI registrations that are specific to this application below this line:
 
-        services.RegisterEnterpriseServices();
+        
         services.RegisterCommandServices();
         services.RegisterQueryServices(builder.Configuration);
 

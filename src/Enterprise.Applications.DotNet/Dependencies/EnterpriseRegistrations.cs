@@ -1,7 +1,7 @@
-﻿using Configuration.DI.Registrars;
+﻿using Enterprise.Applications.DotNet.Dependencies.Registrars;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI;
+namespace Enterprise.Applications.DotNet.Dependencies;
 
 public static class EnterpriseRegistrations
 {

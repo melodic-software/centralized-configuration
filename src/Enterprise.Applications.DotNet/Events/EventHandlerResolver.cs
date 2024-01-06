@@ -3,7 +3,7 @@ using Enterprise.Events.Services.Handling;
 using Enterprise.Events.Services.Handling.Generic;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enterprise.API.Events;
+namespace Enterprise.Applications.DotNet.Events;
 
 public class EventHandlerResolver(IServiceProvider serviceProvider) : IResolveEventHandlers
 {

@@ -2,7 +2,7 @@
 using Enterprise.Reflection.Properties.Abstract;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Registrars;
+namespace Enterprise.Applications.DotNet.Dependencies.Registrars;
 
 internal class ReflectionServiceRegistrar
 {

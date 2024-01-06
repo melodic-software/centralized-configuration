@@ -1,13 +1,13 @@
-﻿using Enterprise.API.Events;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Enterprise.Applications.DotNet.Events;
 using Enterprise.Events.Services.Handling;
+using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks;
+using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
 using Enterprise.Events.Services.Raising.Callbacks.Facade;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
-using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
-using Enterprise.Events.Services.Raising;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Configuration.DI.Registrars;
+namespace Enterprise.Applications.DotNet.Dependencies.Registrars;
 
 internal class EventServiceRegistrar
 {

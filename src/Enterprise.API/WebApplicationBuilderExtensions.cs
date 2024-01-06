@@ -12,6 +12,7 @@ using Enterprise.API.Security.Options;
 using Enterprise.API.Swagger;
 using Enterprise.API.Swagger.Options;
 using Enterprise.API.Versioning;
+using Enterprise.Applications.DotNet.Dependencies;
 using Enterprise.Logging;
 using Enterprise.Logging.Options;
 using Enterprise.Monitoring.Health;
@@ -49,36 +50,36 @@ public static class WebApplicationBuilderExtensions
         builder.Services.ConfigureResponseCaching();
         builder.Services.ConfigureOutputCaching();
 
-        // customize problem detail results
+        // Customize problem detail results.
         //builder.Services.AddTransient<ProblemDetailsFactory, CustomProblemDetailsFactory>();
 
         builder.Services.ConfigureSwagger(swaggerConfigOptions, options.VersioningConfigurationOptions);
 
-        // determines the content type of files
+        // Determines the content type of files.
         builder.Services.AddSingleton<FileExtensionContentTypeProvider>();
 
-        // required to get HttpContext reference in object instances
-        // inject IHttpContextAccessor into constructor of class
+        // Required to get HttpContext reference in object instances.
+        // Inject IHttpContextAccessor into constructor of class.
         builder.Services.AddHttpContextAccessor();
 
-        // monitoring - health check services
+        // Monitoring - health check services.
         builder.ConfigureHealthChecks(healthCheckOptions);
 
         // https://learn.microsoft.com/en-us/aspnet/core/security/anti-request-forgery?view=aspnetcore-8.0#afwma
-        // add anti forgery token support for minimal APIs that process form data
+        // Add anti forgery token support for minimal APIs that process form data.
         //builder.Services.AddAntiforgery();
 
-        // allow for the rendering of server side razor components
-        // makes rendered components available to be returned in API responses
+        // Allow for the rendering of server side razor components.
+        // Makes rendered components available to be returned in API responses.
         //builder.Services.AddRazorComponents();
 
-        // registers internal services needed to manage request timeouts
+        // Registers internal services needed to manage request timeouts.
         builder.Services.AddRequestTimeouts();
 
-        // let's us inject clients, and use them more safely without newing them up each time
-        builder.Services.AddHttpClient(); // NOTE: you can add named clients, and instance specific configuration in this constructor parameter (duplicate as needed)
+        // This lets us inject clients and use them more safely without newing them up each time.
+        builder.Services.AddHttpClient(); // NOTE: You can add named clients and instance specific configuration in this constructor parameter (duplicate as needed).
 
-        // typed clients - can be configured and injected into specific abstractions / implementations
+        // Typed clients can be configured and injected into specific abstractions / implementations.
         // https://app.pluralsight.com/course-player?clipId=7c5b839b-c11d-43ee-94fa-0f07892d53a3
         //builder.Services.AddHttpClient<IUserGateway, UserGateway>();
 
@@ -88,7 +89,10 @@ public static class WebApplicationBuilderExtensions
         builder.Services.ConfigureAutoMapper(options.AutoMapperConfigurationOptions);
         // TODO: Does FluentValidation need to go here?
 
-        // this is a hook for adding custom service registrations
+        // Register common enterprise services.
+        builder.Services.RegisterEnterpriseServices();
+
+        // This is a hook for adding custom service registrations.
         options.RegisterCustomServices?.Invoke(builder.Services, builder);
     }
 }
