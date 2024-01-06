@@ -8,10 +8,11 @@
     /// <typeparam name="T"></typeparam>
     public class HypermediaDto<T>
     {
-        public T? Value { get; set; } = default;
-        public IEnumerable<HypermediaLinkDto> Links { get; set; }
+        public T? Value { get; set; }
 
-        public HypermediaDto(T ? value, IEnumerable<HypermediaLinkDto> links)
+        public List<HypermediaLinkDto> Links { get; set; }
+
+        public HypermediaDto(T ? value, List<HypermediaLinkDto> links)
         {
             Value = value;
             Links = links;

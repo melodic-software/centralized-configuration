@@ -26,9 +26,11 @@ public static class FormatterConfigurationService
 
     private static void AddXmlInputOutputFormatters(IMvcBuilder builder)
     {
+        // Removing this serializer can cause issues if SuppressModelStateInvalidFilter is set to true
+        // AND your endpoints accept application/json and application/xml.
+        // Serialization errors that occur (particularly XML) can be obfuscated and still resolve as an empty model in your action methods.
         builder.AddXmlSerializerFormatters();
-
-        // Add XML input and output formatters.
+       
         // The data contract serializer supports types like DateTimeOffset.
         // The regular XML serializer requires that a type is designed in a specific way in order to completely serialize.
         // It requires a default public constructor, public read/write members, etc.

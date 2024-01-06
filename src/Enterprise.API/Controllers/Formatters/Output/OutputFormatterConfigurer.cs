@@ -1,8 +1,11 @@
-﻿using Enterprise.API.Controllers.Formatters.Output.Custom;
+﻿using Enterprise.API.Client.Hypermedia;
+using Enterprise.API.Controllers.Formatters.Output.Custom;
 using Enterprise.API.Versioning.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Options;
+using System.Runtime.Serialization;
+using System.Text.Json;
 
 namespace Enterprise.API.Controllers.Formatters.Output;
 
@@ -17,6 +20,7 @@ public class OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters) 
         AddOutputFormatters(options);
         AddVersionMediaTypeDelegatingFormatter(options);
         //ReOrderOutputFormatters(options);
+        ConfigureOutputFormatters(options);
 
         List<IOutputFormatter> configuredFormatters = options.OutputFormatters.ToList();
     }
@@ -31,7 +35,7 @@ public class OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters) 
             return;
 
         // Remove text/json as it isn't the approved media type for working with JSON at an API level.
-        newtonSoftJsonOutputFormatter.SupportedMediaTypes.Remove("text/json");
+        newtonSoftJsonOutputFormatter.SupportedMediaTypes.Remove("text/json"); // TODO: Replace with constant.
     }
 
     public void RemoveOutputFormatters(MvcOptions options)
@@ -88,5 +92,55 @@ public class OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters) 
 
         // Re-insert it at the beginning of the collection.
         options.OutputFormatters.Insert(0, jsonFormatter);
+    }
+
+    private void ConfigureOutputFormatters(MvcOptions options)
+    {
+        ConfigureSystemTextJson(options);
+        ConfigureXmlSerializer(options);
+        ConfigureXmlDataContractSerializer(options);
+    }
+
+    private void ConfigureSystemTextJson(MvcOptions options)
+    {
+        SystemTextJsonOutputFormatter? outputFormatter = options.OutputFormatters
+            .FirstOrDefault(x => x is SystemTextJsonOutputFormatter) as SystemTextJsonOutputFormatter;
+
+        if (outputFormatter == null)
+            return;
+
+        // Configure JSON formatter if necessary.
+        // This is primarily configured using the "AddJsonOptions" method on an IMvcBuilder instance.
+        // You can get errors trying to configure it after serialization/deserialization has already occurred
+        JsonSerializerOptions serializerOptions = outputFormatter.SerializerOptions;
+    }
+
+    private void ConfigureXmlSerializer(MvcOptions options)
+    {
+        XmlSerializerOutputFormatter? outputFormatter = options.OutputFormatters
+            .FirstOrDefault(x => x is XmlSerializerOutputFormatter) as XmlSerializerOutputFormatter;
+
+        if (outputFormatter == null)
+            return;
+
+        // Add custom configuration here.
+    }
+
+    private void ConfigureXmlDataContractSerializer(MvcOptions options)
+    {
+        XmlDataContractSerializerOutputFormatter? outputFormatter = options.OutputFormatters
+            .FirstOrDefault(x => x is XmlDataContractSerializerOutputFormatter) as XmlDataContractSerializerOutputFormatter;
+
+        if (outputFormatter == null)
+            return;
+
+        List<Type> knownTypes = outputFormatter.SerializerSettings.KnownTypes?.ToList() ?? new List<Type>();
+
+        knownTypes.Add(typeof(List<HypermediaLinkDto>));
+
+        // Configure XML formatter with known types
+        outputFormatter.SerializerSettings.KnownTypes = knownTypes;
+
+        DataContractResolver? dataContractResolver = outputFormatter.SerializerSettings.DataContractResolver;
     }
 }
