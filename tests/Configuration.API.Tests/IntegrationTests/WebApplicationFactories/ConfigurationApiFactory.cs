@@ -10,22 +10,15 @@ using Xunit.Abstractions;
 namespace Configuration.API.Tests.IntegrationTests.WebApplicationFactories;
 // https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests
 
-public class ConfigurationApiFactory : WebApplicationFactory<Program>
+public class ConfigurationApiFactory(ITestOutputHelper testOutputHelper) : WebApplicationFactory<Program>
 {
-    private readonly ITestOutputHelper _testOutputHelper;
-
-    public ConfigurationApiFactory(ITestOutputHelper testOutputHelper)
-    {
-        _testOutputHelper = testOutputHelper;
-    }
-
     protected override IHost CreateHost(IHostBuilder builder)
     {
         builder.UseEnvironment("Testing");
 
         builder.ConfigureLogging(loggingBuilder =>
         {
-            loggingBuilder.Services.AddSingleton<ILoggerProvider>(serviceProvider => new XUnitLoggerProvider(_testOutputHelper));
+            loggingBuilder.Services.AddSingleton<ILoggerProvider>(serviceProvider => new XUnitLoggerProvider(testOutputHelper));
         });
 
         builder.ConfigureServices(services =>

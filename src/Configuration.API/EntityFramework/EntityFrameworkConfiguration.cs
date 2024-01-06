@@ -11,7 +11,7 @@ public static class EntityFrameworkConfiguration
     public static void ConfigureDbContexts(IServiceCollection services, WebApplicationBuilder builder)
     {
         // default lifetime is "scoped"
-        // pooling can help with performance where there are many short lived transactions
+        // pooling can help with performance where there are many short-lived transactions
         // this also pools connection and other database resources
         // using "AddDbContext" will result in new context instances created for every request to the API
         // https://learn.microsoft.com/en-us/ef/core/performance/advanced-performance-topics

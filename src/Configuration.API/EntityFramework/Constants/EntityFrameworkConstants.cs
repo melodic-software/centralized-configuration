@@ -6,6 +6,7 @@ public class EntityFrameworkConstants
     public const string ResetDatabaseConfigKeyName = "EntityFramework:ResetDatabase";
 
     public const string InMemoryProviderName = "InMemory";
-    public const string SQLiteProviderName = "SQLite";
-    public const string SQLServerProviderName = "SQLServer";
+    public const string SqLiteProviderName = "SQLite";
+    public const string SqlServerProviderName = "SQLServer";
+    public const string PostgreSql = "PostgreSQL";
 }

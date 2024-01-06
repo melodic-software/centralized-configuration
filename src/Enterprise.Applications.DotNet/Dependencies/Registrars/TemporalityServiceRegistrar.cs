@@ -8,7 +8,7 @@ internal class TemporalityServiceRegistrar
 {
     internal static void RegisterTemporalityServices(IServiceCollection services)
     {
-        services.AddSingleton(provider =>
+        services.AddTransient(provider =>
         {
             ICurrentDateTimeService currentDateTimeService = new UtcDateTimeService();
 

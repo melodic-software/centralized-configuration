@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Configuration.EntityFramework.Commands\Configuration.EntityFramework.Commands.csproj" />
     <ProjectReference Include="..\Configuration.EventHandlers\Configuration.EventHandlers.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices.DI\Enterprise.ApplicationServices.DI.csproj" />
+    <ProjectReference Include="..\Enterprise.Dapper\Enterprise.Dapper.csproj" />
     <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />
     <ProjectReference Include="..\Enterprise.Events.DI\Enterprise.Events.DI.csproj" />
   </ItemGroup>

@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Configuration.EntityFramework.DbContexts.Configuration;
+using Enterprise.DesignPatterns.UnitOfWork;
+using Microsoft.Extensions.DependencyInjection;
 using static Configuration.DI.Commands.Registrars.CommandHandlerRegistrar;
 using static Configuration.DI.Commands.Registrars.EntityFramework.DomainServiceRegistrar;
 using static Configuration.DI.Commands.Registrars.EntityFramework.RepositoryRegistrar;
@@ -14,5 +16,7 @@ public static class CommandRegistrations
         RegisterRepositories(services);
         RegisterDomainServices(services);
         RegisterEventHandlers(services);
+
+        services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ConfigurationContext>());
     }
 }
