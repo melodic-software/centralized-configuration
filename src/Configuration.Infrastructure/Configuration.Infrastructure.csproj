@@ -6,4 +6,23 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="35.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Configuration.AutoMapper\Configuration.AutoMapper.csproj" />
+    <ProjectReference Include="..\Configuration.Dapper.Commands\Configuration.Dapper.Commands.csproj" />
+    <ProjectReference Include="..\Configuration.Dapper.Queries\Configuration.Dapper.Queries.csproj" />
+    <ProjectReference Include="..\Configuration.Dapper\Configuration.Dapper.csproj" />
+    <ProjectReference Include="..\Configuration.DI.Commands\Configuration.DI.Commands.csproj" />
+    <ProjectReference Include="..\Configuration.DI.Queries\Configuration.DI.Queries.csproj" />
+    <ProjectReference Include="..\Configuration.DI\Configuration.DI.csproj" />
+    <ProjectReference Include="..\Configuration.EntityFramework.Commands\Configuration.EntityFramework.Commands.csproj" />
+    <ProjectReference Include="..\Configuration.EntityFramework.Queries\Configuration.EntityFramework.Queries.csproj" />
+    <ProjectReference Include="..\Configuration.EntityFramework.Sqlite\Configuration.EntityFramework.Sqlite.csproj" />
+    <ProjectReference Include="..\Configuration.EntityFramework.SqlServer\Configuration.EntityFramework.SqlServer.csproj" />
+    <ProjectReference Include="..\Configuration.EntityFramework\Configuration.EntityFramework.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,7 @@ using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 
-namespace Configuration.ApplicationServices.Commands.Applications.Handlers;
+namespace Configuration.ApplicationServices.Commands.Applications.DeleteApplication;
 
 public sealed class DeleteApplicationHandler(
     IApplicationServiceDependencies appServiceDependencies,

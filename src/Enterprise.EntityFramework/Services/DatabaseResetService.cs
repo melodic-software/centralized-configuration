@@ -8,22 +8,25 @@ namespace Enterprise.EntityFramework.Services;
 
 public static class DatabaseResetService
 {
-    public static async Task ResetDatabaseAsync<T>(WebApplication app) where T : DbContext
+    public static async Task<bool> ResetDatabaseAsync<T>(WebApplication app) where T : DbContext
     {
         try
         {
+            // This should ONLY ever run locally.
             if (!app.Environment.IsLocal())
-                return;
+                return false;
 
             using IServiceScope scope = app.Services.CreateScope();
 
-            DbContext? context = scope.ServiceProvider.GetService<T>();
+            DbContext? dbContext = scope.ServiceProvider.GetService<T>();
 
-            if (context != null)
-            {
-                await context.Database.EnsureDeletedAsync();
-                await context.Database.MigrateAsync();
-            }
+            if (dbContext == null)
+                return false;
+
+            await dbContext.Database.EnsureDeletedAsync();
+            await dbContext.Database.MigrateAsync();
+         
+            return true;
         }
         catch (Exception ex)
         {

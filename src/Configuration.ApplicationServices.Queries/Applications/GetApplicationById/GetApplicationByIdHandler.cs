@@ -3,7 +3,7 @@ using Configuration.Core.Queries.Repositories;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers;
 
-namespace Configuration.ApplicationServices.Queries.Applications.Handlers;
+namespace Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
 
 public sealed class GetApplicationByIdHandler(
     IApplicationServiceDependencies appServiceDependencies,

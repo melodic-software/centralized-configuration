@@ -1,6 +1,6 @@
 ﻿using Enterprise.ApplicationServices.Queries.Model;
 
-namespace Configuration.ApplicationServices.Queries.Applications;
+namespace Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
 public class GetApplications : IQuery
 {

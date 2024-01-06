@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -11,6 +11,7 @@
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.DomainDrivenDesign\Enterprise.DomainDrivenDesign.csproj" />
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
+    <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

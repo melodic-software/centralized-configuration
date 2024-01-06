@@ -1,5 +1,6 @@
-﻿using Configuration.ApplicationServices.Applications.CreateApplication;
-using Configuration.ApplicationServices.Commands.Applications.Handlers;
+﻿using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
+using Configuration.ApplicationServices.Commands.Applications.DeleteApplication;
+using Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
 using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.DI;

@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Configuration.ApplicationServices.Queries.Applications;
-using Configuration.ApplicationServices.Queries.Applications.Results;
 using Configuration.Core.Queries.Model;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Client.Hypermedia.Constants;
@@ -21,6 +19,7 @@ using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
+using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

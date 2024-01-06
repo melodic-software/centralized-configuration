@@ -1,7 +1,7 @@
 ﻿using Configuration.Domain.Applications.Events;
 using Enterprise.Events.Services.Handling.Generic;
 
-namespace Configuration.EventHandlers.Applications;
+namespace Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 
 public class ApplicationCreatedEventHandler : EventHandlerBase<ApplicationCreated>
 {

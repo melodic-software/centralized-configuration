@@ -2,8 +2,6 @@
 using Configuration.API.Controllers.Applications.V1.Extensions;
 using Configuration.API.Logging.Constants;
 using Configuration.API.Routing.Constants;
-using Configuration.ApplicationServices.Queries.Applications;
-using Configuration.ApplicationServices.Queries.Applications.Results;
 using Configuration.Core.Queries.Model;
 using Enterprise.API.ActionConstraints;
 using Enterprise.API.Constants;
@@ -16,6 +14,9 @@ using Microsoft.Net.Http.Headers;
 using System.Dynamic;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
+using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
+using Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
+using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
 namespace Configuration.API.Controllers.Applications.V1.Partial;
 

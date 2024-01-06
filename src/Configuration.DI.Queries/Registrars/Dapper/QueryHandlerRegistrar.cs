@@ -1,6 +1,6 @@
-﻿using Configuration.ApplicationServices.Queries.Applications;
-using Configuration.ApplicationServices.Queries.Applications.Handlers;
-using Configuration.ApplicationServices.Queries.Applications.Results;
+﻿using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
+using Configuration.ApplicationServices.Queries.Applications.GetApplications;
+using Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
 using Configuration.Core.Queries.Model;
 using Configuration.Core.Queries.Repositories;
 using Enterprise.ApplicationServices.Abstractions;

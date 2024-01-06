@@ -1,5 +1,4 @@
-﻿using Configuration.ApplicationServices.Queries.Applications.Results;
-using Configuration.Core.Queries.Filtering;
+﻿using Configuration.Core.Queries.Filtering;
 using Configuration.Core.Queries.Model;
 using Configuration.Core.Queries.Repositories;
 using Enterprise.ApplicationServices.Abstractions;
@@ -11,7 +10,7 @@ using Enterprise.DomainDrivenDesign.Events;
 using System.Diagnostics;
 using static Configuration.Core.Queries.Constants.ApplicationQueryConstants;
 
-namespace Configuration.ApplicationServices.Queries.Applications.Handlers;
+namespace Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
 public sealed class GetApplicationsHandler(
     IApplicationServiceDependencies appServiceDependencies,

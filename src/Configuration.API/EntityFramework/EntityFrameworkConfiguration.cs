@@ -1,5 +1,6 @@
 ﻿using Configuration.API.EntityFramework.DbContextOptionsBuilderExtensions;
 using Configuration.EntityFramework.DbContexts.Configuration;
+using Configuration.Infrastructure.Data;
 using Enterprise.EntityFramework.Services;
 using Enterprise.Hosting.Extensions;
 using static Configuration.API.EntityFramework.Constants.EntityFrameworkConstants;
@@ -37,13 +38,18 @@ public static class EntityFrameworkConfiguration
 
             if (resetDatabase)
             {
-                // this deletes the database & migrates on startup so we can start with a clean slate
-                await DatabaseResetService.ResetDatabaseAsync<ConfigurationContext>(app);
+                // This deletes the database & migrates on startup, so we can start with a clean slate.
+                bool databaseReset = await DatabaseResetService.ResetDatabaseAsync<ConfigurationContext>(app);
+
+                // We should only do this once. It is safe to do if we are completely resetting the database.
+                if (databaseReset)
+                    await FakeDataSeedService.SeedFakeDataAsync(app);
             }
         }
         else if (!app.Environment.IsProduction())
         {
-            // we can apply migrations at runtime
+            // We can apply migrations at runtime.
+            // We do NOT run migrations automatically in production.
             // https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/applying#apply-migrations-at-runtime
             await DatabaseMigrationService.Migrate<ConfigurationContext>(app);
         }

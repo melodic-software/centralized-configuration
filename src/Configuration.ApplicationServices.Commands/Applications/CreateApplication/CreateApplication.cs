@@ -1,6 +1,6 @@
 ﻿using Enterprise.ApplicationServices.Commands.Model;
 
-namespace Configuration.ApplicationServices.Applications.CreateApplication;
+namespace Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 
 public class CreateApplication : ICommand
 {

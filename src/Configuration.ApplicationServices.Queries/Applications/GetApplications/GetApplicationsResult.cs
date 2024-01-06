@@ -1,7 +1,7 @@
 ﻿using Configuration.Core.Queries.Model;
 using Enterprise.Core.Queries.Paging;
 
-namespace Configuration.ApplicationServices.Queries.Applications.Results;
+namespace Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
 public class GetApplicationsResult
 {

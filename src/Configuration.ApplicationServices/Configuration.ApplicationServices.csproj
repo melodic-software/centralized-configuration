@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration.ApplicationServices.Commands\Configuration.ApplicationServices.Commands.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices.FluentValidation\Configuration.ApplicationServices.FluentValidation.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices.Queries\Configuration.ApplicationServices.Queries.csproj" />
     <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />

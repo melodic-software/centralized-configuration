@@ -2,7 +2,7 @@
 using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Routing.Constants;
-using Configuration.ApplicationServices.Queries.Applications;
+using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
 using Configuration.Core.Queries.Model;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;

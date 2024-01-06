@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
-using Configuration.ApplicationServices.Queries.Applications;
+using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 using Configuration.Core.Queries.Model;
 
 namespace Configuration.AutoMapper.Profiles.Queries.V1;

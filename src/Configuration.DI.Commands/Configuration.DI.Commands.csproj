@@ -7,12 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Configuration.ApplicationServices.Commands\Configuration.ApplicationServices.Commands.csproj" />
     <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
     <ProjectReference Include="..\Configuration.Dapper.Commands\Configuration.Dapper.Commands.csproj" />
     <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.Commands\Configuration.EntityFramework.Commands.csproj" />
-    <ProjectReference Include="..\Configuration.EventHandlers\Configuration.EventHandlers.csproj" />
     <ProjectReference Include="..\Enterprise.ApplicationServices.DI\Enterprise.ApplicationServices.DI.csproj" />
     <ProjectReference Include="..\Enterprise.Dapper\Enterprise.Dapper.csproj" />
     <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />

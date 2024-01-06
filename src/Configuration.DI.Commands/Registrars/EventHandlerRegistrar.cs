@@ -1,4 +1,4 @@
-﻿using Configuration.EventHandlers.Applications;
+﻿using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 using Enterprise.Events.DI;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -4,7 +4,7 @@ using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
 
-namespace Configuration.ApplicationServices.Commands.Applications.Handlers;
+namespace Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
 
 public sealed class UpdateApplicationHandler(
     IApplicationServiceDependencies appServiceDependencies,

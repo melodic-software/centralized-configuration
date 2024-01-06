@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration.ApplicationServices.Commands\Configuration.ApplicationServices.Commands.csproj" />
-    <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
   </ItemGroup>
 
 </Project>

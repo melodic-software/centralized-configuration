@@ -1,6 +1,6 @@
 ﻿using Enterprise.ApplicationServices.Commands.Model;
 
-namespace Configuration.ApplicationServices.Commands.Applications;
+namespace Configuration.ApplicationServices.Commands.Applications.DeleteApplication;
 
 public class DeleteApplication : ICommand
 {

@@ -71,10 +71,11 @@ public  sealed class ConfigurationContext : DbContextBase, IUnitOfWork
         // This will automatically apply entity configurations in the current assembly.
         // Entity configurations use a fluent syntax, which is an alternative to decorating the entity with attributes.
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ConfigurationContext).Assembly);
-
-        SeedData(modelBuilder);
+        
         this.Map(modelBuilder);
         this.HandleProviderCustomizations(modelBuilder);
+
+        SeedData(modelBuilder);
 
         base.OnModelCreating(modelBuilder);
     }

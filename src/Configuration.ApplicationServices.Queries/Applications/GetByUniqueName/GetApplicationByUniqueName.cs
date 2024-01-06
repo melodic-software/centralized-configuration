@@ -1,6 +1,6 @@
 ﻿using Enterprise.ApplicationServices.Queries.Model;
 
-namespace Configuration.ApplicationServices.Queries.Applications;
+namespace Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
 
 public class GetApplicationByUniqueName : IQuery
 {

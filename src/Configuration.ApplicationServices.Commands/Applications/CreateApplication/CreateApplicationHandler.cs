@@ -5,7 +5,7 @@ using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
 using Enterprise.Exceptions;
 
-namespace Configuration.ApplicationServices.Applications.CreateApplication;
+namespace Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 
 public sealed class CreateApplicationHandler(
     IApplicationServiceDependencies appServiceDependencies,
