@@ -1,8 +1,7 @@
 ﻿using Bogus;
+using Bogus.Extensions;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Configuration.EntityFramework.Entities;
-using Enterprise.Hosting.Extensions;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -47,10 +46,10 @@ namespace Configuration.Infrastructure.Data
             {
                 applications.Add(new ApplicationEntity()
                 {
-                    ApplicationId = i + 1,
+                    //ApplicationId = i + 1,
                     DomainId = Guid.NewGuid(),
                     UniqueName = string.Empty,
-                    Name = faker.Lorem.Text(),
+                    Name = faker.Lorem.Sentence(3, 5).ClampLength(max: 100),
                     AbbreviatedName = faker.Lorem.Word(),
                     Description = faker.Lorem.Sentence(3, 25),
                     IsActive = faker.Random.Bool(.9f),

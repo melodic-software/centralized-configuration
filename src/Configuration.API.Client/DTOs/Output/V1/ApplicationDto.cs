@@ -11,7 +11,7 @@ public class ApplicationDto
     public Guid Id { get; set; }
 
     /// <summary>
-    /// The human readable unique name for an application.
+    /// The human-readable unique name for an application.
     /// This is a combination of the name and the application ID.
     /// </summary>
     public string UniqueName { get; set; } = null!;

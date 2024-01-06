@@ -15,35 +15,36 @@ namespace Configuration.API.Controllers.Applications.V1.Extensions;
 
 public static class HypermediaExtensions
 {
-    public static dynamic ApplicationsWithLinks(this ControllerBase controller, GetApplicationsDto getApplicationsDto,
+    public static DataShapedHypermediaDto ApplicationsWithLinks(this ControllerBase controller, GetApplicationsDto getApplicationsDto,
         PaginationMetadata paginationMetadata, IEnumerable<ExpandoObject> dataShapedResult)
     {
         // hypermedia links
-        IEnumerable<HypermediaLinkModel> links = controller.CreateLinksForApplications(getApplicationsDto, paginationMetadata);
+        IEnumerable<HypermediaLinkDto> links = controller.CreateLinksForApplications(getApplicationsDto, paginationMetadata);
 
         // create links for each application in the list
         IEnumerable<IDictionary<string, object?>> value = dataShapedResult.Select(application =>
         {
             IDictionary<string, object?> dictionary = application;
             Guid applicationId = (Guid)(dictionary[nameof(ApplicationDto.Id)] ?? throw new InvalidOperationException());
-            IEnumerable<HypermediaLinkModel> applicationLinks = controller.CreateLinksForApplication(applicationId, null);
+            IEnumerable<HypermediaLinkDto> applicationLinks = controller.CreateLinksForApplication(applicationId, null);
             application.TryAdd(HypermediaConstants.RootPropertyName, applicationLinks);
             return dictionary;
         });
 
-        // anonymous type
-        // this uses an envelope... which breaks REST
-        // TODO: come back and fix this
-        var resultModel = new { value, links };
+        DataShapedHypermediaDto resultModel = new DataShapedHypermediaDto
+        {
+            Value = value,
+            Links = links
+        };
 
         return resultModel;
     }
 
-    public static IEnumerable<HypermediaLinkModel> CreateLinksForApplication(this ControllerBase controller, Guid id, string? properties)
+    public static IEnumerable<HypermediaLinkDto> CreateLinksForApplication(this ControllerBase controller, Guid id, string? properties)
     {
         // https://app.pluralsight.com/course-player?clipId=3fde0dd9-02e7-4170-abef-d9e4f4f7694a
 
-        List<HypermediaLinkModel> links = new()
+        List<HypermediaLinkDto> links = new()
         {
             string.IsNullOrWhiteSpace(properties)
                 ? HypermediaLinkService.CreateSelfLink(controller, RouteNames.GetApplicationById, new { id })
@@ -56,10 +57,10 @@ public static class HypermediaExtensions
         return links;
     }
 
-    public static IEnumerable<HypermediaLinkModel> CreateLinksForApplications(this ControllerBase controller,
+    public static IEnumerable<HypermediaLinkDto> CreateLinksForApplications(this ControllerBase controller,
         GetApplicationsDto getApplicationsDto, PaginationMetadata paginationMetadata)
     {
-        List<HypermediaLinkModel> links = new();
+        List<HypermediaLinkDto> links = new();
 
         // self
         string? currentHref = ApplicationsResourceUriService.CreateResourceUri(controller, getApplicationsDto, paginationMetadata, ResourceUriType.Current);

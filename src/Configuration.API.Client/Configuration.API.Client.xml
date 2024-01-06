@@ -41,7 +41,7 @@
         </member>
         <member name="P:Configuration.API.Client.DTOs.Output.V1.ApplicationDto.UniqueName">
             <summary>
-            The human readable unique name for an application.
+            The human-readable unique name for an application.
             This is a combination of the name and the application ID.
             </summary>
         </member>

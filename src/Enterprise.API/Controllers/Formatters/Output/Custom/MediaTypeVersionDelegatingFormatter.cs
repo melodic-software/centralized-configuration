@@ -82,6 +82,8 @@ public class MediaTypeVersionDelegatingFormatter(IList<IOutputFormatter> formatt
         context.ContentTypeIsServerDefined = true;
 
         // Find a formatter that can handle the base media type.
-        return _formatters.FirstOrDefault(f => f.CanWriteResult(context));
+        IOutputFormatter? formatter = _formatters.FirstOrDefault(f => f.CanWriteResult(context));
+
+        return formatter;
     }
 }

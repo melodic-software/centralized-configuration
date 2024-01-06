@@ -85,7 +85,7 @@ public static class QueryExtensions
     {
         bool includeLinks = mediaType.EndsWithHATEOAS();
 
-        IEnumerable<HypermediaLinkModel> links = new List<HypermediaLinkModel>();
+        IEnumerable<HypermediaLinkDto> links = new List<HypermediaLinkDto>();
 
         if (includeLinks)
         {

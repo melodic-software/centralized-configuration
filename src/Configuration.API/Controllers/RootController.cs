@@ -27,12 +27,12 @@ public class RootController : CustomControllerBase
         // links to child resources should not be returned here
         // it is intended that the client application would access and traverse through the parent resource (which should be listed here)
 
-        List<HypermediaLinkModel> links = new List<HypermediaLinkModel>
-        {
+        List<HypermediaLinkDto> links =
+        [
             new(Url.Link(RouteNames.GetRoot, new { }), Relations.Self, HttpMethods.Get),
             new(Url.Link(RouteNames.GetApplications, new { }), "applications", HttpMethods.Get),
-            new (Url.Link(RouteNames.CreateApplication, new {}), "create-application", HttpMethods.Post)
-        };
+            new(Url.Link(RouteNames.CreateApplication, new { }), "create-application", HttpMethods.Post)
+        ];
 
         // other approaches and options for hypermedia:
         // https://app.pluralsight.com/course-player?clipId=6e7c0a9b-1003-416f-91a1-dc6d79894255

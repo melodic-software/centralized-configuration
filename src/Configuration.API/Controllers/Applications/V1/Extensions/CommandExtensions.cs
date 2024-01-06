@@ -57,7 +57,7 @@ public static class CommandExtensions
         ExpandoObject resultModel = mapResult.ShapeData();
 
         // add the hypermedia links to the result model
-        IEnumerable<HypermediaLinkModel> links = controller.CreateLinksForApplication(mapResult.Id, null);
+        IEnumerable<HypermediaLinkDto> links = controller.CreateLinksForApplication(mapResult.Id, null);
         IDictionary<string, object?> modelDictionary = resultModel;
         modelDictionary.Add("links", links);
 
