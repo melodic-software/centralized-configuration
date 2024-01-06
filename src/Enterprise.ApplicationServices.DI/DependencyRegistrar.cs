@@ -1,6 +1,8 @@
 ﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.ApplicationServices.Decorators.CommandHandlers;
+using Enterprise.ApplicationServices.Queries.Handlers.Generic;
+using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.DI.DotNet.Extensions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,5 +34,13 @@ public static class DependencyRegistrar
                 ErrorHandlingDecorator<T> decorator = new ErrorHandlingDecorator<T>(commandHandler, logger);
                 return decorator;
             });
+    }
+
+    public static void RegisterQueryHandler<TQuery, TResult>(this IServiceCollection services,
+        Func<IServiceProvider, IHandleQuery<TQuery, TResult>> factory,
+        ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where TQuery : IQuery
+    {
+        services.BeginRegistration<IHandleQuery<TQuery, TResult>>()
+            .Add(factory, serviceLifetime);
     }
 }

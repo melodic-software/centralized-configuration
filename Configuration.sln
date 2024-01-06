@@ -170,6 +170,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.ApplicationServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.Serialization.Json", "src\Enterprise.Serialization.Json\Enterprise.Serialization.Json.csproj", "{48245C40-DADB-48AA-8DA2-4579442D0AA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enterprise.Events.DI", "src\Enterprise.Events.DI\Enterprise.Events.DI.csproj", "{3C55FA63-E240-4489-A097-6F09BA032792}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -448,6 +450,10 @@ Global
 		{48245C40-DADB-48AA-8DA2-4579442D0AA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48245C40-DADB-48AA-8DA2-4579442D0AA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48245C40-DADB-48AA-8DA2-4579442D0AA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C55FA63-E240-4489-A097-6F09BA032792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C55FA63-E240-4489-A097-6F09BA032792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C55FA63-E240-4489-A097-6F09BA032792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C55FA63-E240-4489-A097-6F09BA032792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -531,6 +537,7 @@ Global
 		{190C61F9-8F0F-434B-967C-624B271A26A7} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{B098E33A-C890-4F56-AF42-80E633C39A23} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 		{48245C40-DADB-48AA-8DA2-4579442D0AA9} = {E2239087-AC19-4FCA-82C4-33D60753D688}
+		{3C55FA63-E240-4489-A097-6F09BA032792} = {E2239087-AC19-4FCA-82C4-33D60753D688}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {081E96BF-0574-4A9D-86A7-982CDF05EBC9}

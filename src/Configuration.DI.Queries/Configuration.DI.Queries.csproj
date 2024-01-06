@@ -11,6 +11,7 @@
     <ProjectReference Include="..\Configuration.ApplicationServices.Queries\Configuration.ApplicationServices.Queries.csproj" />
     <ProjectReference Include="..\Configuration.Dapper.Queries\Configuration.Dapper.Queries.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.Queries\Configuration.EntityFramework.Queries.csproj" />
+    <ProjectReference Include="..\Enterprise.ApplicationServices.DI\Enterprise.ApplicationServices.DI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,9 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enterprise.ApplicationServices.Decorators\Enterprise.ApplicationServices.Decorators.csproj" />
-    <ProjectReference Include="..\Enterprise.ApplicationServices\Enterprise.ApplicationServices.csproj" />
     <ProjectReference Include="..\Enterprise.DI.DotNet\Enterprise.DI.DotNet.csproj" />
+    <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
   </ItemGroup>
 
 </Project>
