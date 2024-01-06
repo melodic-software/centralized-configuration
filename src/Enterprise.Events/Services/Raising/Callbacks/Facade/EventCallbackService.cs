@@ -8,44 +8,36 @@ namespace Enterprise.Events.Services.Raising.Callbacks.Facade;
 /// <summary>
 /// This is a simple facade service that aggregates the registration and raising of event callbacks.
 /// </summary>
-public class EventCallbackService : IEventCallbackService
+public class EventCallbackService(IRegisterEventCallbacks callbackRegistrar, IRaiseEventCallbacks callbackRaiser)
+    : IEventCallbackService
 {
-    private readonly IRegisterEventCallbacks _callbackRegistrar;
-    private readonly IRaiseEventCallbacks _callbackRaiser;
-
-    public EventCallbackService(IRegisterEventCallbacks callbackRegistrar, IRaiseEventCallbacks callbackRaiser)
-    {
-        _callbackRegistrar = callbackRegistrar;
-        _callbackRaiser = callbackRaiser;
-    }
-
     public Dictionary<Type, IList> GetRegisteredCallbacks()
     {
-        return _callbackRegistrar.GetRegisteredCallbacks();
+        return callbackRegistrar.GetRegisteredCallbacks();
     }
 
     public void RegisterEventCallback<TEvent>(Action<TEvent> eventCallback) where TEvent : IEvent
     {
-        _callbackRegistrar.RegisterEventCallback(eventCallback);
+        callbackRegistrar.RegisterEventCallback(eventCallback);
     }
 
     public void ClearRegisteredCallbacks()
     {
-        _callbackRegistrar.ClearRegisteredCallbacks();
+        callbackRegistrar.ClearRegisteredCallbacks();
     }
 
     public void RaiseCallbacks(IEnumerable<IEvent> events)
     {
-        _callbackRaiser.RaiseCallbacks(events);
+        callbackRaiser.RaiseCallbacks(events);
     }
 
     public void RaiseCallbacks<TEvent>(TEvent @event) where TEvent : IEvent
     {
-        _callbackRaiser.RaiseCallbacks((dynamic)@event, _callbackRegistrar);
+        callbackRaiser.RaiseCallbacks((dynamic)@event, callbackRegistrar);
     }
 
     public void RaiseCallbacks<TEvent>(TEvent @event, IRegisterEventCallbacks callbackRegistrar) where TEvent : IEvent
     {
-        _callbackRaiser.RaiseCallbacks((dynamic)@event, callbackRegistrar);
+        callbackRaiser.RaiseCallbacks((dynamic)@event, callbackRegistrar);
     }
 }

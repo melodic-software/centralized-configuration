@@ -3,7 +3,6 @@ using Configuration.ApplicationServices.Commands.Applications.Handlers;
 using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.DI;
-using Enterprise.DateTimes.Current.Abstract;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuration.DI.Commands.Registrars;
@@ -18,14 +17,12 @@ internal static class CommandHandlerRegistrar
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            ICurrentDateTimeService currentDateTimeService = provider.GetRequiredService<ICurrentDateTimeService>();
 
             return new CreateApplicationHandler(
                 appServiceDependencies,
                 validationService,
                 applicationExistenceService,
-                applicationRepository,
-                currentDateTimeService
+                applicationRepository
             ); ;
         });
 

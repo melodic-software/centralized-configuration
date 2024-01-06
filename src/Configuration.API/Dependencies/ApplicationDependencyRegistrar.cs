@@ -2,7 +2,6 @@
 using Configuration.DI.Commands;
 using Configuration.DI.Queries;
 using Enterprise.Applications.DotNet.Commands;
-using Enterprise.Applications.DotNet.Dependencies;
 using Enterprise.Applications.DotNet.Queries;
 using Enterprise.ApplicationServices.Commands.Handlers.Resolution;
 using Enterprise.ApplicationServices.Queries.Handlers;
