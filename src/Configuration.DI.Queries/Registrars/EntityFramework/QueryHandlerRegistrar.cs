@@ -25,7 +25,7 @@ internal static class QueryHandlerRegistrar
             return new GetApplicationsHandler(appServiceDependencies, sortValidator, applicationRepository);
         });
 
-        services.AddTransient(provider =>
+        services.RegisterQueryHandler(provider =>
         {
             IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
@@ -33,7 +33,7 @@ internal static class QueryHandlerRegistrar
             return new GetApplicationByIdHandler(appServiceDependencies, applicationRepository);
         });
 
-        services.AddTransient(provider =>
+        services.RegisterQueryHandler(provider =>
         {
             IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
