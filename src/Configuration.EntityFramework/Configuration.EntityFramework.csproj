@@ -20,9 +20,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />
     <ProjectReference Include="..\Enterprise.DesignPatterns\Enterprise.DesignPatterns.csproj" />
+    <ProjectReference Include="..\Enterprise.DomainDrivenDesign\Enterprise.DomainDrivenDesign.csproj" />
     <ProjectReference Include="..\Enterprise.EntityFramework\Enterprise.EntityFramework.csproj" />
     <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
+    <ProjectReference Include="..\Enterprise.Serialization.Json\Enterprise.Serialization.Json.csproj" />
   </ItemGroup>
 
   <ItemGroup>

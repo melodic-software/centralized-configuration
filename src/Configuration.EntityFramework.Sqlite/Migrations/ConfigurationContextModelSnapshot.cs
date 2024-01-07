@@ -419,6 +419,31 @@ namespace Configuration.EntityFramework.Sqlite.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Configuration.EntityFramework.Entities.OutboxMessage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("json");
+
+                    b.Property<DateTime?>("DateTimeOccurred")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Error")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OutboxMessage", (string)null);
+                });
+
             modelBuilder.Entity("Configuration.EntityFramework.Entities.ConfigurationEntryEntity", b =>
                 {
                     b.HasOne("Configuration.EntityFramework.Entities.ConfigurationEntryTypeEntity", "ConfigurationEntryType")

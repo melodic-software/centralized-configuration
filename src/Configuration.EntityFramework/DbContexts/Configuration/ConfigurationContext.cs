@@ -1,19 +1,28 @@
 ﻿using Configuration.EntityFramework.DbContexts.Configuration.Extensions;
 using Configuration.EntityFramework.Entities;
+using Enterprise.DateTimes.Current.Abstract;
 using Enterprise.DesignPatterns.UnitOfWork;
+using Enterprise.DomainDrivenDesign.Entities;
+using Enterprise.DomainDrivenDesign.Events.Abstract;
+using Enterprise.EntityFramework.Contexts;
 using Enterprise.EntityFramework.Extensions;
+using Enterprise.Serialization.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Enterprise.EntityFramework.Contexts;
+using System.Text.Json;
 using static Configuration.EntityFramework.DbContexts.Configuration.Seeding.SeedService;
 
 namespace Configuration.EntityFramework.DbContexts.Configuration;
 
 public  sealed class ConfigurationContext : DbContextBase, IUnitOfWork
 {
-    public ConfigurationContext(DbContextOptions<ConfigurationContext> options)
+    private readonly ICurrentDateTimeService _currentDateTimeService;
+
+    public ConfigurationContext(DbContextOptions<ConfigurationContext> options, ICurrentDateTimeService currentDateTimeService)
         : base(options)
     {
+        _currentDateTimeService = currentDateTimeService;
+
         // Options can be provided at the moment the DbContext is registered.
         // See DI service registration in EntityFrameworkConfigurations.ConfigureDbContexts.
         // Contexts should be registered on the service collection (ex: "services.AddDbContext<ConfigurationContext>").
@@ -82,14 +91,18 @@ public  sealed class ConfigurationContext : DbContextBase, IUnitOfWork
 
     private void OnSavingChanges(object? sender, SavingChangesEventArgs e)
     {
-        // this runs BEFORE the SaveChanges logic is performed
+        // This runs BEFORE the SaveChanges logic is performed.
         bool acceptAllChangesOnSuccess = e.AcceptAllChangesOnSuccess;
 
-        // these are the entity entries that are tracking the entities (contain pointers to the tracked object)
+        // These are the entity entries that are tracking the entities.
+        // They contain pointers to the tracked object.
         IEnumerable<EntityEntry> entries = ChangeTracker.Entries();
         List<object> entities = entries.Select(x => x.Entity).ToList();
 
         this.UpdateAuditShadowProperties();
+
+        // Persist any domain events as outbox messages in the same transaction.
+        AddDomainEventsAsOutboxMessagesAsync();
     }
 
     private void OnSavedChanges(object? sender, SavedChangesEventArgs e)
@@ -104,5 +117,36 @@ public  sealed class ConfigurationContext : DbContextBase, IUnitOfWork
         // this runs when an error occurs while executing the SaveChanges logic
         bool acceptAllChangesOnSuccess = e.AcceptAllChangesOnSuccess;
         Exception exception = e.Exception;
+    }
+
+    private void AddDomainEventsAsOutboxMessagesAsync()
+    {
+        List<IDomainEvent> domainEvents = ChangeTracker
+            .Entries<IEntity>()
+            .Select(entry => entry.Entity)
+            .SelectMany(entity =>
+            {
+                IReadOnlyList<IDomainEvent> domainEvents = entity.GetDomainEvents();
+
+                // Have to clear these, so they don't get reprocessed and cause issues downstream.
+                // This can cause problems depending on the DI lifetime of the db context.
+                entity.ClearDomainEvents();
+
+                return domainEvents;
+            }).ToList();
+
+        JsonSerializerOptions serializerOptions = JsonSerializerOptionsService.GetDefaultOptions();
+
+        // Projecting domain events into outbox message instances.
+        List<OutboxMessage> outboxMessages = domainEvents
+            .Select(domainEvent => new OutboxMessage(
+                Guid.NewGuid(),
+                _currentDateTimeService.GetUtcNow(),
+                domainEvent.GetType().Name,
+                JsonSerializer.Serialize(domainEvent, serializerOptions)
+            )).ToList();
+
+        // Add these so they will be persisted.
+        AddRange(outboxMessages);
     }
 }

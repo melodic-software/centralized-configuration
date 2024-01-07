@@ -20,6 +20,7 @@ using Enterprise.Monitoring.Health.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
+using Quartz;
 
 namespace Enterprise.API;
 
@@ -85,12 +86,19 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.ConfigureApiVersioning(options.VersioningConfigurationOptions);
 
+        // Register common enterprise services.
+        builder.Services.RegisterEnterpriseServices();
+
         // Third party library registrations.
         builder.Services.ConfigureAutoMapper(options.AutoMapperConfigurationOptions);
         // TODO: Does FluentValidation need to go here?
 
-        // Register common enterprise services.
-        builder.Services.RegisterEnterpriseServices();
+        // Quartz - background jobs.
+        builder.Services.AddQuartz(configurator =>
+        {
+            configurator.UseMicrosoftDependencyInjectionJobFactory();
+        });
+        builder.Services.AddQuartzHostedService(serviceOptions => serviceOptions.WaitForJobsToComplete = true);
 
         // This is a hook for adding custom service registrations.
         options.RegisterCustomServices?.Invoke(builder.Services, builder);
