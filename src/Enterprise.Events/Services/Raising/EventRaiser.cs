@@ -1,9 +1,10 @@
 ﻿using Enterprise.Events.Model;
 using Enterprise.Events.Services.Handling;
+using Microsoft.Extensions.Logging;
 
 namespace Enterprise.Events.Services.Raising;
 
-public class EventRaiser(IResolveEventHandlers eventHandlerResolver) : IRaiseEvents
+public class EventRaiser(IResolveEventHandlers eventHandlerResolver, ILogger<EventRaiser> logger) : IRaiseEvents
 {
     private readonly IResolveEventHandlers _eventHandlerResolver = eventHandlerResolver ?? throw new ArgumentNullException(nameof(eventHandlerResolver));
 
@@ -17,8 +18,8 @@ public class EventRaiser(IResolveEventHandlers eventHandlerResolver) : IRaiseEve
     {
         IEnumerable<IHandleEvent?> eventHandlers = await _eventHandlerResolver.ResolveAsync((dynamic)@event);
 
-        // TODO: we probably want to know if we don't have any event handlers for a given event?
-        // maybe inject a service that is configured to notify if we don't have handlers for specific events registered?
+        if (!eventHandlers.Any())
+            logger.LogWarning($"No event handlers registered for event: {@event.GetType().Name}");
 
         foreach (IHandleEvent? eventHandler in eventHandlers)
         {
@@ -29,9 +30,9 @@ public class EventRaiser(IResolveEventHandlers eventHandlerResolver) : IRaiseEve
             {
                 await eventHandler.HandleAsync(@event);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                // TODO: add logging?
+                logger.LogError(ex, "An error occurred during event handler execution.");
                 throw;
             }
         }

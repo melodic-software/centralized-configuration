@@ -6,6 +6,7 @@ using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
 using Enterprise.Events.Services.Raising.Callbacks.Facade;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Enterprise.Applications.DotNet.Dependencies.Registrars;
 
@@ -22,7 +23,8 @@ internal class EventServiceRegistrar
         services.AddSingleton(provider =>
         {
             IResolveEventHandlers eventHandlerResolver = provider.GetRequiredService<IResolveEventHandlers>();
-            IRaiseEvents eventRaiser = new EventRaiser(eventHandlerResolver);
+            ILogger<EventRaiser> logger = provider.GetRequiredService<ILogger<EventRaiser>>();
+            IRaiseEvents eventRaiser = new EventRaiser(eventHandlerResolver, logger);
             return eventRaiser;
         });
 
