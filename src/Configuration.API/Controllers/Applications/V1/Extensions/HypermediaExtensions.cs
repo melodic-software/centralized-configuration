@@ -1,7 +1,7 @@
 ﻿using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Controllers.Applications.V1.Services;
-using Configuration.API.Routing.Constants;
+using Configuration.API.Routing;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Client.Hypermedia.Constants;
 using Enterprise.API.Hypermedia;

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V1;
-using Configuration.API.Routing.Constants;
+using Configuration.API.Routing;
 using Enterprise.API.Controllers.Abstract;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;

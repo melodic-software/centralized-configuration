@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Configuration.API.Routing.Constants;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DataShaping.Extensions;
@@ -11,6 +10,7 @@ using Configuration.Domain.Applications.Events;
 using Enterprise.DomainDrivenDesign.Events;
 using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 using Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
+using Configuration.API.Routing;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Redis.Constants;
+﻿namespace Configuration.API.Redis;
 
 public static class RedisConstants
 {

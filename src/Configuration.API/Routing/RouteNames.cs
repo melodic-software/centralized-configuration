@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Routing.Constants;
+﻿namespace Configuration.API.Routing;
 
 public static class RouteNames
 {

@@ -1,6 +1,6 @@
 ﻿using static Enterprise.Constants.CompanyConstants;
 
-namespace Configuration.API.ContentNegotiation.Constants;
+namespace Enterprise.API.ContentNegotiation.Constants;
 
 public static class VendorMediaTypeConstants
 {

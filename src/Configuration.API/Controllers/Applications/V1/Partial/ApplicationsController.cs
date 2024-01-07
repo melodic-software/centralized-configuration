@@ -2,8 +2,8 @@
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Controllers.Applications.V1.Extensions;
-using Configuration.API.Logging.Constants;
-using Configuration.API.Routing.Constants;
+using Configuration.API.Logging;
+using Configuration.API.Routing;
 using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 using Configuration.ApplicationServices.Commands.Applications.DeleteApplication;
 using Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
@@ -249,6 +249,6 @@ public partial class ApplicationsController : CustomControllerBase
         return Ok();
     }
 
-    [LoggerMessage(ConfigurationApiEventIds.ApplicationDeleted, LogLevel.Information, "Application with ID \"{id}\" removed.")]
+    [LoggerMessage(ConfigApiEventIds.ApplicationDeleted, LogLevel.Information, "Application with ID \"{id}\" removed.")]
     private partial void LogApplicationDeleted(Guid id);
 }

@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Routing.Constants;
+﻿namespace Configuration.API.Routing;
 
 // if individual routes are versioned and NOT controller, the [MapToApiVersion] attribute can be used on controller action methods
 

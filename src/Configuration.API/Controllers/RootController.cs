@@ -1,4 +1,4 @@
-﻿using Configuration.API.Routing.Constants;
+﻿using Configuration.API.Routing;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Client.Hypermedia.Constants;
 using Enterprise.API.Controllers.Abstract;

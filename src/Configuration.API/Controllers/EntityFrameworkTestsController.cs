@@ -1,4 +1,4 @@
-﻿using Configuration.API.Routing.Constants;
+﻿using Configuration.API.Routing;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Configuration.EntityFramework.Entities;
 using Enterprise.API.Controllers.Abstract;

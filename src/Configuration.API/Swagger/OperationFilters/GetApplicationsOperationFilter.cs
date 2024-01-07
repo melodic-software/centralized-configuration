@@ -1,6 +1,6 @@
 ﻿using Configuration.API.Client.DTOs.Output.V1;
-using Configuration.API.ContentNegotiation.Constants;
-using Configuration.API.Routing.Constants;
+using Configuration.API.Routing;
+using Enterprise.API.ContentNegotiation.Constants;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 

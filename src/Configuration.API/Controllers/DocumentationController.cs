@@ -1,5 +1,5 @@
-﻿using Configuration.API.Files.Constants;
-using Configuration.API.Routing.Constants;
+﻿using Configuration.API.Files;
+using Configuration.API.Routing;
 using Enterprise.API.Controllers.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
-using Configuration.API.Routing.Constants;
+using Configuration.API.Routing;
 using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 using Configuration.Domain.Applications.Events;
 using Enterprise.API.Controllers.Abstract;

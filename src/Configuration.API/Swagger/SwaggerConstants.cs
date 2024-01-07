@@ -1,6 +1,6 @@
 ﻿using Configuration.API.Constants;
 
-namespace Configuration.API.Swagger.Constants;
+namespace Configuration.API.Swagger;
 
 public static class SwaggerConstants
 {

@@ -1,7 +1,7 @@
 ﻿using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.InMemory;
-using Configuration.API.Routing.Constants;
+using Configuration.API.Routing;
 using Enterprise.API.Controllers.Abstract;
 using Microsoft.AspNetCore.Mvc;
 

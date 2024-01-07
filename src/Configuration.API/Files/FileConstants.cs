@@ -1,4 +1,4 @@
-﻿namespace Configuration.API.Files.Constants;
+﻿namespace Configuration.API.Files;
 
 public static class FileConstants
 {

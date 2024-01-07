@@ -1,9 +1,6 @@
 ﻿using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
-using Configuration.API.ContentNegotiation.Constants;
 using Configuration.API.Controllers.Applications.V1.Extensions;
-using Configuration.API.Logging.Constants;
-using Configuration.API.Routing.Constants;
 using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
 using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 using Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
@@ -18,6 +15,9 @@ using Enterprise.Reflection.Properties.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Dynamic;
+using Enterprise.API.ContentNegotiation.Constants;
+using Configuration.API.Logging;
+using Configuration.API.Routing;
 
 namespace Configuration.API.Controllers.Applications.V1.Partial;
 
@@ -246,15 +246,15 @@ public partial class ApplicationsController
     }
 
 
-    [LoggerMessage(ConfigurationApiEventIds.GettingApplicationById, LogLevel.Information, "Getting application with ID: {id}")]
+    [LoggerMessage(ConfigApiEventIds.GettingApplicationById, LogLevel.Information, "Getting application with ID: {id}")]
     private partial void LogGettingApplicationById(Guid id);
 
-    [LoggerMessage(ConfigurationApiEventIds.ApplicationNotFoundByUniqueName, LogLevel.Information, "Application with unique name \"{uniqueName}\" not found.")]
+    [LoggerMessage(ConfigApiEventIds.ApplicationNotFoundByUniqueName, LogLevel.Information, "Application with unique name \"{uniqueName}\" not found.")]
     private partial void LogApplicationNotFound(string uniqueName);
 
-    [LoggerMessage(ConfigurationApiEventIds.ApplicationNotFoundById, LogLevel.Information, "Application with ID \"{id}\" not found.")]
+    [LoggerMessage(ConfigApiEventIds.ApplicationNotFoundById, LogLevel.Information, "Application with ID \"{id}\" not found.")]
     private partial void LogApplicationNotFound(Guid id);
 
-    [LoggerMessage(ConfigurationApiEventIds.GettingApplicationsError, LogLevel.Critical, "Exception while getting applications.")]
+    [LoggerMessage(ConfigApiEventIds.GettingApplicationsError, LogLevel.Critical, "Exception while getting applications.")]
     private partial void LogGettingApplicationsError(Exception exception);
 }

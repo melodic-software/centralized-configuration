@@ -1,6 +1,6 @@
-﻿namespace Configuration.API.Logging.Constants;
+﻿namespace Configuration.API.Logging;
 
-public class ConfigurationApiEventIds
+public class ConfigApiEventIds
 {
     public const int GettingApplicationById = 1000;
     public const int GettingApplicationsError = 1001;
