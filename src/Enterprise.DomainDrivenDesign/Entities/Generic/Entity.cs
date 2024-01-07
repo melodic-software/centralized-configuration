@@ -2,7 +2,7 @@
 
 namespace Enterprise.DomainDrivenDesign.Entities.Generic;
 
-public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : IEquatable<TId>
+public abstract class Entity<TId> : IEntity, IEquatable<Entity<TId>> where TId : IEquatable<TId>
 {
     protected readonly List<IDomainEvent> DomainEvents = new();
 
@@ -16,7 +16,7 @@ public abstract class Entity<TId> : IEquatable<Entity<TId>> where TId : IEquatab
         Id = id;
     }
         
-    protected void AddDomainEvent(IDomainEvent domainEvent)
+    protected void RecordDomainEvent(IDomainEvent domainEvent)
     {
         bool eventAlreadyAdded = DomainEvents.Any(x => x.Id == domainEvent.Id);
 

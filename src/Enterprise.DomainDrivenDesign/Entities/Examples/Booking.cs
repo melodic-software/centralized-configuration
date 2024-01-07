@@ -58,7 +58,7 @@ public sealed class Booking : Entity
 
         BookingReservedDomainEvent bookingReserved = new BookingReservedDomainEvent(booking.Id);
 
-        booking.AddDomainEvent(bookingReserved);
+        booking.RecordDomainEvent(bookingReserved);
 
         apartment.DateLastBooked = utcNow;
 

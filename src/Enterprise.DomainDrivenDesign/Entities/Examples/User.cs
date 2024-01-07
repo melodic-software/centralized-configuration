@@ -22,7 +22,7 @@ public sealed class User : Entity
 
         UserCreatedDomainEvent userCreated = new UserCreatedDomainEvent(user.Id);
 
-        user.AddDomainEvent(userCreated);
+        user.RecordDomainEvent(userCreated);
 
         return user;
     }

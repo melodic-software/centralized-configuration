@@ -1,21 +1,25 @@
 ﻿using Configuration.EntityFramework.DbContexts.Configuration;
+using Enterprise.DomainDrivenDesign.Entities.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Configuration.EntityFramework.Commands.Repositories;
+
 // NOTE: A constraint could be added so that this only works with domain entity base abstractions.
 // The choice depends on if the db context models are being kept separate from the domain models.
 
-internal abstract class Repository<T>(ConfigurationContext dbContext)
-    where T : class
+internal abstract class Repository<TEntity, TEntityId>(ConfigurationContext dbContext)
+    where TEntity : Entity<TEntityId>
+    where TEntityId : class, IEquatable<TEntityId>
 {
     protected readonly ConfigurationContext DbContext = dbContext;
 
-    public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    public async Task<TEntity?> GetByIdAsync(TEntityId id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
-        //return await DbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        return await DbContext.Set<TEntity>()
+            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
-    public void Add(T entity)
+    public void Add(TEntity entity)
     {
         DbContext.Add(entity);
     }
