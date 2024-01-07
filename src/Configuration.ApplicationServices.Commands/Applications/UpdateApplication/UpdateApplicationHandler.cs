@@ -3,6 +3,7 @@ using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
+using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
 
@@ -15,16 +16,27 @@ public sealed class UpdateApplicationHandler(
 {
     public override async Task HandleAsync(UpdateApplication command)
     {
-        bool applicationExists = await applicationExistenceService.ApplicationExistsAsync(command.Id);
+        ApplicationId applicationId = new ApplicationId(command.Id);
+
+        bool applicationExists = await applicationExistenceService.ApplicationExistsAsync(applicationId);
 
         if (!applicationExists)
         {
-            ApplicationNotFound applicationNotFound = new ApplicationNotFound(command.Id);
+            // TODO: throw ApplicationNotFoundException?
+            ApplicationNotFound applicationNotFound = new ApplicationNotFound(applicationId.Value);
             await RaiseEventAsync(applicationNotFound);
             return;
         }
 
-        Application application = (await applicationRepository.GetByIdAsync(command.Id))!;
+        Application? application = await applicationRepository.GetByIdAsync(applicationId);
+
+        if (application == null)
+        {
+            // TODO: throw ApplicationNotFoundException?
+            ApplicationNotFound applicationNotFound = new ApplicationNotFound(applicationId.Value);
+            await RaiseEventAsync(applicationNotFound);
+            return;
+        }
 
         application.Update(command.Name, command.AbbreviatedName, command.Description, command.IsActive);
 
@@ -39,7 +51,7 @@ public sealed class UpdateApplicationHandler(
         await applicationRepository.Save(application);
 
         ApplicationUpdated applicationUpdated = new ApplicationUpdated(
-            application.Id,
+            application.Id.Value,
             application.UniqueName,
             application.Name,
             application.AbbreviatedName,

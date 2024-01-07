@@ -1,8 +1,8 @@
-﻿using Enterprise.DomainDrivenDesign.Entities;
+﻿using Enterprise.DomainDrivenDesign.Entities.Generic;
 
 namespace Configuration.Domain.Applications;
 
-public class Application : Entity
+public class Application : Entity<ApplicationId>
 {
     public string UniqueName => GetUniqueName();
     public string Name { get; private set; }
@@ -10,7 +10,7 @@ public class Application : Entity
     public string? Description { get; private set; }
     public bool IsActive { get; private set; }
 
-    public Application(Guid id, string name, string? abbreviatedName, string? description, bool isActive) : base(id)
+    public Application(ApplicationId id, string name, string? abbreviatedName, string? description, bool isActive) : base(id)
     {
         Id = id;
         Name = name;
@@ -21,7 +21,7 @@ public class Application : Entity
 
     public static Application New(Guid? id, string name, string? abbreviatedName, string? description, bool? isActive)
     {
-        Guid applicationId = id != null && id != Guid.Empty ? id.Value : Guid.NewGuid();
+        ApplicationId applicationId = id != null && id != Guid.Empty ? new ApplicationId(id.Value) : ApplicationId.New();
 
         // default to inactive if not provided
         isActive ??= false;

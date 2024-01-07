@@ -1,5 +1,6 @@
 ﻿using Configuration.Domain.Applications;
 using Microsoft.Extensions.Logging;
+using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.Dapper.Commands.Repositories;
 
@@ -9,14 +10,14 @@ public class ApplicationRepository : IApplicationRepository
 
     public ApplicationRepository(ILoggerFactory loggerFactory)
     {
-        // you can specific logger categories by type (which includes namespace)
+        // You can specify logger categories by type (which includes namespace).
         _logger = loggerFactory.CreateLogger<ApplicationRepository>();
 
-        // OR by using a custom named category
+        // You can also specify by using a custom named category.
         //_logger = loggerFactory.CreateLogger("DataAccessLayer"); 
     }
 
-    public Task<Application?> GetByIdAsync(Guid id)
+    public Task<Application?> GetByIdAsync(ApplicationId id)
     {
         throw new NotImplementedException();
     }
@@ -31,7 +32,7 @@ public class ApplicationRepository : IApplicationRepository
         throw new NotImplementedException();
     }
 
-    public Task DeleteApplicationAsync(Guid id)
+    public Task DeleteApplicationAsync(ApplicationId id)
     {
         throw new NotImplementedException();
     }

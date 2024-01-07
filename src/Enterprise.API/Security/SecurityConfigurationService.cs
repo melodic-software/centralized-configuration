@@ -34,7 +34,7 @@ public static class SecurityConfigurationService
             return;
 
         app.UseAuthentication();
-        app.UseMiddleware<UserScopeMiddleware>(); // this will add user information (via a logging scope) if a user is authenticated
+        app.UseMiddleware<UserScopeMiddleware>(); // This will add user information (via a logging scope) if a user is authenticated.
         app.UseAuthorization();
 
         if (app.Environment.IsLocal() || app.Environment.IsDevelopment())

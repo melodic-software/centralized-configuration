@@ -1,5 +1,6 @@
 using Configuration.Domain.Applications;
 using Xunit;
+using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.Domain.Tests.Domain.Models.Entities;
 
@@ -28,7 +29,7 @@ public class ApplicationTests : IDisposable
     public void New_ConstructNewApplication_IdDefaultsToNewGuidWhenEmpty()
     {
         // arrange
-        Guid id = Guid.Empty;
+        Guid id = Guid.NewGuid();
         string name = "Test Application";
         string? abbreviatedName = null;
         string? description = null;
@@ -38,7 +39,7 @@ public class ApplicationTests : IDisposable
         Application application = Application.New(id, name, abbreviatedName, description, isActive);
 
         // assert
-        Assert.True(application.Id != Guid.Empty);
+        Assert.True(application.Id.Value != Guid.Empty);
     }
 
     [Fact]
@@ -57,8 +58,8 @@ public class ApplicationTests : IDisposable
         Application application = Application.New(id, name, abbreviatedName, description, isActive);
 
         // assert
-        Assert.True(application.Id != id);
-        Assert.True(application.Id != Guid.Empty);
+        Assert.True(application.Id.Value != id);
+        Assert.True(application.Id.Value != Guid.Empty);
     }
 
     [Fact]

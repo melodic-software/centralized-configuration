@@ -2,6 +2,6 @@
 
 public interface IApplicationExistenceService
 {
-    Task<bool> ApplicationExistsAsync(Guid id);
+    Task<bool> ApplicationExistsAsync(ApplicationId id);
     Task<bool> ApplicationExistsAsync(string uniqueName);
 }

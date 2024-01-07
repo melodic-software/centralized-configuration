@@ -1,12 +1,11 @@
 ﻿using Dapper;
 
-namespace Enterprise.Dapper.TypeHandlers
+namespace Enterprise.Dapper.TypeHandlers;
+
+public static class TypeHandlerRegistrar
 {
-    public static class TypeHandlerRegistrar
+    public static void RegisterTypeHandlers()
     {
-        public static void RegisterTypeHandlers()
-        {
-            SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
-        }
+        SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
     }
 }

@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Enterprise.DomainDrivenDesign\Enterprise.DomainDrivenDesign.csproj" />
+    <ProjectReference Include="..\Enterprise.Exceptions\Enterprise.Exceptions.csproj" />
   </ItemGroup>
 
 </Project>

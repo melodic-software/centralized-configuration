@@ -1,64 +1,63 @@
 ﻿using Enterprise.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
-namespace Enterprise.EntityFramework.Contexts
+namespace Enterprise.EntityFramework.Contexts;
+
+public abstract class DbContextBase(DbContextOptions options) : DbContext(options)
 {
-    public abstract class DbContextBase(DbContextOptions options) : DbContext(options)
+    public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
-        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        try
         {
-            try
-            {
-                int result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+            int result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 
-                return result;
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw new ConcurrencyException("Concurrency exception occurred.", ex);
-            }
+            return result;
         }
-
-        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        catch (DbUpdateConcurrencyException ex)
         {
-            try
-            {
-                int result = await base.SaveChangesAsync(cancellationToken);
-
-                return result;
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw new ConcurrencyException("Concurrency exception occurred.", ex);
-            }
+            throw new ConcurrencyException("Concurrency exception occurred.", ex);
         }
+    }
 
-        public override int SaveChanges()
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    {
+        try
         {
-            try
-            {
-                int result = base.SaveChanges();
+            int result = await base.SaveChangesAsync(cancellationToken);
 
-                return result;
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw new ConcurrencyException("Concurrency exception occurred.", ex);
-            }
+            return result;
         }
-
-        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        catch (DbUpdateConcurrencyException ex)
         {
-            try
-            {
-                int result = base.SaveChanges(acceptAllChangesOnSuccess);
+            throw new ConcurrencyException("Concurrency exception occurred.", ex);
+        }
+    }
 
-                return result;
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                throw new ConcurrencyException("Concurrency exception occurred.", ex);
-            }
+    public override int SaveChanges()
+    {
+        try
+        {
+            int result = base.SaveChanges();
+
+            return result;
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            throw new ConcurrencyException("Concurrency exception occurred.", ex);
+        }
+    }
+
+    public override int SaveChanges(bool acceptAllChangesOnSuccess)
+    {
+        try
+        {
+            int result = base.SaveChanges(acceptAllChangesOnSuccess);
+
+            return result;
+        }
+        catch (DbUpdateConcurrencyException ex)
+        {
+            throw new ConcurrencyException("Concurrency exception occurred.", ex);
         }
     }
 }

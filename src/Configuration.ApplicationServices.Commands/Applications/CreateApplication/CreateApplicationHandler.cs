@@ -43,7 +43,7 @@ public sealed class CreateApplicationHandler(
             }
 
             ApplicationCreated applicationCreated = new ApplicationCreated(
-                application.Id,
+                application.Id.Value,
                 application.UniqueName,
                 application.Name,
                 application.AbbreviatedName,

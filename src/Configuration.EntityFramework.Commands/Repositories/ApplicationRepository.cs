@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Configuration.Domain.Applications;
+using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.EntityFramework.Commands.Repositories;
 
@@ -23,18 +24,18 @@ public class ApplicationRepository : IApplicationRepository
         //_logger = loggerFactory.CreateLogger("DataAccessLayer"); 
     }
 
-    public async Task<Application?> GetByIdAsync(Guid id)
+    public async Task<Application?> GetByIdAsync(ApplicationId id)
     {
-        _logger.LogInformation("Getting application in repository with ID of {id}", id);
+        _logger.LogInformation("Getting application in repository with ID of {id}", id.Value);
 
         Stopwatch stopwatch = Stopwatch.StartNew();
 
         ApplicationEntity? entity = await _context.Applications
-            .FirstOrDefaultAsync(x => x.DomainId == id && !x.IsDeleted);
+            .FirstOrDefaultAsync(x => x.DomainId == id.Value && !x.IsDeleted);
 
         stopwatch.Stop();
 
-        _logger.LogDebug("Querying application with {id} finished in {ticks} ticks", id, stopwatch.ElapsedTicks);
+        _logger.LogDebug("Querying application with {id} finished in {ticks} ticks", id.Value, stopwatch.ElapsedTicks);
 
         Application? application = Map(entity);
 
@@ -55,13 +56,13 @@ public class ApplicationRepository : IApplicationRepository
 
     public async Task Save(Application application)
     {
-        ApplicationEntity? entity = await _context.Applications.FirstOrDefaultAsync(x => x.DomainId == application.Id);
+        ApplicationEntity? entity = await _context.Applications.FirstOrDefaultAsync(x => x.DomainId == application.Id.Value);
 
         if (entity == null)
         {
             entity = new ApplicationEntity
             {
-                DomainId = application.Id,
+                DomainId = application.Id.Value,
                 DateCreated = DateTime.UtcNow
             };
         }
@@ -86,9 +87,9 @@ public class ApplicationRepository : IApplicationRepository
 
     }
 
-    public async Task DeleteApplicationAsync(Guid id)
+    public async Task DeleteApplicationAsync(ApplicationId id)
     {
-        ApplicationEntity? entity = await _context.Applications.FirstOrDefaultAsync(x => x.DomainId == id);
+        ApplicationEntity? entity = await _context.Applications.FirstOrDefaultAsync(x => x.DomainId == id.Value);
 
         if (entity == null)
             return;
@@ -131,7 +132,7 @@ public class ApplicationRepository : IApplicationRepository
 
         // TODO: can we move this out to auto mapper?
         Application application = new Application(
-            entity.DomainId,
+            new ApplicationId(entity.DomainId),
             entity.Name,
             entity.AbbreviatedName,
             entity.Description,

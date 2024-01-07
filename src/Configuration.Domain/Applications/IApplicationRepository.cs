@@ -2,8 +2,8 @@
 
 public interface IApplicationRepository
 {
-    Task<Application?> GetByIdAsync(Guid id);
+    Task<Application?> GetByIdAsync(ApplicationId id);
     Task<Application?> GetByUniqueNameAsync(string uniqueName);
     Task Save(Application application);
-    Task DeleteApplicationAsync(Guid id);
+    Task DeleteApplicationAsync(ApplicationId id);
 }
