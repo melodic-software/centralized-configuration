@@ -1,6 +1,4 @@
-﻿using Configuration.ApplicationServices.Queries.Applications.GetApplications;
-using Configuration.ApplicationServices.Queries.Applications.Shared;
-using Configuration.EntityFramework.DbContexts.Configuration;
+﻿using Configuration.EntityFramework.DbContexts.Configuration;
 using Configuration.EntityFramework.Entities;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Paging.Extensions;
@@ -12,6 +10,8 @@ using Enterprise.Sorting.Dynamic.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using Configuration.ApplicationServices.Applications.GetApplications;
+using Configuration.ApplicationServices.Applications.Shared;
 
 namespace Configuration.EntityFramework.Queries.Repositories;
 

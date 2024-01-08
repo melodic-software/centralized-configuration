@@ -2,8 +2,8 @@
 using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Controllers.Applications.V2;
 using Configuration.API.Tests.UnitTests.Services;
-using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
-using Configuration.ApplicationServices.Queries.Applications.Shared;
+using Configuration.ApplicationServices.Applications.GetApplicationById;
+using Configuration.ApplicationServices.Applications.Shared;
 using Configuration.AutoMapper.Profiles.Queries.V2;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Microsoft.AspNetCore.Mvc;

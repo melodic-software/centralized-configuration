@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V2;
-using Configuration.ApplicationServices.Queries.Applications.Shared;
+using Configuration.ApplicationServices.Applications.Shared;
 
 namespace Configuration.AutoMapper.Profiles.Queries.V2;
 

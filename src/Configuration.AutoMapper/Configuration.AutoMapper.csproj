@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Configuration.API.Client\Configuration.API.Client.csproj" />
-    <ProjectReference Include="..\Configuration.ApplicationServices.Queries\Configuration.ApplicationServices.Queries.csproj" />
     <ProjectReference Include="..\Configuration.Domain\Configuration.Domain.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework\Configuration.EntityFramework.csproj" />
     <ProjectReference Include="..\Enterprise.API.Client\Enterprise.API.Client.csproj" />

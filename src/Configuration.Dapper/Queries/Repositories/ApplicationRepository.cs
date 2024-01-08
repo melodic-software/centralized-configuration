@@ -1,12 +1,12 @@
-﻿using Configuration.ApplicationServices.Queries.Applications.GetApplications;
-using Configuration.ApplicationServices.Queries.Applications.Shared;
-using Dapper;
+﻿using Dapper;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
 using Microsoft.Extensions.Logging;
 using System.Data;
 using System.Data.SqlClient;
+using Configuration.ApplicationServices.Applications.GetApplications;
+using Configuration.ApplicationServices.Applications.Shared;
 
 namespace Configuration.Dapper.Queries.Repositories;
 

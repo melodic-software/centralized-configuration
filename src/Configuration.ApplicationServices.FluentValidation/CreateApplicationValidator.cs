@@ -1,4 +1,4 @@
-﻿using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
+﻿using Configuration.ApplicationServices.Applications.CreateApplication;
 using FluentValidation;
 
 namespace Configuration.ApplicationServices.FluentValidation;

@@ -8,9 +8,9 @@ using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.Domain.Applications.Events;
 using Enterprise.DomainDrivenDesign.Events;
-using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
-using Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
 using Configuration.API.Routing;
+using Configuration.ApplicationServices.Applications.CreateApplication;
+using Configuration.ApplicationServices.Applications.UpdateApplication;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

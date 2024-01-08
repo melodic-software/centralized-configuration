@@ -2,8 +2,8 @@
 using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Routing;
-using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
-using Configuration.ApplicationServices.Queries.Applications.Shared;
+using Configuration.ApplicationServices.Applications.GetApplicationById;
+using Configuration.ApplicationServices.Applications.Shared;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Microsoft.AspNetCore.Mvc;

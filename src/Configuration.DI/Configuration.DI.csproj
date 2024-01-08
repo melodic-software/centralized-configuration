@@ -7,9 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration.API.Client\Configuration.API.Client.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices.FluentValidation\Configuration.ApplicationServices.FluentValidation.csproj" />
+    <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Configuration.Dapper\Configuration.Dapper.csproj" />
+    <ProjectReference Include="..\Configuration.EntityFramework\Configuration.EntityFramework.csproj" />
     <ProjectReference Include="..\Enterprise.API\Enterprise.API.csproj" />
+    <ProjectReference Include="..\Enterprise.ApplicationServices.DI\Enterprise.ApplicationServices.DI.csproj" />
     <ProjectReference Include="..\Enterprise.DateTimes\Enterprise.DateTimes.csproj" />
     <ProjectReference Include="..\Enterprise.DI.DotNet\Enterprise.DI.DotNet.csproj" />
+    <ProjectReference Include="..\Enterprise.Events.DI\Enterprise.Events.DI.csproj" />
     <ProjectReference Include="..\Enterprise.Events\Enterprise.Events.csproj" />
     <ProjectReference Include="..\Enterprise.Reflection\Enterprise.Reflection.csproj" />
   </ItemGroup>

@@ -13,8 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Configuration.AutoMapper\Configuration.AutoMapper.csproj" />
     <ProjectReference Include="..\Configuration.Dapper\Configuration.Dapper.csproj" />
-    <ProjectReference Include="..\Configuration.DI.Commands\Configuration.DI.Commands.csproj" />
-    <ProjectReference Include="..\Configuration.DI.Queries\Configuration.DI.Queries.csproj" />
     <ProjectReference Include="..\Configuration.DI\Configuration.DI.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.Sqlite\Configuration.EntityFramework.Sqlite.csproj" />
     <ProjectReference Include="..\Configuration.EntityFramework.SqlServer\Configuration.EntityFramework.SqlServer.csproj" />
