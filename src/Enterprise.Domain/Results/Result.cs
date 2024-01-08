@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using Enterprise.Domain.Results.Generic;
+﻿using Enterprise.Domain.Results.Generic;
 using Enterprise.Domain.Validation;
 
 namespace Enterprise.Domain.Results;

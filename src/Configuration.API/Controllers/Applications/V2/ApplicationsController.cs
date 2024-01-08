@@ -3,7 +3,7 @@ using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Routing;
 using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
-using Configuration.Core.Queries.Model;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +52,7 @@ public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Produces(typeof(ApplicationDto))] // this is the "V2" version of the model
     public async Task<ActionResult<ApplicationDto>> GetApplicationById(Guid id,
-        [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
+        [FromServices] IHandleQuery<GetApplicationById, ApplicationResult?> queryHandler,
         CancellationToken cancellationToken)
     {
         // the data shaping support has been stripped to keep this as a simple self-contained example
@@ -60,7 +60,7 @@ public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
 
         GetApplicationById query = new GetApplicationById(id);
 
-        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
+        ApplicationResult? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         if (application == null)
             return NotFound();

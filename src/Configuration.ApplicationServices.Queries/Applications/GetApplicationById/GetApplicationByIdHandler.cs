@@ -1,5 +1,4 @@
-﻿using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers;
 
@@ -8,11 +7,11 @@ namespace Configuration.ApplicationServices.Queries.Applications.GetApplicationB
 public sealed class GetApplicationByIdHandler(
     IApplicationServiceDependencies appServiceDependencies,
     IApplicationRepository applicationRepository)
-    : QueryHandler<GetApplicationById, Application?>(appServiceDependencies)
+    : QueryHandler<GetApplicationById, ApplicationResult?>(appServiceDependencies)
 {
-    public override async Task<Application?> HandleAsync(GetApplicationById query, CancellationToken cancellationToken)
+    public override async Task<ApplicationResult?> HandleAsync(GetApplicationById query, CancellationToken cancellationToken)
     {
-        Application? application = await applicationRepository.GetByIdAsync(query.ApplicationId, cancellationToken);
+        ApplicationResult? application = await applicationRepository.GetByIdAsync(query.ApplicationId, cancellationToken);
 
         return application;
     }

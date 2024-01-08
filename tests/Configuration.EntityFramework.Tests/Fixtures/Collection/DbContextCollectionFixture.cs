@@ -9,7 +9,4 @@
 // test classes no longer need to implement IClassFixture<EmployeeServiceFixture>
 // and instead only need to be decorated with the [Collection] attribute (using the definition name)
 [CollectionDefinition(nameof(DbContextCollectionFixture))]
-public class DbContextCollectionFixture : ICollectionFixture<DbContextFixture>
-{
-
-}
+public class DbContextCollectionFixture : ICollectionFixture<DbContextFixture>;

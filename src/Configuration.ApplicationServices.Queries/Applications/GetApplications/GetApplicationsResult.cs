@@ -1,14 +1,14 @@
-﻿using Configuration.Core.Queries.Model;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Enterprise.Core.Queries.Paging;
 
 namespace Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
 public class GetApplicationsResult
 {
-    public IEnumerable<Application> Applications { get; }
+    public IEnumerable<ApplicationResult> Applications { get; }
     public PaginationMetadata PaginationMetadata { get; }
 
-    public GetApplicationsResult(IEnumerable<Application> applications, PaginationMetadata paginationMetadata)
+    public GetApplicationsResult(IEnumerable<ApplicationResult> applications, PaginationMetadata paginationMetadata)
     {
         Applications = applications;
         PaginationMetadata = paginationMetadata;
@@ -16,7 +16,7 @@ public class GetApplicationsResult
 
     public static GetApplicationsResult Empty(PagingOptions pagingOptions)
     {
-        List<Application> items = new List<Application>();
+        List<ApplicationResult> items = new List<ApplicationResult>();
         PaginationMetadata paginationMetadata = new PaginationMetadata(0, pagingOptions);
         GetApplicationsResult result = new GetApplicationsResult(items, paginationMetadata);
         return result;

@@ -100,5 +100,5 @@ ApiConfigurationService.Configure(args, options =>
 // https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests
 namespace Configuration.API
 {
-    public partial class Program { }
+    public partial class Program;
 }

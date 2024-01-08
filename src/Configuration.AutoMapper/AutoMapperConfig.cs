@@ -9,6 +9,6 @@ public static class AutoMapperConfig
         // this assembly lives in the project dedicated to AutoMapper mapping profiles
         Assembly mappingProfileAssembly = typeof(AutoMapperConfig).Assembly;
 
-        return new[] { mappingProfileAssembly };
+        return [mappingProfileAssembly];
     };
 }

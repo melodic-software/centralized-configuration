@@ -1,6 +1,6 @@
-﻿namespace Configuration.Core.Queries.Model;
+﻿namespace Configuration.ApplicationServices.Queries.Applications.Shared;
 
-public class Application
+public class ApplicationResult
 {
     public Guid Id { get; set; }
     public string UniqueName { get; set; }
@@ -9,7 +9,7 @@ public class Application
     public string? Description { get; set; }
     public bool IsActive { get; set; }
 
-    public Application(Guid id, string uniqueName, string name, string? abbreviatedName, string? description, bool isActive)
+    public ApplicationResult(Guid id, string uniqueName, string name, string? abbreviatedName, string? description, bool isActive)
     {
         Id = id;
         UniqueName = uniqueName;

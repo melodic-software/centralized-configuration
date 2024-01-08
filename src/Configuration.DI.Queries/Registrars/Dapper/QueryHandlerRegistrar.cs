@@ -1,8 +1,7 @@
 ﻿using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
 using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 using Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
-using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.Core.Queries.Sorting;
@@ -30,7 +29,7 @@ internal static class QueryHandlerRegistrar
         {
             IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplicationById, Application?> getApplicationByIdHandler = new GetApplicationByIdHandler(appServiceDependencies, applicationRepository);
+            IHandleQuery<GetApplicationById, ApplicationResult?> getApplicationByIdHandler = new GetApplicationByIdHandler(appServiceDependencies, applicationRepository);
             return getApplicationByIdHandler;
         });
 
@@ -38,7 +37,7 @@ internal static class QueryHandlerRegistrar
         {
             IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplicationByUniqueName, Application?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(appServiceDependencies, applicationRepository);
+            IHandleQuery<GetApplicationByUniqueName, ApplicationResult?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(appServiceDependencies, applicationRepository);
             return getApplicationByUniqueNameHandler;
         });
     }

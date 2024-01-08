@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Configuration.API.Client.DTOs.Output.V2;
-using Configuration.Core.Queries.Model;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 
 namespace Configuration.AutoMapper.Profiles.Queries.V2;
 
@@ -19,7 +19,7 @@ public class ApplicationProfile : Profile
 
     public void ApplicationServiceModelsToApiContracts()
     {
-        CreateMap<Application, ApplicationDto>()
+        CreateMap<ApplicationResult, ApplicationDto>()
             .ConstructUsing(x => new ApplicationDto(x.Id, x.UniqueName, x.Name, x.IsActive));
     }
 }

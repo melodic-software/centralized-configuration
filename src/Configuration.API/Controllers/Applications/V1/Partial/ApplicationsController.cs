@@ -8,7 +8,7 @@ using Configuration.ApplicationServices.Commands.Applications.CreateApplication;
 using Configuration.ApplicationServices.Commands.Applications.DeleteApplication;
 using Configuration.ApplicationServices.Commands.Applications.UpdateApplication;
 using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
-using Configuration.Core.Queries.Model;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.Domain.Applications.Events;
 using Enterprise.API.Constants;
 using Enterprise.API.Controllers.Abstract;
@@ -101,7 +101,7 @@ public partial class ApplicationsController : CustomControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ApplicationDto))]
     [Consumes(MediaTypeConstants.JsonPatch)]
     public async Task<IActionResult> Patch(Guid id, JsonPatchDocument<UpdateApplicationDto>? patchDocument,
-        [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
+        [FromServices] IHandleQuery<GetApplicationById, ApplicationResult?> queryHandler,
         [FromServices] IHandleCommand<UpdateApplication> updateApplicationHandler,
         [FromServices] IHandleCommand<CreateApplication> createApplicationHandler
         , CancellationToken cancellationToken)
@@ -118,7 +118,7 @@ public partial class ApplicationsController : CustomControllerBase
         // the "Microsoft.AspNetCore.Mvc.NewtonsoftJson" adds a transitive dependency for "Microsoft.AspNetCore.JsonPatch"
 
         GetApplicationById query = new GetApplicationById(id);
-        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
+        ApplicationResult? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         UpdateApplicationDto? updateDto = application == null ?
             new UpdateApplicationDto() :

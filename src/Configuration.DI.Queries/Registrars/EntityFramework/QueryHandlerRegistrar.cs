@@ -1,8 +1,7 @@
 ﻿using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
 using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 using Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
-using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.EntityFramework.Entities;
 using Configuration.EntityFramework.Queries.Sorting;
 using Enterprise.ApplicationServices.Abstractions;
@@ -21,7 +20,7 @@ internal static class QueryHandlerRegistrar
         {
             IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
-            IValidateSort sortValidator = new SortValidator<Application, ApplicationEntity>(propertyMappingService);
+            IValidateSort sortValidator = new SortValidator<ApplicationResult, ApplicationEntity>(propertyMappingService);
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
             
             return new GetApplicationsHandler(appServiceDependencies, sortValidator, applicationRepository);

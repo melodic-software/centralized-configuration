@@ -2,7 +2,4 @@
 
 namespace Enterprise.DomainDrivenDesign.Events.Abstract;
 
-public abstract class DomainEvent : EventBase, IDomainEvent
-{
-
-}
+public abstract class DomainEvent : EventBase, IDomainEvent;

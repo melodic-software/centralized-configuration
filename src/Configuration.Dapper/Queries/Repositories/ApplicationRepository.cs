@@ -1,6 +1,5 @@
-﻿using Configuration.Core.Queries.Filtering;
-using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.GetApplications;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Dapper;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
@@ -16,13 +15,13 @@ public class ApplicationRepository(string? connectionString, ILogger<Application
     private readonly IDbConnection _db = new SqlConnection(connectionString);
     private readonly ILogger<ApplicationRepository> _logger = logger;
 
-    public Task<PagedList<Application>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions,
+    public Task<PagedList<ApplicationResult>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions,
         PagingOptions pagingOptions, SortOptions sortOptions, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Application?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<ApplicationResult?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         DynamicParameters dynamicParameters = new DynamicParameters();
         dynamicParameters.Add("ApplicationGuid", id);
@@ -45,12 +44,12 @@ public class ApplicationRepository(string? connectionString, ILogger<Application
         string? description = result.ApplicationDescription;
         bool isActive = result.IsActive;
 
-        Application application = new Application(id, uniqueName, applicationName, abbreviatedName, description, isActive);
+        ApplicationResult application = new ApplicationResult(id, uniqueName, applicationName, abbreviatedName, description, isActive);
 
         return application;
     }
 
-    public Task<Application?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)
+    public Task<ApplicationResult?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

@@ -1,8 +1,7 @@
-﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.Events.Services.Raising;
+﻿using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
-namespace Enterprise.ApplicationServices;
+namespace Enterprise.ApplicationServices.Abstractions;
 
 public class ApplicationServiceDependencies(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
     : IApplicationServiceDependencies

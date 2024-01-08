@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Configuration.EntityFramework.Queries.Repositories;
 using Enterprise.Mapping.Properties.Services.Abstract;

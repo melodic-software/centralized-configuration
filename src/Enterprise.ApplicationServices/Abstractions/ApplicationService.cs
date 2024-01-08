@@ -1,9 +1,8 @@
-﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.Events.Model;
+﻿using Enterprise.Events.Model;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
-namespace Enterprise.ApplicationServices;
+namespace Enterprise.ApplicationServices.Abstractions;
 
 public abstract class ApplicationService : IApplicationService
 {

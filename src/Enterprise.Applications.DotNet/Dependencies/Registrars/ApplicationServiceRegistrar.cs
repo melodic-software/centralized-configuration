@@ -1,5 +1,4 @@
-﻿using Enterprise.ApplicationServices;
-using Enterprise.ApplicationServices.Abstractions;
+﻿using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Microsoft.Extensions.DependencyInjection;

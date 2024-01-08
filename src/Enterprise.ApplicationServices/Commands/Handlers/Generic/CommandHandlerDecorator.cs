@@ -9,7 +9,7 @@ public abstract class CommandHandlerDecorator<T>(IHandleCommand<T> commandHandle
     protected IHandleCommand<T> DecoratedHandler { get; } = commandHandler;
 
     public abstract Task HandleAsync(T command);
-
+    
     public void ClearCallbacks()
     {
         DecoratedHandler.ClearCallbacks();

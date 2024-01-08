@@ -2,7 +2,4 @@
 
 namespace Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
-public interface IEventCallbackService : IRegisterEventCallbacks, IRaiseEventCallbacks
-{
-
-}
+public interface IEventCallbackService : IRegisterEventCallbacks, IRaiseEventCallbacks;

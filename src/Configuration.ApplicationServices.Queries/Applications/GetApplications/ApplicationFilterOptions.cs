@@ -1,6 +1,6 @@
-﻿namespace Configuration.Core.Queries.Filtering;
+﻿namespace Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
-public  class ApplicationFilterOptions
+public class ApplicationFilterOptions
 {
     public string? Name { get; set; }
     public string? AbbreviatedName { get; set; }

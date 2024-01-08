@@ -10,7 +10,4 @@
 
 namespace Configuration.API.Tests;
 
-public static class AssemblyReference
-{
-
-}
+public static class AssemblyReference;

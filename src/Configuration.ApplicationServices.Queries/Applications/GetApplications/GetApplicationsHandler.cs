@@ -1,6 +1,4 @@
-﻿using Configuration.Core.Queries.Filtering;
-using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Core.Queries.Paging;
@@ -8,7 +6,7 @@ using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
 using Enterprise.DomainDrivenDesign.Events;
 using System.Diagnostics;
-using static Configuration.Core.Queries.Constants.ApplicationQueryConstants;
+using static Configuration.ApplicationServices.Queries.Applications.Shared.ApplicationQueryConstants;
 
 namespace Configuration.ApplicationServices.Queries.Applications.GetApplications;
 
@@ -37,7 +35,7 @@ public sealed class GetApplicationsHandler(
         }
 
         Activity.Current?.AddEvent(new ActivityEvent("Getting applications from repository"));
-        PagedList<Application> pagedList = await applicationRepository.GetApplicationsAsync(filterOptions, searchOptions, pagingOptions, sortOptions, cancellationToken);
+        PagedList<ApplicationResult> pagedList = await applicationRepository.GetApplicationsAsync(filterOptions, searchOptions, pagingOptions, sortOptions, cancellationToken);
         Activity.Current?.AddEvent(new ActivityEvent("Retrieved applications from repository"));
 
         GetApplicationsResult queryResult = new GetApplicationsResult(pagedList, pagedList.PaginationMetadata);

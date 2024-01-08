@@ -1,13 +1,15 @@
 ﻿using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Controllers.Applications.V1.Extensions;
+using Configuration.API.Logging;
+using Configuration.API.Routing;
 using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
 using Configuration.ApplicationServices.Queries.Applications.GetApplications;
 using Configuration.ApplicationServices.Queries.Applications.GetByUniqueName;
-using Configuration.Core.Queries.Model;
 using Enterprise.API.ActionConstraints;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Constants;
+using Enterprise.API.ContentNegotiation.Constants;
 using Enterprise.API.Controllers.Extensions;
 using Enterprise.API.Results;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
@@ -15,9 +17,7 @@ using Enterprise.Reflection.Properties.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Dynamic;
-using Enterprise.API.ContentNegotiation.Constants;
-using Configuration.API.Logging;
-using Configuration.API.Routing;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 
 namespace Configuration.API.Controllers.Applications.V1.Partial;
 
@@ -139,7 +139,7 @@ public partial class ApplicationsController
     public async Task<IActionResult> GetApplicationById(Guid id, string? properties,
         [FromHeader(Name = HttpHeaderConstants.Accept)] string? mediaType,
         [FromServices] IPropertyExistenceService propertyExistenceService,
-        [FromServices] IHandleQuery<GetApplicationById, Application?> queryHandler,
+        [FromServices] IHandleQuery<GetApplicationById, ApplicationResult?> queryHandler,
         CancellationToken cancellationToken)
     {
         LogGettingApplicationById(id);
@@ -163,7 +163,7 @@ public partial class ApplicationsController
             return this.BadDataShapingRequest(_problemDetailsFactory, properties);
 
         GetApplicationById query = new GetApplicationById(id);
-        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
+        ApplicationResult? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         if (application == null)
         {
@@ -209,7 +209,7 @@ public partial class ApplicationsController
     public async Task<IActionResult> GetApplicationByUniqueName(string uniqueName, string? properties,
         [FromHeader(Name = HttpHeaderConstants.Accept)] string? mediaType,
         [FromServices] IPropertyExistenceService propertyExistenceService,
-        [FromServices] IHandleQuery<GetApplicationByUniqueName, Application?> queryHandler,
+        [FromServices] IHandleQuery<GetApplicationByUniqueName, ApplicationResult?> queryHandler,
         CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(uniqueName))
@@ -232,7 +232,7 @@ public partial class ApplicationsController
             return this.BadDataShapingRequest(_problemDetailsFactory, properties);
 
         GetApplicationByUniqueName query = new GetApplicationByUniqueName(uniqueName);
-        Application? application = await queryHandler.HandleAsync(query, cancellationToken);
+        ApplicationResult? application = await queryHandler.HandleAsync(query, cancellationToken);
 
         if (application == null)
         {

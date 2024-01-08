@@ -1,6 +1,3 @@
 ﻿namespace Configuration.API.Client;
 
-public class ApplicationsClient
-{
-
-}
+public class ApplicationsClient;

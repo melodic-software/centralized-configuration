@@ -1,5 +1,4 @@
-﻿
-namespace Configuration.Core.Queries.Constants;
+﻿namespace Configuration.ApplicationServices.Queries.Applications.Shared;
 
 public static class ApplicationQueryConstants
 {

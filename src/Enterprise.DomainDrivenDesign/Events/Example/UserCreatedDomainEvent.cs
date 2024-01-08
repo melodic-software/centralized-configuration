@@ -2,7 +2,4 @@
 
 namespace Enterprise.DomainDrivenDesign.Events.Example;
 
-public class UserCreatedDomainEvent(Guid userId) : DomainEvent
-{
-    
-}
+public class UserCreatedDomainEvent(Guid userId) : DomainEvent;

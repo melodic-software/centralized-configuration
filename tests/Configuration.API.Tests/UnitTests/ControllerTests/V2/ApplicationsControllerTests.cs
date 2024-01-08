@@ -3,8 +3,8 @@ using Configuration.API.Client.DTOs.Output.V2;
 using Configuration.API.Controllers.Applications.V2;
 using Configuration.API.Tests.UnitTests.Services;
 using Configuration.ApplicationServices.Queries.Applications.GetApplicationById;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.AutoMapper.Profiles.Queries.V2;
-using Configuration.Core.Queries.Model;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -24,7 +24,7 @@ public class ApplicationsControllerTests
 
         Guid applicationId = new Guid("5e950823-fe27-4c22-bf4b-7c7d429517ea");
 
-        Application application = new Application(
+        ApplicationResult application = new ApplicationResult(
             applicationId,
             "Test Application-5e950823",
             "Test Application",
@@ -33,7 +33,7 @@ public class ApplicationsControllerTests
             true
         );
 
-        Mock<IHandleQuery<GetApplicationById, Application?>> queryHandlerMock = new Mock<IHandleQuery<GetApplicationById, Application?>>();
+        Mock<IHandleQuery<GetApplicationById, ApplicationResult?>> queryHandlerMock = new Mock<IHandleQuery<GetApplicationById, ApplicationResult?>>();
 
         queryHandlerMock
             .Setup(x =>

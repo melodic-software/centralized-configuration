@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Configuration.Core.Queries.Model;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Client.Hypermedia.Constants;
 using Enterprise.API.Client.Pagination;
@@ -20,6 +19,7 @@ using Configuration.API.Client.DTOs.Output.V1;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
 using Configuration.ApplicationServices.Queries.Applications.GetApplications;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 
@@ -59,7 +59,7 @@ public static class QueryExtensions
         }
 
         // query results
-        IEnumerable<Application> applications = queryResult.Applications;
+        IEnumerable<ApplicationResult> applications = queryResult.Applications;
         PaginationMetadata paginationMetadata = queryResult.PaginationMetadata;
 
         logger.LogInformation($"Returning {applications.Count()} applications.");
@@ -80,7 +80,7 @@ public static class QueryExtensions
         return result;
     }
 
-    public static ExpandoObject GetResultModel(this ControllerBase controller, Application application,
+    public static ExpandoObject GetResultModel(this ControllerBase controller, ApplicationResult application,
         string? properties, MediaTypeHeaderValue mediaType, IMapper mapper)
     {
         bool includeLinks = mediaType.EndsWithHATEOAS();

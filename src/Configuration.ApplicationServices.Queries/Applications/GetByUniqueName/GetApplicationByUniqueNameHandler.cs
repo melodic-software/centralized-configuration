@@ -1,5 +1,4 @@
-﻿using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers;
 
@@ -8,11 +7,11 @@ namespace Configuration.ApplicationServices.Queries.Applications.GetByUniqueName
 public sealed class GetApplicationByUniqueNameHandler(
     IApplicationServiceDependencies appServiceDependencies,
     IApplicationRepository applicationRepository)
-    : QueryHandler<GetApplicationByUniqueName, Application?>(appServiceDependencies)
+    : QueryHandler<GetApplicationByUniqueName, ApplicationResult?>(appServiceDependencies)
 {
-    public override async Task<Application?> HandleAsync(GetApplicationByUniqueName query, CancellationToken cancellationToken)
+    public override async Task<ApplicationResult?> HandleAsync(GetApplicationByUniqueName query, CancellationToken cancellationToken)
     {
-        Application? application = await applicationRepository.GetByUniqueNameAsync(query.UniqueName, cancellationToken);
+        ApplicationResult? application = await applicationRepository.GetByUniqueNameAsync(query.UniqueName, cancellationToken);
 
         return application;
     }

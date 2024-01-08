@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Queries.Model;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.DI.Queries.Mapping.EntityFramework;
 using Configuration.EntityFramework.Entities;
 using Enterprise.Mapping.Properties.Model;
@@ -18,7 +18,7 @@ internal class PropertyMappingRegistrar
         {
             IList<IPropertyMapping> propertyMappings = new List<IPropertyMapping>
             {
-                new PropertyMapping<Application, ApplicationEntity>(PropertyMappings.ApplicationMappings)
+                new PropertyMapping<ApplicationResult, ApplicationEntity>(PropertyMappings.ApplicationMappings)
                 // add any additional mappings here (add to static PropertyMappings class)
             };
 

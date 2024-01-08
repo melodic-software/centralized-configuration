@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Configuration.Core.Queries\Configuration.Core.Queries.csproj" />
     <ProjectReference Include="..\..\src\Configuration.Domain\Configuration.Domain.csproj" />
   </ItemGroup>
 

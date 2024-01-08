@@ -1,4 +1,4 @@
-﻿using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.Dapper.Queries.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

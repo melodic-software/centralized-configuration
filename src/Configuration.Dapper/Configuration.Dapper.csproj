@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration.ApplicationServices\Configuration.ApplicationServices.csproj" />
+    <ProjectReference Include="..\Enterprise.Core\Enterprise.Core.csproj" />
     <ProjectReference Include="..\Enterprise.Dapper\Enterprise.Dapper.csproj" />
   </ItemGroup>
 

@@ -1,6 +1,3 @@
 ﻿namespace Configuration.ApplicationServices.FluentValidation;
 
-public static class AppServiceFluentValidationAssembly
-{
-
-}
+public static class AppServiceFluentValidationAssembly;

@@ -1,6 +1,5 @@
-﻿using Configuration.Core.Queries.Filtering;
-using Configuration.Core.Queries.Model;
-using Configuration.Core.Queries.Repositories;
+﻿using Configuration.ApplicationServices.Queries.Applications.GetApplications;
+using Configuration.ApplicationServices.Queries.Applications.Shared;
 using Configuration.EntityFramework.DbContexts.Configuration;
 using Configuration.EntityFramework.Entities;
 using Enterprise.Core.Queries.Paging;
@@ -29,7 +28,7 @@ public class ApplicationRepository : IApplicationRepository
         _logger = logger;
     }
 
-    public async Task<PagedList<Application>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions, 
+    public async Task<PagedList<ApplicationResult>> GetApplicationsAsync(ApplicationFilterOptions filterOptions, SearchOptions searchOptions, 
         PagingOptions pagingOptions, SortOptions sortOptions, CancellationToken cancellationToken)
     {
         // working with IQueryable<T> means we can sequentially build a query (expression tree of query commands)
@@ -74,19 +73,19 @@ public class ApplicationRepository : IApplicationRepository
         if (!string.IsNullOrWhiteSpace(sortOptions.OrderBy))
         {
             Dictionary<string, PropertyMappingValue> mappingDictionary = _propertyMappingService
-                .GetPropertyMapping<Application, ApplicationEntity>();
+                .GetPropertyMapping<ApplicationResult, ApplicationEntity>();
 
             // dynamic sort
             query = query.ApplySort(sortOptions.OrderBy, mappingDictionary);
         }
 
-        PagedList<Application> result = await query
+        PagedList<ApplicationResult> result = await query
             .ToPagedListAsync(pagingOptions, queryable => queryable.ToListAsync(cancellationToken), Map);
 
         return result;
     }
 
-    public async Task<Application?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<ApplicationResult?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Getting application in repository with ID: {id}", id);
 
@@ -104,12 +103,12 @@ public class ApplicationRepository : IApplicationRepository
         if (entity == null)
             return null;
 
-        Application application = Map(entity);
+        ApplicationResult application = Map(entity);
 
         return application;
     }
 
-    public async Task<Application?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)
+    public async Task<ApplicationResult?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)
     {
         ApplicationEntity? entity = await _context.Applications.AsNoTracking()
             .Where(x => !x.IsDeleted)
@@ -118,14 +117,14 @@ public class ApplicationRepository : IApplicationRepository
         if (entity == null)
             return null;
 
-        Application application = Map(entity);
+        ApplicationResult application = Map(entity);
 
         return application;
     }
 
-    private static Application Map(ApplicationEntity entity)
+    private static ApplicationResult Map(ApplicationEntity entity)
     {
-        return new Application(
+        return new ApplicationResult(
             entity.DomainId, 
             entity.UniqueName, 
             entity.Name, 
