@@ -1,6 +1,5 @@
 using Configuration.Domain.Applications;
 using Xunit;
-using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.Domain.Tests.Domain.Models.Entities;
 
