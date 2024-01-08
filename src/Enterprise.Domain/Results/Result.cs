@@ -1,21 +1,18 @@
-﻿using Enterprise.Domain.Generic;
+﻿using System.Diagnostics.CodeAnalysis;
+using Enterprise.Domain.Results.Generic;
 using Enterprise.Domain.Validation;
 
-namespace Enterprise.Domain;
+namespace Enterprise.Domain.Results;
 
 public class Result
 {
     protected internal Result(bool isSuccess, Error error)
     {
         if (isSuccess && error != Error.None)
-        {
             throw new InvalidOperationException();
-        }
 
         if (!isSuccess && error == Error.None)
-        {
             throw new InvalidOperationException();
-        }
 
         IsSuccess = isSuccess;
         Error = error;

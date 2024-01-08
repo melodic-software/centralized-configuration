@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Enterprise.Domain.Validation;
 
-namespace Enterprise.Domain.Generic;
+namespace Enterprise.Domain.Results.Generic;
 
 public class Result<TValue> : Result
 {
