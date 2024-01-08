@@ -4,10 +4,10 @@ namespace Configuration.Domain.Applications.Events;
 
 public class ApplicationNotFound : DomainEvent
 {
-    public Guid Id { get; }
+    public Guid ApplicationId { get; }
 
-    public ApplicationNotFound(Guid id)
+    public ApplicationNotFound(Guid applicationId)
     {
-        Id = id;
+        ApplicationId = applicationId;
     }
 }

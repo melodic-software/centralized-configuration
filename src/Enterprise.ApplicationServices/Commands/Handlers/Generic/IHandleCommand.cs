@@ -12,3 +12,8 @@ public interface IHandleCommand<in T> : IApplicationService where T : ICommand
     /// <returns></returns>
     Task HandleAsync(T command);
 }
+
+public interface IHandleCommand<in TCommand, TResponse> where TCommand : ICommand<TResponse>
+{
+
+}

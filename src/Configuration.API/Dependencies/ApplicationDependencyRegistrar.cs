@@ -45,7 +45,7 @@ public static class ApplicationDependencyRegistrar
 
         // FluentValidation
         // TODO: Where does this really need to live? Can it be automatic or configurable?
-        services.AddValidatorsFromAssembly(typeof(AssemblyReference).Assembly);
+        services.AddValidatorsFromAssembly(typeof(AppServiceFluentValidationAssembly).Assembly);
 
         // These are the configuration options for the transactional outbox.
         services.Configure<OutboxOptions>(configuration.GetSection("Outbox"));
