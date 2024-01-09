@@ -4,7 +4,6 @@ using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Events;
 using Enterprise.DomainDrivenDesign.Events;
 using Enterprise.Exceptions;
-using Microsoft.Extensions.Logging;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
@@ -15,10 +14,9 @@ public sealed class CreateApplicationHandler : CommandHandlerBase<CreateApplicat
     private readonly IApplicationRepository _applicationRepository;
 
     public CreateApplicationHandler(IEventServiceFacade eventServiceFacade,
-        ILogger<CommandHandlerBase<CreateApplication>> logger,
         ApplicationValidationService applicationValidationService,
         IApplicationExistenceService applicationExistenceService,
-        IApplicationRepository applicationRepository) : base(eventServiceFacade, logger)
+        IApplicationRepository applicationRepository) : base(eventServiceFacade)
     {
         _applicationValidationService = applicationValidationService;
         _applicationExistenceService = applicationExistenceService;

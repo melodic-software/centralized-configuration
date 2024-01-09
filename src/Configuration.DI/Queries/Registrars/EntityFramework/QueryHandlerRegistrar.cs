@@ -23,13 +23,12 @@ internal static class QueryHandlerRegistrar
         services.RegisterQueryHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<GetApplicationsHandler> logger = provider.GetRequiredService<ILogger<GetApplicationsHandler>>();
 
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
             IValidateSort sortValidator = new SortValidator<ApplicationResult, ApplicationEntity>(propertyMappingService);
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
             
-            return new GetApplicationsHandler(eventServiceFacade, logger,sortValidator, applicationRepository);
+            return new GetApplicationsHandler(eventServiceFacade, sortValidator, applicationRepository);
         });
 
         services.RegisterSimpleQueryHandler(provider =>
@@ -46,11 +45,10 @@ internal static class QueryHandlerRegistrar
         services.RegisterQueryHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<GetApplicationByUniqueNameHandler> logger = provider.GetRequiredService<ILogger<GetApplicationByUniqueNameHandler>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
             
-            return new GetApplicationByUniqueNameHandler(eventServiceFacade, logger, applicationRepository);
+            return new GetApplicationByUniqueNameHandler(eventServiceFacade, applicationRepository);
         });
     }
 }

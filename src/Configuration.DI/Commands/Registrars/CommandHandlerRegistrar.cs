@@ -17,7 +17,6 @@ internal static class CommandHandlerRegistrar
         services.RegisterCommandHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<CommandHandlerBase<CreateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<CreateApplication>>>();
 
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
@@ -25,7 +24,6 @@ internal static class CommandHandlerRegistrar
 
             return new CreateApplicationHandler(
                 eventServiceFacade,
-                logger,
                 validationService,
                 applicationExistenceService,
                 applicationRepository
@@ -35,7 +33,6 @@ internal static class CommandHandlerRegistrar
         services.RegisterCommandHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<CommandHandlerBase<UpdateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<UpdateApplication>>>();
 
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             ApplicationValidationService validationService = new ApplicationValidationService();
@@ -43,7 +40,6 @@ internal static class CommandHandlerRegistrar
 
             return new UpdateApplicationHandler(
                 eventServiceFacade,
-                logger,
                 applicationExistenceService,
                 validationService,
                 applicationRepository
@@ -53,15 +49,10 @@ internal static class CommandHandlerRegistrar
         services.RegisterCommandHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<CommandHandlerBase<DeleteApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<DeleteApplication>>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
-            return new DeleteApplicationHandler(
-                eventServiceFacade,
-                logger,
-                applicationRepository
-            );
+            return new DeleteApplicationHandler(eventServiceFacade, applicationRepository);
         });
     }
 }

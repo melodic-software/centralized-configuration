@@ -80,7 +80,13 @@ public class ApplicationCollectionsController : CustomControllerBase
     private async Task ExecuteCommand(IHandleCommand<CreateApplication> commandHandler, CreateApplicationDto createApplicationDto,
         List<ValidationFailure> validationFailures, List<ApplicationCreated> applicationCreatedEvents)
     {
-        CreateApplication command = new CreateApplication(createApplicationDto.Id, createApplicationDto.Name, createApplicationDto.AbbreviatedName, createApplicationDto.Description, createApplicationDto.IsActive);
+        CreateApplication command = new CreateApplication(
+            createApplicationDto.Id,
+            createApplicationDto.Name,
+            createApplicationDto.AbbreviatedName,
+            createApplicationDto.Description,
+            createApplicationDto.IsActive
+        );
 
         ApplicationCreated? applicationCreated = null;
         bool validationFailed = false;

@@ -1,33 +1,19 @@
 ﻿using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.ApplicationServices.Events;
-using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers;
 
 public abstract class CommandHandlerBase<T> : ApplicationServiceBase, IHandleCommand<T> where T : ICommand
 {
-    private readonly ILogger<CommandHandlerBase<T>> _logger;
-
-    protected CommandHandlerBase(
-        IEventServiceFacade eventServiceFacade,
-        ILogger<CommandHandlerBase<T>> logger)
-        : base(eventServiceFacade, logger)
+    protected CommandHandlerBase(IEventServiceFacade eventServiceFacade) : base(eventServiceFacade)
     {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
     }
 
     public async Task HandleAsync(ICommand command)
     {
-        try
-        {
-            ValidateType(command);
-            await HandleAsync((dynamic)command);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, $"Error handling command of type {command.GetType().Name}");
-            throw;
-        }
+        ValidateType(command);
+        await HandleAsync((dynamic)command);
     }
 
     public abstract Task HandleAsync(T command);

@@ -7,8 +7,6 @@ using Enterprise.ApplicationServices.DI;
 using Enterprise.ApplicationServices.Events;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Core.Queries.Sorting;
-using Enterprise.Events.Services.Raising;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Enterprise.Mapping.Properties.Services.Abstract;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,13 +21,12 @@ internal static class QueryHandlerRegistrar
         services.AddTransient(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<GetApplicationsHandler> logger = provider.GetRequiredService<ILogger<GetApplicationsHandler>>();
             
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
             IValidateSort sortValidator = null; // TODO: create object instance
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplications, GetApplicationsResult> getApplicationsHandler = new GetApplicationsHandler(eventServiceFacade, logger, sortValidator, applicationRepository);
+            IHandleQuery<GetApplications, GetApplicationsResult> getApplicationsHandler = new GetApplicationsHandler(eventServiceFacade, sortValidator, applicationRepository);
             return getApplicationsHandler;
         });
 
@@ -47,10 +44,9 @@ internal static class QueryHandlerRegistrar
         services.RegisterQueryHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<GetApplicationByUniqueNameHandler> logger = provider.GetRequiredService<ILogger<GetApplicationByUniqueNameHandler>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplicationByUniqueName, ApplicationResult?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(eventServiceFacade, logger, applicationRepository);
+            IHandleQuery<GetApplicationByUniqueName, ApplicationResult?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(eventServiceFacade, applicationRepository);
             return getApplicationByUniqueNameHandler;
         });
     }

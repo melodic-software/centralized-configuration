@@ -1,6 +1,5 @@
 ﻿using Enterprise.ApplicationServices.Events;
 using Enterprise.ApplicationServices.Queries.Model;
-using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 
@@ -8,8 +7,7 @@ public abstract class QueryHandlerBase<TQuery, TResult> : ApplicationServiceBase
     IHandleQuery<TQuery, TResult>
     where TQuery : IQuery
 {
-    protected QueryHandlerBase(IEventServiceFacade eventServiceFacade,
-        ILogger<QueryHandlerBase<TQuery, TResult>> logger) : base(eventServiceFacade, logger)
+    protected QueryHandlerBase(IEventServiceFacade eventServiceFacade) : base(eventServiceFacade)
     {
     }
 

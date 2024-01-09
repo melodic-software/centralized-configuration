@@ -5,7 +5,6 @@ using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
 using Enterprise.DomainDrivenDesign.Events;
-using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using static Configuration.ApplicationServices.Applications.Shared.ApplicationQueryConstants;
 
@@ -17,9 +16,8 @@ public sealed class GetApplicationsHandler : QueryHandlerBase<GetApplications, G
     private readonly IApplicationRepository _applicationRepository;
 
     public GetApplicationsHandler(IEventServiceFacade eventServiceFacade,
-        ILogger<GetApplicationsHandler> logger,
         IValidateSort sortValidator,
-        IApplicationRepository applicationRepository) : base(eventServiceFacade, logger)
+        IApplicationRepository applicationRepository) : base(eventServiceFacade)
     {
         _sortValidator = sortValidator;
         _applicationRepository = applicationRepository;

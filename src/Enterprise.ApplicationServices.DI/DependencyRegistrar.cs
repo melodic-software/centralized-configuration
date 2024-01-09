@@ -53,14 +53,13 @@ public static class DependencyRegistrar
             .Add(provider =>
             {
                 IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-                ILogger<SimpleQueryHandler<TQuery, TResult>> logger = provider.GetRequiredService<ILogger<SimpleQueryHandler<TQuery, TResult>>>();
 
                 // Resolve the query logic implementation.
                 IQueryLogic<TQuery, TResult> queryLogic = queryLogicFactory(provider);
 
                 // Use a common handler that delegates to the query logic.
                 // We can still add cross-cutting concerns and decorate this handler as needed.
-                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventServiceFacade, logger, queryLogic);
+                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventServiceFacade, queryLogic);
 
                 return queryHandler;
             }, serviceLifetime);
