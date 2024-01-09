@@ -25,15 +25,16 @@ internal static class QueryHandlerRegistrar
         {
             IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
             IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            ILogger<GetApplicationsHandler> logger = provider.GetRequiredService<ILogger<GetApplicationsHandler>>();
 
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
             IValidateSort sortValidator = new SortValidator<ApplicationResult, ApplicationEntity>(propertyMappingService);
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
             
-            return new GetApplicationsHandler(eventRaiser, eventCallbackService, sortValidator, applicationRepository);
+            return new GetApplicationsHandler(eventRaiser, eventCallbackService, logger,sortValidator, applicationRepository);
         });
 
-        services.RegisterQueryHandler(provider =>
+        services.RegisterSimpleQueryHandler(provider =>
         {
             ConfigurationContext dbContext = provider.GetRequiredService<ConfigurationContext>();
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
@@ -48,10 +49,11 @@ internal static class QueryHandlerRegistrar
         {
             IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
             IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            ILogger<GetApplicationByUniqueNameHandler> logger = provider.GetRequiredService<ILogger<GetApplicationByUniqueNameHandler>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
             
-            return new GetApplicationByUniqueNameHandler(eventRaiser, eventCallbackService, applicationRepository);
+            return new GetApplicationByUniqueNameHandler(eventRaiser, eventCallbackService, logger, applicationRepository);
         });
     }
 }

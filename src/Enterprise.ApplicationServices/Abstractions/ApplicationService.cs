@@ -1,6 +1,7 @@
 ﻿using Enterprise.Events.Model;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Abstractions;
 
@@ -11,10 +12,13 @@ public abstract class ApplicationService : IApplicationService
     protected readonly IRaiseEvents EventRaiser;
     protected readonly IEventCallbackService EventCallbackService;
 
-    protected ApplicationService(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
+    private readonly ILogger<ApplicationService> _logger;
+
+    protected ApplicationService(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService, ILogger<ApplicationService> logger)
     {
         EventRaiser = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
         EventCallbackService = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
+        _logger = logger;
     }
 
     public void ClearCallbacks()
@@ -29,7 +33,12 @@ public abstract class ApplicationService : IApplicationService
 
     protected async Task RaiseEventsAsync(IEnumerable<IEvent> events)
     {
-        foreach (IEvent @event in events)
+        // https://www.jetbrains.com/help/resharper/2023.3/PossibleMultipleEnumeration.html
+        List<IEvent> eventList = events.ToList();
+
+        _logger.LogInformation("Raising {eventCount} event(s).", eventList.Count);
+
+        foreach (IEvent @event in eventList)
             await RaiseEventAsync(@event);
     }
 
@@ -39,6 +48,7 @@ public abstract class ApplicationService : IApplicationService
         {
             // We keep track of every unique event ID, so we can be sure that
             // event handlers and callbacks are only executed once per event occurrence.
+            _logger.LogInformation("Event with ID \"{id}\" has already been processed.", @event.Id);
             return;
         }
 

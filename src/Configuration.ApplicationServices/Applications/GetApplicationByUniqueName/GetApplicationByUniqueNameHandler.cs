@@ -1,7 +1,8 @@
 ﻿using Configuration.ApplicationServices.Applications.Shared;
 using Enterprise.ApplicationServices.Queries.Handlers;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Enterprise.Events.Services.Raising;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Configuration.ApplicationServices.Applications.GetApplicationByUniqueName;
 
@@ -11,7 +12,8 @@ public sealed class GetApplicationByUniqueNameHandler : QueryHandler<GetApplicat
 
     public GetApplicationByUniqueNameHandler(IRaiseEvents eventRaiser,
         IEventCallbackService eventCallbackService,
-        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService)
+        ILogger<GetApplicationByUniqueNameHandler> logger,
+        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService, logger)
     {
         _applicationRepository = applicationRepository;
     }

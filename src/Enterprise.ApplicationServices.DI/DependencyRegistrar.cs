@@ -46,7 +46,7 @@ public static class DependencyRegistrar
             .Add(factory, serviceLifetime);
     }
 
-    public static void RegisterQueryHandler<TQuery, TResult>(this IServiceCollection services,
+    public static void RegisterSimpleQueryHandler<TQuery, TResult>(this IServiceCollection services,
         Func<IServiceProvider, IQueryLogic<TQuery, TResult>> queryLogicFactory,
         ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where TQuery : IQuery
     {
@@ -55,13 +55,14 @@ public static class DependencyRegistrar
             {
                 IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
                 IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+                ILogger<SimpleQueryHandler<TQuery, TResult>> logger = provider.GetRequiredService<ILogger<SimpleQueryHandler<TQuery, TResult>>>();
 
                 // Resolve the query logic implementation.
                 IQueryLogic<TQuery, TResult> queryLogic = queryLogicFactory(provider);
 
                 // Use a common handler that delegates to the query logic.
                 // We can still add cross-cutting concerns and decorate this handler as needed.
-                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventRaiser, eventCallbackService, queryLogic);
+                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventRaiser, eventCallbackService, logger, queryLogic);
 
                 return queryHandler;
             }, serviceLifetime);

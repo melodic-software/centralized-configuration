@@ -39,6 +39,8 @@ public class FluentValidationDecorator<T> : CommandHandlerDecorator<T>
         if (validationErrors.Any())
         {
             // This should be handled in an upper layer - like a global error handling middleware.
+            // TODO: Do we want to use an exception here or raise validation failure events and return out.
+            // The second option keeps in alignment with existing practices.
             throw new ValidationException(validationErrors);
         }
 

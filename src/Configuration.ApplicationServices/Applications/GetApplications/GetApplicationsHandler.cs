@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Configuration.ApplicationServices.Applications.Shared;
+﻿using Configuration.ApplicationServices.Applications.Shared;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
@@ -7,6 +6,8 @@ using Enterprise.Core.Queries.Sorting;
 using Enterprise.DomainDrivenDesign.Events;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using static Configuration.ApplicationServices.Applications.Shared.ApplicationQueryConstants;
 
 namespace Configuration.ApplicationServices.Applications.GetApplications;
@@ -18,8 +19,9 @@ public sealed class GetApplicationsHandler : QueryHandler<GetApplications, GetAp
 
     public GetApplicationsHandler(IRaiseEvents eventRaiser,
         IEventCallbackService eventCallbackService,
+        ILogger<GetApplicationsHandler> logger,
         IValidateSort sortValidator,
-        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService)
+        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService, logger)
     {
         _sortValidator = sortValidator;
         _applicationRepository = applicationRepository;

@@ -14,7 +14,7 @@ public abstract class CommandHandler<T> : ApplicationService, IHandleCommand<T> 
         IRaiseEvents eventRaiser,
         IEventCallbackService eventCallbackService,
         ILogger<CommandHandler<T>> logger)
-        : base(eventRaiser, eventCallbackService)
+        : base(eventRaiser, eventCallbackService, logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }

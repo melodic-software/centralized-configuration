@@ -2,13 +2,16 @@
 using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 
-public abstract class QueryHandler<TQuery, TResult> : ApplicationService, IHandleQuery<TResult>, IHandleQuery<TQuery, TResult>
+public abstract class QueryHandler<TQuery, TResult> : ApplicationService, IHandleQuery<TResult>,
+    IHandleQuery<TQuery, TResult>
     where TQuery : IQuery
 {
-    protected QueryHandler(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService) : base(eventRaiser, eventCallbackService)
+    protected QueryHandler(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService,
+        ILogger<QueryHandler<TQuery, TResult>> logger) : base(eventRaiser, eventCallbackService, logger)
     {
     }
 
