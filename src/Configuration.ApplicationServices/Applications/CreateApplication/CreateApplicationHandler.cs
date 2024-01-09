@@ -3,16 +3,19 @@ using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Enterprise.Events.Services.Raising;
 using Enterprise.Exceptions;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
 public sealed class CreateApplicationHandler(
-    IApplicationServiceDependencies appServiceDependencies,
+    IRaiseEvents eventRaiser,
+    IEventCallbackService eventCallbackService,
     ApplicationValidationService applicationValidationService,
     IApplicationExistenceService applicationExistenceService,
     IApplicationRepository applicationRepository)
-    : CommandHandler<CreateApplication>(appServiceDependencies)
+    : CommandHandler<CreateApplication>(eventRaiser, eventCallbackService)
 {
     public override async Task HandleAsync(CreateApplication command)
     {

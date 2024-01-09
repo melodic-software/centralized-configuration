@@ -15,7 +15,7 @@ internal static class RepositoryRegistrar
             ILogger<ApplicationRepository> logger = provider.GetRequiredService<ILogger<ApplicationRepository>>();
 
             // TODO: use shared constant (currently in API project)
-            string? connectionString = configuration.GetConnectionString("SQLConnection"); 
+            string? connectionString = configuration.GetConnectionString("SQLConnection");
 
             IApplicationRepository applicationRepository = new ApplicationRepository(connectionString, logger);
 

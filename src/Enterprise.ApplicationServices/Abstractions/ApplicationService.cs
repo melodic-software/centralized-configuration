@@ -4,26 +4,13 @@ using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
 namespace Enterprise.ApplicationServices.Abstractions;
 
-public abstract class ApplicationService : IApplicationService
+public abstract class ApplicationService(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
+    : IApplicationService
 {
-    private readonly HashSet<Guid> _processedEventIds;
+    private readonly HashSet<Guid> _processedEventIds = new();
 
-    protected readonly IRaiseEvents EventRaiser;
-    protected readonly IEventCallbackService EventCallbackService;
-
-    protected ApplicationService(IApplicationServiceDependencies appServiceDependencies)
-    {
-        if (appServiceDependencies == null)
-            throw new ArgumentNullException(nameof(appServiceDependencies));
-
-        IRaiseEvents eventRaiser = appServiceDependencies.EventRaiser;
-        IEventCallbackService eventCallbackService = appServiceDependencies.EventCallbackService;
-
-        EventRaiser = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
-        EventCallbackService = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
-
-        _processedEventIds = new HashSet<Guid>();
-    }
+    protected readonly IRaiseEvents EventRaiser = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
+    protected readonly IEventCallbackService EventCallbackService = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
 
     public void ClearCallbacks()
     {
@@ -46,7 +33,7 @@ public abstract class ApplicationService : IApplicationService
         if (_processedEventIds.Contains(@event.Id))
         {
             // We keep track of every unique event ID, so we can be sure that
-            // event handlers and callbacks are only executed once per event occurrence
+            // event handlers and callbacks are only executed once per event occurrence.
             return;
         }
 

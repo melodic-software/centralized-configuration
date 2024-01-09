@@ -1,10 +1,12 @@
 ﻿using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Model;
+using Enterprise.Events.Services.Raising;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;
 
-public abstract class CommandHandler<T>(IApplicationServiceDependencies appServiceDependencies)
-    : ApplicationService(appServiceDependencies), IHandleCommand<T> where T : ICommand
+public abstract class CommandHandler<T>(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
+    : ApplicationService(eventRaiser, eventCallbackService), IHandleCommand<T> where T : ICommand
 {
     public async Task HandleAsync(ICommand command)
     {

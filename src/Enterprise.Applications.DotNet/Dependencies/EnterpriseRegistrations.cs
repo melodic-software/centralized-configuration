@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using static Enterprise.Applications.DotNet.Dependencies.Registrars.ApplicationServiceRegistrar;
 using static Enterprise.Applications.DotNet.Dependencies.Registrars.EventServiceRegistrar;
 using static Enterprise.Applications.DotNet.Dependencies.Registrars.ReflectionServiceRegistrar;
 using static Enterprise.Applications.DotNet.Dependencies.Registrars.TemporalityServiceRegistrar;
@@ -10,7 +9,6 @@ public static class EnterpriseRegistrations
 {
     public static void RegisterEnterpriseServices(this IServiceCollection services)
     {
-        RegisterApplicationServiceDependencies(services);
         RegisterEventServices(services);
         RegisterReflectionServices(services);
         RegisterTemporalityServices(services);

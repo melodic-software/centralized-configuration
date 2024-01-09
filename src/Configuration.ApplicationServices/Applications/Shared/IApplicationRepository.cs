@@ -11,6 +11,5 @@ public interface IApplicationRepository
         SearchOptions searchOptions, PagingOptions pagingOptions, SortOptions sortOptions,
         CancellationToken cancellationToken);
 
-    Task<ApplicationResult?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
     Task<ApplicationResult?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken);
 }

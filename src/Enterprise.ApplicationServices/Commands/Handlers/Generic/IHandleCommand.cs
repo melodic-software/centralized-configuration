@@ -1,5 +1,6 @@
 ﻿using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Model;
+using Enterprise.ApplicationServices.Commands.Model.Generic;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;
 
@@ -24,7 +25,7 @@ public interface IHandleCommand<in T> : IApplicationService where T : ICommand
 /// </summary>
 /// <typeparam name="TCommand"></typeparam>
 /// <typeparam name="TResult"></typeparam>
-public interface IHandleCommand<in TCommand, TResult> : IApplicationService where TCommand : ICommand<TResult>
+public interface IHandleCommand<in TCommand, TResult> : IApplicationService where TCommand : IPragmaticCommand<TResult>
 {
     /// <summary>
     /// Handle the command.

@@ -1,13 +1,15 @@
 ﻿using Configuration.ApplicationServices.Applications.Shared;
-using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Enterprise.Events.Services.Raising;
 
 namespace Configuration.ApplicationServices.Applications.GetApplicationByUniqueName;
 
 public sealed class GetApplicationByUniqueNameHandler(
-    IApplicationServiceDependencies appServiceDependencies,
+    IRaiseEvents eventRaiser,
+    IEventCallbackService eventCallbackService,
     IApplicationRepository applicationRepository)
-    : QueryHandler<GetApplicationByUniqueName, ApplicationResult?>(appServiceDependencies)
+    : QueryHandler<GetApplicationByUniqueName, ApplicationResult?>(eventRaiser, eventCallbackService)
 {
     public override async Task<ApplicationResult?> HandleAsync(GetApplicationByUniqueName query, CancellationToken cancellationToken)
     {

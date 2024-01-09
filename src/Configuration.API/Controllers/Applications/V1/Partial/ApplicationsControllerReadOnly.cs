@@ -3,6 +3,10 @@ using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.API.Controllers.Applications.V1.Extensions;
 using Configuration.API.Logging;
 using Configuration.API.Routing;
+using Configuration.ApplicationServices.Applications.GetApplicationById;
+using Configuration.ApplicationServices.Applications.GetApplicationByUniqueName;
+using Configuration.ApplicationServices.Applications.GetApplications;
+using Configuration.ApplicationServices.Applications.Shared;
 using Enterprise.API.ActionConstraints;
 using Enterprise.API.Client.Hypermedia;
 using Enterprise.API.Constants;
@@ -14,10 +18,6 @@ using Enterprise.Reflection.Properties.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
 using System.Dynamic;
-using Configuration.ApplicationServices.Applications.GetApplicationById;
-using Configuration.ApplicationServices.Applications.GetApplicationByUniqueName;
-using Configuration.ApplicationServices.Applications.GetApplications;
-using Configuration.ApplicationServices.Applications.Shared;
 
 namespace Configuration.API.Controllers.Applications.V1.Partial;
 

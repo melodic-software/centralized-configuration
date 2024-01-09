@@ -1,20 +1,22 @@
 ﻿using System.Diagnostics;
 using Configuration.ApplicationServices.Applications.Shared;
-using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Core.Queries.Paging;
 using Enterprise.Core.Queries.Searching;
 using Enterprise.Core.Queries.Sorting;
 using Enterprise.DomainDrivenDesign.Events;
+using Enterprise.Events.Services.Raising;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using static Configuration.ApplicationServices.Applications.Shared.ApplicationQueryConstants;
 
 namespace Configuration.ApplicationServices.Applications.GetApplications;
 
 public sealed class GetApplicationsHandler(
-    IApplicationServiceDependencies appServiceDependencies,
+    IRaiseEvents eventRaiser,
+    IEventCallbackService eventCallbackService,
     IValidateSort sortValidator,
     IApplicationRepository applicationRepository)
-    : QueryHandler<GetApplications, GetApplicationsResult>(appServiceDependencies)
+    : QueryHandler<GetApplications, GetApplicationsResult>(eventRaiser, eventCallbackService)
 {
     public override async Task<GetApplicationsResult> HandleAsync(GetApplications query, CancellationToken cancellationToken)
     {

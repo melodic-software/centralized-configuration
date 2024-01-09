@@ -9,7 +9,6 @@ using Enterprise.Mapping.Properties.Services.Abstract;
 using Enterprise.Sorting.Dynamic.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using Configuration.ApplicationServices.Applications.GetApplications;
 using Configuration.ApplicationServices.Applications.Shared;
 
@@ -83,29 +82,6 @@ public class ApplicationRepository : IApplicationRepository
             .ToPagedListAsync(pagingOptions, queryable => queryable.ToListAsync(cancellationToken), Map);
 
         return result;
-    }
-
-    public async Task<ApplicationResult?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-    {
-        _logger.LogInformation("Getting application in repository with ID: {id}", id);
-
-        Stopwatch stopWatch = Stopwatch.StartNew();
-
-        ApplicationEntity? entity = await _context.Applications.AsNoTracking()
-            .Where(x => !x.IsDeleted)
-            .FirstOrDefaultAsync(x => x.DomainId == id, cancellationToken);
-
-        stopWatch.Stop();
-
-        _logger.LogDebug("Querying application with {id} finished in {milliseconds} milliseconds",
-            id, stopWatch.ElapsedMilliseconds);
-
-        if (entity == null)
-            return null;
-
-        ApplicationResult application = Map(entity);
-
-        return application;
     }
 
     public async Task<ApplicationResult?> GetByUniqueNameAsync(string uniqueName, CancellationToken cancellationToken)

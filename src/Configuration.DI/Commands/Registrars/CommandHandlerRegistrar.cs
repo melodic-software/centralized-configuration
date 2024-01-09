@@ -4,6 +4,8 @@ using Configuration.ApplicationServices.Applications.UpdateApplication;
 using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.DI;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Enterprise.Events.Services.Raising;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Configuration.DI.Commands.Registrars;
@@ -14,13 +16,16 @@ internal static class CommandHandlerRegistrar
     {
         services.RegisterCommandHandler(provider =>
         {
-            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
+            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
             return new CreateApplicationHandler(
-                appServiceDependencies,
+                eventRaiser,
+                eventCallbackService,
                 validationService,
                 applicationExistenceService,
                 applicationRepository
@@ -29,13 +34,16 @@ internal static class CommandHandlerRegistrar
 
         services.RegisterCommandHandler(provider =>
         {
-            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
+            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
             return new UpdateApplicationHandler(
-                appServiceDependencies,
+                eventRaiser,
+                eventCallbackService,
                 applicationExistenceService,
                 validationService,
                 applicationRepository
@@ -44,11 +52,14 @@ internal static class CommandHandlerRegistrar
 
         services.RegisterCommandHandler(provider =>
         {
-            IApplicationServiceDependencies appServiceDependencies = provider.GetRequiredService<IApplicationServiceDependencies>();
+            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
+            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
             return new DeleteApplicationHandler(
-                appServiceDependencies,
+                eventRaiser,
+                eventCallbackService,
                 applicationRepository
             );
         });

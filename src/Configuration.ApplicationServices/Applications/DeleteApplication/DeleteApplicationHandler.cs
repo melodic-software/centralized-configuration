@@ -2,14 +2,17 @@
 using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Enterprise.Events.Services.Raising;
 using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.ApplicationServices.Applications.DeleteApplication;
 
 public sealed class DeleteApplicationHandler(
-    IApplicationServiceDependencies appServiceDependencies,
+    IRaiseEvents eventRaiser,
+    IEventCallbackService eventCallbackService,
     IApplicationRepository applicationRepository)
-    : CommandHandler<DeleteApplication>(appServiceDependencies)
+    : CommandHandler<DeleteApplication>(eventRaiser, eventCallbackService)
 {
     public override async Task HandleAsync(DeleteApplication command)
     {

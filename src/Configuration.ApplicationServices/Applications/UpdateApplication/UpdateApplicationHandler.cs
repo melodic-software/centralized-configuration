@@ -3,16 +3,19 @@ using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
+using Enterprise.Events.Services.Raising;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.ApplicationServices.Applications.UpdateApplication;
 
 public sealed class UpdateApplicationHandler(
-    IApplicationServiceDependencies appServiceDependencies,
+    IRaiseEvents eventRaiser,
+    IEventCallbackService eventCallbackService,
     IApplicationExistenceService applicationExistenceService,
     ApplicationValidationService applicationValidationService,
     IApplicationRepository applicationRepository)
-    : CommandHandler<UpdateApplication>(appServiceDependencies)
+    : CommandHandler<UpdateApplication>(eventRaiser, eventCallbackService)
 {
     public override async Task HandleAsync(UpdateApplication command)
     {

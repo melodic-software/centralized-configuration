@@ -1,9 +1,13 @@
-﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+﻿using Enterprise.ApplicationServices.Abstractions;
+using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.ApplicationServices.Decorators.CommandHandlers;
+using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.DI.DotNet.Extensions;
+using Enterprise.Events.Services.Raising;
+using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -42,5 +46,26 @@ public static class DependencyRegistrar
     {
         services.BeginRegistration<IHandleQuery<TQuery, TResult>>()
             .Add(factory, serviceLifetime);
+    }
+
+    public static void RegisterQueryHandler<TQuery, TResult>(this IServiceCollection services,
+        Func<IServiceProvider, IQueryLogic<TQuery, TResult>> queryLogicFactory,
+        ServiceLifetime serviceLifetime = ServiceLifetime.Transient) where TQuery : IQuery
+    {
+        services.BeginRegistration<IHandleQuery<TQuery, TResult>>()
+            .Add(provider =>
+            {
+                IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
+                IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+
+                // Resolve the query logic implementation.
+                IQueryLogic<TQuery, TResult> queryLogic = queryLogicFactory(provider);
+
+                // Use a common handler that delegates to the query logic.
+                // We can still add cross-cutting concerns and decorate this handler as needed.
+                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventRaiser, eventCallbackService, queryLogic);
+
+                return queryHandler;
+            }, serviceLifetime);
     }
 }
