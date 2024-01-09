@@ -16,8 +16,6 @@ internal static class CommandHandlerRegistrar
     {
         services.RegisterCommandHandler(provider =>
         {
-            // TODO: I'd like to somehow get these lines out into either the shared ^ register command handler method
-            // OR just so I don't have to do this for every handler instantiation / type.
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
             ILogger<CommandHandlerBase<CreateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<CreateApplication>>>();
 
