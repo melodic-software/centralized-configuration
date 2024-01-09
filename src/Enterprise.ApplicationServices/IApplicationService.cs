@@ -1,6 +1,6 @@
 ﻿using Enterprise.Events.Model;
 
-namespace Enterprise.ApplicationServices.Abstractions;
+namespace Enterprise.ApplicationServices;
 
 public interface IApplicationService
 {

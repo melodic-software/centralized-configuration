@@ -1,6 +1,5 @@
-﻿using Enterprise.ApplicationServices.Queries.Model;
-using Enterprise.Events.Services.Raising;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+﻿using Enterprise.ApplicationServices.Events;
+using Enterprise.ApplicationServices.Queries.Model;
 using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
@@ -26,14 +25,12 @@ public class SimpleQueryHandler<TQuery, TResult> : QueryHandler<TQuery, TResult>
     /// </summary>
     /// <typeparam name="TQuery"></typeparam>
     /// <typeparam name="TResult"></typeparam>
-    /// <param name="eventRaiser"></param>
-    /// <param name="eventCallbackService"></param>
+    /// <param name="eventServiceFacade"></param>
     /// <param name="logger"></param>
     /// <param name="queryLogic"></param>
-    public SimpleQueryHandler(IRaiseEvents eventRaiser,
-        IEventCallbackService eventCallbackService,
+    public SimpleQueryHandler(IEventServiceFacade eventServiceFacade,
         ILogger<SimpleQueryHandler<TQuery, TResult>> logger,
-        IQueryLogic<TQuery, TResult> queryLogic) : base(eventRaiser, eventCallbackService, logger)
+        IQueryLogic<TQuery, TResult> queryLogic) : base(eventServiceFacade, logger)
     {
         _queryLogic = queryLogic;
     }

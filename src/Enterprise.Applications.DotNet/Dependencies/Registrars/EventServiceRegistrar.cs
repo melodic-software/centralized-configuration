@@ -34,8 +34,11 @@ internal class EventServiceRegistrar
 
         services.AddScoped(provider =>
         {
-            IRegisterEventCallbacks eventCallbackRegistrar = new EventCallbackRegistrar();
-            IRaiseEventCallbacks eventCallbackRaiser = new EventCallbackRaiser(eventCallbackRegistrar);
+            ILogger<EventCallbackRegistrar> eventCallbackRegistrarLogger = provider.GetRequiredService<ILogger<EventCallbackRegistrar>>();
+            ILogger<EventCallbackRaiser> eventCallbackRaiserLogger = provider.GetRequiredService<ILogger<EventCallbackRaiser>>();
+
+            IRegisterEventCallbacks eventCallbackRegistrar = new EventCallbackRegistrar(eventCallbackRegistrarLogger);
+            IRaiseEventCallbacks eventCallbackRaiser = new EventCallbackRaiser(eventCallbackRegistrar, eventCallbackRaiserLogger);
 
             IEventCallbackService eventCallbackService = new EventCallbackService(eventCallbackRegistrar, eventCallbackRaiser);
 

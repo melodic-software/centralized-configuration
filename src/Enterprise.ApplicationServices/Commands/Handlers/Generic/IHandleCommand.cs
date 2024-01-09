@@ -1,5 +1,4 @@
-﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.ApplicationServices.Commands.Model;
+﻿using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.ApplicationServices.Commands.Model.Generic;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;

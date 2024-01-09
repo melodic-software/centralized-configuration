@@ -1,6 +1,7 @@
 ﻿using Enterprise.Events.Model;
 using Enterprise.Events.Services.Raising.Callbacks.Abstractions;
 using Enterprise.Events.Services.Raising.Constants;
+using Microsoft.Extensions.Logging;
 using System.Collections;
 
 namespace Enterprise.Events.Services.Raising.Callbacks;
@@ -8,15 +9,21 @@ namespace Enterprise.Events.Services.Raising.Callbacks;
 public class EventCallbackRaiser : IRaiseEventCallbacks
 {
     private readonly IRegisterEventCallbacks _eventCallbackRegistrar;
+    private readonly ILogger<EventCallbackRaiser> _logger;
 
-    public EventCallbackRaiser(IRegisterEventCallbacks eventCallbackRegistrar)
+    public EventCallbackRaiser(IRegisterEventCallbacks eventCallbackRegistrar, ILogger<EventCallbackRaiser> logger)
     {
         _eventCallbackRegistrar = eventCallbackRegistrar;
+        _logger = logger;
     }
 
     public void RaiseCallbacks(IEnumerable<IEvent> events)
     {
-        foreach (IEvent @event in events)
+        List<IEvent> eventList = events.ToList();
+
+        _logger.LogInformation("Raising callbacks for {eventCount} events.", eventList.Count);
+
+        foreach (IEvent @event in eventList)
             RaiseCallbacks((dynamic)@event);
     }
 
@@ -33,15 +40,21 @@ public class EventCallbackRaiser : IRaiseEventCallbacks
         bool callbacksRegistered = registeredCallbacks.ContainsKey(eventType);
 
         if (!callbacksRegistered)
+        {
+            _logger.LogInformation("No callbacks have been registered for {eventTypeName}", eventType.Name);
             return;
+        }
 
         if (registeredCallbacks[eventType] is not List<Action<TEvent>> callbackList)
         {
-            // we know at this point that we have callbacks registered
-            // so if this is null, we have a type mismatch for the collection type in the callback dictionary
-            // it might be helpful to have some logging visibility here, but an exception will do for now
+            _logger.LogInformation("Callbacks have been incorrectly registered.");
+
+            // We know at this point that we have callbacks registered.
+            // Here we have a type mismatch for the collection type in the callback dictionary.
             throw new Exception(CallbackConstants.CallbackTypeMismatchErrorMessage);
         }
+
+        _logger.LogInformation("Executing {callbackCount} callback(s)", callbackList.Count);
 
         foreach (Action<TEvent> action in callbackList)
             action.Invoke(@event);

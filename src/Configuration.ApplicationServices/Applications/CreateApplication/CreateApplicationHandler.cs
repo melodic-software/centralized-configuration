@@ -1,9 +1,8 @@
 ﻿using Configuration.Domain.Applications;
 using Configuration.Domain.Applications.Events;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Events;
 using Enterprise.DomainDrivenDesign.Events;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
-using Enterprise.Events.Services.Raising;
 using Enterprise.Exceptions;
 using Microsoft.Extensions.Logging;
 
@@ -15,12 +14,11 @@ public sealed class CreateApplicationHandler : CommandHandler<CreateApplication>
     private readonly IApplicationExistenceService _applicationExistenceService;
     private readonly IApplicationRepository _applicationRepository;
 
-    public CreateApplicationHandler(IRaiseEvents eventRaiser,
-        IEventCallbackService eventCallbackService,
+    public CreateApplicationHandler(IEventServiceFacade eventServiceFacade,
         ILogger<CommandHandler<CreateApplication>> logger,
         ApplicationValidationService applicationValidationService,
         IApplicationExistenceService applicationExistenceService,
-        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService, logger)
+        IApplicationRepository applicationRepository) : base(eventServiceFacade, logger)
     {
         _applicationValidationService = applicationValidationService;
         _applicationExistenceService = applicationExistenceService;
@@ -51,7 +49,7 @@ public sealed class CreateApplicationHandler : CommandHandler<CreateApplication>
             {
                 // TODO: Is this even needed here?
                 // Only concurrency issue would be if the application with the same ID was created at the same time this was created.
-                await RaiseEventAsync(new ValidationFailure("This application already exists.", nameof(application.Id)));
+                await RaiseEventAsync(new ValidationFailure($"The application with ID \"{application.Id}\" already exists.", nameof(application.Id)));
                 return;
             }
 

@@ -4,10 +4,9 @@ using Configuration.ApplicationServices.Applications.UpdateApplication;
 using Configuration.Domain.Applications;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.DI;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
-using Enterprise.Events.Services.Raising;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Enterprise.ApplicationServices.Events;
 
 namespace Configuration.DI.Commands.Registrars;
 
@@ -17,8 +16,9 @@ internal static class CommandHandlerRegistrar
     {
         services.RegisterCommandHandler(provider =>
         {
-            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
-            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            // TODO: I'd like to somehow get these lines out into either the shared ^ register command handler method
+            // OR just so I don't have to do this for every handler instantiation / type.
+            IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
             ILogger<CommandHandler<CreateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandler<CreateApplication>>>();
 
             ApplicationValidationService validationService = new ApplicationValidationService();
@@ -26,8 +26,7 @@ internal static class CommandHandlerRegistrar
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
             return new CreateApplicationHandler(
-                eventRaiser,
-                eventCallbackService,
+                eventServiceFacade,
                 logger,
                 validationService,
                 applicationExistenceService,
@@ -37,8 +36,7 @@ internal static class CommandHandlerRegistrar
 
         services.RegisterCommandHandler(provider =>
         {
-            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
-            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
             ILogger<CommandHandler<UpdateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandler<UpdateApplication>>>();
 
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
@@ -46,8 +44,7 @@ internal static class CommandHandlerRegistrar
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
             return new UpdateApplicationHandler(
-                eventRaiser,
-                eventCallbackService,
+                eventServiceFacade,
                 logger,
                 applicationExistenceService,
                 validationService,
@@ -57,15 +54,13 @@ internal static class CommandHandlerRegistrar
 
         services.RegisterCommandHandler(provider =>
         {
-            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
-            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
             ILogger<CommandHandler<DeleteApplication>> logger = provider.GetRequiredService<ILogger<CommandHandler<DeleteApplication>>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 
             return new DeleteApplicationHandler(
-                eventRaiser,
-                eventCallbackService,
+                eventServiceFacade,
                 logger,
                 applicationRepository
             );

@@ -1,11 +1,10 @@
 ﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.ApplicationServices.Decorators.CommandHandlers;
+using Enterprise.ApplicationServices.Events;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.DI.DotNet.Extensions;
-using Enterprise.Events.Services.Raising;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -53,8 +52,7 @@ public static class DependencyRegistrar
         services.BeginRegistration<IHandleQuery<TQuery, TResult>>()
             .Add(provider =>
             {
-                IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
-                IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+                IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
                 ILogger<SimpleQueryHandler<TQuery, TResult>> logger = provider.GetRequiredService<ILogger<SimpleQueryHandler<TQuery, TResult>>>();
 
                 // Resolve the query logic implementation.
@@ -62,7 +60,7 @@ public static class DependencyRegistrar
 
                 // Use a common handler that delegates to the query logic.
                 // We can still add cross-cutting concerns and decorate this handler as needed.
-                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventRaiser, eventCallbackService, logger, queryLogic);
+                IHandleQuery<TQuery, TResult> queryHandler = new SimpleQueryHandler<TQuery, TResult>(eventServiceFacade, logger, queryLogic);
 
                 return queryHandler;
             }, serviceLifetime);

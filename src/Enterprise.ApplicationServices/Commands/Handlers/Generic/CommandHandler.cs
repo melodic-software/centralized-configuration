@@ -1,7 +1,5 @@
-﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.ApplicationServices.Commands.Model;
-using Enterprise.Events.Services.Raising;
-using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+﻿using Enterprise.ApplicationServices.Commands.Model;
+using Enterprise.ApplicationServices.Events;
 using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;
@@ -11,10 +9,9 @@ public abstract class CommandHandler<T> : ApplicationService, IHandleCommand<T> 
     private readonly ILogger<CommandHandler<T>> _logger;
 
     protected CommandHandler(
-        IRaiseEvents eventRaiser,
-        IEventCallbackService eventCallbackService,
+        IEventServiceFacade eventServiceFacade,
         ILogger<CommandHandler<T>> logger)
-        : base(eventRaiser, eventCallbackService, logger)
+        : base(eventServiceFacade, logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
