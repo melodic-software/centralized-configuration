@@ -1,18 +1,18 @@
 ﻿using Configuration.Domain.Applications;
 using Configuration.Domain.Applications.Events;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 using Microsoft.Extensions.Logging;
 using Enterprise.ApplicationServices.Events;
 
 namespace Configuration.ApplicationServices.Applications.DeleteApplication;
 
-public sealed class DeleteApplicationHandler : CommandHandler<DeleteApplication>
+public sealed class DeleteApplicationHandler : CommandHandlerBase<DeleteApplication>
 {
     private readonly IApplicationRepository _applicationRepository;
 
     public DeleteApplicationHandler(IEventServiceFacade eventServiceFacade,
-        ILogger<CommandHandler<DeleteApplication>> logger,
+        ILogger<CommandHandlerBase<DeleteApplication>> logger,
         IApplicationRepository applicationRepository) : base(eventServiceFacade, logger)
     {
         _applicationRepository = applicationRepository;

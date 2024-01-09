@@ -9,22 +9,22 @@ public abstract class ApplicationService : IApplicationService
     private readonly HashSet<Guid> _processedEventIds = new();
     private readonly ILogger<ApplicationService> _logger;
 
-    protected IEventServiceFacade EventServiceFacade { get; }
+    protected IEventServiceFacade EventService { get; }
 
-    protected ApplicationService(IEventServiceFacade eventServiceFacade, ILogger<ApplicationService> logger)
+    protected ApplicationService(IEventServiceFacade eventService, ILogger<ApplicationService> logger)
     {
-        EventServiceFacade = eventServiceFacade;
+        EventService = eventService;
         _logger = logger;
     }
 
     public void ClearCallbacks()
     {
-        EventServiceFacade.ClearRegisteredCallbacks();
+        EventService.ClearRegisteredCallbacks();
     }
 
     public void RegisterEventCallback<TEvent>(Action<TEvent> eventCallback) where TEvent : IEvent
     {
-        EventServiceFacade.RegisterEventCallback(eventCallback);
+        EventService.RegisterEventCallback(eventCallback);
     }
 
     protected async Task RaiseEventsAsync(IEnumerable<IEvent> events)
@@ -48,8 +48,8 @@ public abstract class ApplicationService : IApplicationService
             return;
         }
 
-        await EventServiceFacade.RaiseAsync(@event);
-        EventServiceFacade.RaiseCallbacks(@event);
+        await EventService.RaiseAsync(@event);
+        EventService.RaiseCallbacks(@event);
 
         _processedEventIds.Add(@event.Id);
     }

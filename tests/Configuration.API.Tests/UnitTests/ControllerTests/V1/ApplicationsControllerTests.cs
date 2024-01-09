@@ -5,7 +5,7 @@ using Configuration.API.Tests.UnitTests.Mocking;
 using Configuration.API.Tests.UnitTests.Services;
 using Configuration.ApplicationServices.Applications.CreateApplication;
 using Configuration.AutoMapper.Profiles.Queries.V1;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Hellang.Middleware.ProblemDetails;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

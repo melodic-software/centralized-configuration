@@ -6,7 +6,7 @@ using Configuration.ApplicationServices.Applications.CreateApplication;
 using Configuration.Domain.Applications.Events;
 using Enterprise.API.Controllers.Abstract;
 using Enterprise.API.ModelBinding;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.DomainDrivenDesign.Events;
 using Microsoft.AspNetCore.Mvc;
 

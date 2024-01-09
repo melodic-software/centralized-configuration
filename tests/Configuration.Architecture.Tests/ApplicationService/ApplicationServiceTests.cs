@@ -1,4 +1,4 @@
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using FluentAssertions;
 using FluentValidation;

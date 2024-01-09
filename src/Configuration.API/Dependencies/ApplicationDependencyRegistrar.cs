@@ -5,7 +5,7 @@ using Configuration.DI.Queries;
 using Configuration.Infrastructure.Outbox;
 using Enterprise.Applications.DotNet.Commands;
 using Enterprise.Applications.DotNet.Queries;
-using Enterprise.ApplicationServices.Commands.Handlers.Resolution;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using FluentValidation;
 using static Configuration.API.EntityFramework.EntityFrameworkConfiguration;

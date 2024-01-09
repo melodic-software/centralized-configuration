@@ -1,4 +1,4 @@
-﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+﻿using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.Validation;
 using FluentValidation;

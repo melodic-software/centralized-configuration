@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Enterprise.API.Client.Hypermedia;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DataShaping.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
@@ -11,6 +10,7 @@ using Enterprise.DomainDrivenDesign.Events;
 using Configuration.API.Routing;
 using Configuration.ApplicationServices.Applications.CreateApplication;
 using Configuration.ApplicationServices.Applications.UpdateApplication;
+using Enterprise.ApplicationServices.Commands.Handlers;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

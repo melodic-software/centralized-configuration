@@ -2,7 +2,7 @@
 using Configuration.ApplicationServices.Applications.DeleteApplication;
 using Configuration.ApplicationServices.Applications.UpdateApplication;
 using Configuration.Domain.Applications;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.DI;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,7 +19,7 @@ internal static class CommandHandlerRegistrar
             // TODO: I'd like to somehow get these lines out into either the shared ^ register command handler method
             // OR just so I don't have to do this for every handler instantiation / type.
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<CommandHandler<CreateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandler<CreateApplication>>>();
+            ILogger<CommandHandlerBase<CreateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<CreateApplication>>>();
 
             ApplicationValidationService validationService = new ApplicationValidationService();
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
@@ -37,7 +37,7 @@ internal static class CommandHandlerRegistrar
         services.RegisterCommandHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<CommandHandler<UpdateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandler<UpdateApplication>>>();
+            ILogger<CommandHandlerBase<UpdateApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<UpdateApplication>>>();
 
             IApplicationExistenceService applicationExistenceService = provider.GetRequiredService<IApplicationExistenceService>();
             ApplicationValidationService validationService = new ApplicationValidationService();
@@ -55,7 +55,7 @@ internal static class CommandHandlerRegistrar
         services.RegisterCommandHandler(provider =>
         {
             IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
-            ILogger<CommandHandler<DeleteApplication>> logger = provider.GetRequiredService<ILogger<CommandHandler<DeleteApplication>>>();
+            ILogger<CommandHandlerBase<DeleteApplication>> logger = provider.GetRequiredService<ILogger<CommandHandlerBase<DeleteApplication>>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
 

@@ -4,6 +4,7 @@ using Configuration.ApplicationServices.Applications.GetApplications;
 using Configuration.ApplicationServices.Applications.Shared;
 using Configuration.Dapper.Queries.Execution;
 using Enterprise.ApplicationServices.DI;
+using Enterprise.ApplicationServices.Events;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Core.Queries.Sorting;
 using Enterprise.Events.Services.Raising;
@@ -21,15 +22,14 @@ internal static class QueryHandlerRegistrar
     {
         services.AddTransient(provider =>
         {
-            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
-            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
             ILogger<GetApplicationsHandler> logger = provider.GetRequiredService<ILogger<GetApplicationsHandler>>();
             
             IPropertyMappingService propertyMappingService = provider.GetRequiredService<IPropertyMappingService>();
             IValidateSort sortValidator = null; // TODO: create object instance
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplications, GetApplicationsResult> getApplicationsHandler = new GetApplicationsHandler(eventRaiser, eventCallbackService, logger, sortValidator, applicationRepository);
+            IHandleQuery<GetApplications, GetApplicationsResult> getApplicationsHandler = new GetApplicationsHandler(eventServiceFacade, logger, sortValidator, applicationRepository);
             return getApplicationsHandler;
         });
 
@@ -46,12 +46,11 @@ internal static class QueryHandlerRegistrar
 
         services.RegisterQueryHandler(provider =>
         {
-            IRaiseEvents eventRaiser = provider.GetRequiredService<IRaiseEvents>();
-            IEventCallbackService eventCallbackService = provider.GetRequiredService<IEventCallbackService>();
+            IEventServiceFacade eventServiceFacade = provider.GetRequiredService<IEventServiceFacade>();
             ILogger<GetApplicationByUniqueNameHandler> logger = provider.GetRequiredService<ILogger<GetApplicationByUniqueNameHandler>>();
 
             IApplicationRepository applicationRepository = provider.GetRequiredService<IApplicationRepository>();
-            IHandleQuery<GetApplicationByUniqueName, ApplicationResult?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(eventRaiser, eventCallbackService, logger, applicationRepository);
+            IHandleQuery<GetApplicationByUniqueName, ApplicationResult?> getApplicationByUniqueNameHandler = new GetApplicationByUniqueNameHandler(eventServiceFacade, logger, applicationRepository);
             return getApplicationByUniqueNameHandler;
         });
     }

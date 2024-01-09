@@ -12,7 +12,7 @@ using Configuration.ApplicationServices.Applications.UpdateApplication;
 using Configuration.Domain.Applications.Events;
 using Enterprise.API.Constants;
 using Enterprise.API.Controllers.Abstract;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.DomainDrivenDesign.Events;
 using Hellang.Middleware.ProblemDetails;

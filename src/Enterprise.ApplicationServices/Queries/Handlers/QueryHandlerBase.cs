@@ -4,12 +4,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 
-public abstract class QueryHandler<TQuery, TResult> : ApplicationService, IHandleQuery<TResult>,
+public abstract class QueryHandlerBase<TQuery, TResult> : ApplicationService, IHandleQuery<TResult>,
     IHandleQuery<TQuery, TResult>
     where TQuery : IQuery
 {
-    protected QueryHandler(IEventServiceFacade eventServiceFacade,
-        ILogger<QueryHandler<TQuery, TResult>> logger) : base(eventServiceFacade, logger)
+    protected QueryHandlerBase(IEventServiceFacade eventServiceFacade,
+        ILogger<QueryHandlerBase<TQuery, TResult>> logger) : base(eventServiceFacade, logger)
     {
     }
 

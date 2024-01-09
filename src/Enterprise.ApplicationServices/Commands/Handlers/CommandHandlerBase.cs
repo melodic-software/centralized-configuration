@@ -2,15 +2,15 @@
 using Enterprise.ApplicationServices.Events;
 using Microsoft.Extensions.Logging;
 
-namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;
+namespace Enterprise.ApplicationServices.Commands.Handlers;
 
-public abstract class CommandHandler<T> : ApplicationService, IHandleCommand<T> where T : ICommand
+public abstract class CommandHandlerBase<T> : ApplicationService, IHandleCommand<T> where T : ICommand
 {
-    private readonly ILogger<CommandHandler<T>> _logger;
+    private readonly ILogger<CommandHandlerBase<T>> _logger;
 
-    protected CommandHandler(
+    protected CommandHandlerBase(
         IEventServiceFacade eventServiceFacade,
-        ILogger<CommandHandler<T>> logger)
+        ILogger<CommandHandlerBase<T>> logger)
         : base(eventServiceFacade, logger)
     {
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

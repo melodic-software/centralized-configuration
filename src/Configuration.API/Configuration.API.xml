@@ -4,7 +4,7 @@
         <name>Configuration.API</name>
     </assembly>
     <members>
-        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Put(System.Guid,Configuration.API.Client.DTOs.Input.V1.UpdateApplicationDto,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.UpdateApplication.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication})">
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Put(System.Guid,Configuration.API.Client.DTOs.Input.V1.UpdateApplicationDto,Enterprise.ApplicationServices.Commands.Handlers.IHandleCommand{Configuration.ApplicationServices.Applications.UpdateApplication.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication})">
             <summary>
             Update an application.
             If an application is not found, an application resource will be created.
@@ -19,7 +19,7 @@
             <response code="204">Application updated.</response>
             <response code="201">Application created.</response>
         </member>
-        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Patch(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Configuration.API.Client.DTOs.Input.V1.UpdateApplicationDto},Enterprise.ApplicationServices.Queries.Handlers.IHandleQuery{Configuration.ApplicationServices.Applications.GetApplicationById.GetApplicationById,Configuration.ApplicationServices.Applications.Shared.ApplicationResult},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.UpdateApplication.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication},System.Threading.CancellationToken)">
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Patch(System.Guid,Microsoft.AspNetCore.JsonPatch.JsonPatchDocument{Configuration.API.Client.DTOs.Input.V1.UpdateApplicationDto},Enterprise.ApplicationServices.Queries.Handlers.IHandleQuery{Configuration.ApplicationServices.Applications.GetApplicationById.GetApplicationById,Configuration.ApplicationServices.Applications.Shared.ApplicationResult},Enterprise.ApplicationServices.Commands.Handlers.IHandleCommand{Configuration.ApplicationServices.Applications.UpdateApplication.UpdateApplication},Enterprise.ApplicationServices.Commands.Handlers.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication},System.Threading.CancellationToken)">
             <summary>
             Partially update an application.
             If an application is not found, an application resource will be created.
@@ -44,7 +44,7 @@
             
             </remarks>
         </member>
-        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Post(Configuration.API.Client.DTOs.Input.V1.CreateApplicationDto,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication})">
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Post(Configuration.API.Client.DTOs.Input.V1.CreateApplicationDto,Enterprise.ApplicationServices.Commands.Handlers.IHandleCommand{Configuration.ApplicationServices.Applications.CreateApplication.CreateApplication})">
             <summary>
             Create an application.
             </summary>
@@ -74,7 +74,7 @@
             <param name="commandHandler"></param>
             <returns></returns>
         </member>
-        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Delete(System.Guid,Enterprise.ApplicationServices.Commands.Handlers.Generic.IHandleCommand{Configuration.ApplicationServices.Applications.DeleteApplication.DeleteApplication})">
+        <member name="M:Configuration.API.Controllers.Applications.V1.Partial.ApplicationsController.Delete(System.Guid,Enterprise.ApplicationServices.Commands.Handlers.IHandleCommand{Configuration.ApplicationServices.Applications.DeleteApplication.DeleteApplication})">
             <summary>
             Delete an application.
             </summary>

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Configuration.ApplicationServices.Applications.GetApplicationByUniqueName;
 
-public sealed class GetApplicationByUniqueNameHandler : QueryHandler<GetApplicationByUniqueName, ApplicationResult?>
+public sealed class GetApplicationByUniqueNameHandler : QueryHandlerBase<GetApplicationByUniqueName, ApplicationResult?>
 {
     private readonly IApplicationRepository _applicationRepository;
 

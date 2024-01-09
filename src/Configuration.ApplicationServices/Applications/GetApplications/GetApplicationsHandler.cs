@@ -11,7 +11,7 @@ using static Configuration.ApplicationServices.Applications.Shared.ApplicationQu
 
 namespace Configuration.ApplicationServices.Applications.GetApplications;
 
-public sealed class GetApplicationsHandler : QueryHandler<GetApplications, GetApplicationsResult>
+public sealed class GetApplicationsHandler : QueryHandlerBase<GetApplications, GetApplicationsResult>
 {
     private readonly IValidateSort _sortValidator;
     private readonly IApplicationRepository _applicationRepository;

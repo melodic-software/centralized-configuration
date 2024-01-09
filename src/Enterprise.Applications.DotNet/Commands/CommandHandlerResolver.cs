@@ -1,5 +1,4 @@
-﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
-using Enterprise.ApplicationServices.Commands.Handlers.Resolution;
+﻿using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Commands.Model;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,7 +15,7 @@ public class CommandHandlerResolver : IResolveCommandHandler
 
     public IHandleCommand<T> GetHandlerFor<T>(T command) where T : ICommand
     {
-        IHandleCommand<T> commandHandler = _serviceProvider.GetRequiredService<CommandHandler<T>>();
+        IHandleCommand<T> commandHandler = _serviceProvider.GetRequiredService<CommandHandlerBase<T>>();
 
         return commandHandler;
     }

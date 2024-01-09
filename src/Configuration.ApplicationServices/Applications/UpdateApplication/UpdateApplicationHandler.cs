@@ -1,6 +1,6 @@
 ﻿using Configuration.Domain.Applications;
 using Configuration.Domain.Applications.Events;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+using Enterprise.ApplicationServices.Commands.Handlers;
 using Enterprise.ApplicationServices.Events;
 using Enterprise.DomainDrivenDesign.Events;
 using Microsoft.Extensions.Logging;
@@ -8,14 +8,14 @@ using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.ApplicationServices.Applications.UpdateApplication;
 
-public sealed class UpdateApplicationHandler : CommandHandler<UpdateApplication>
+public sealed class UpdateApplicationHandler : CommandHandlerBase<UpdateApplication>
 {
     private readonly IApplicationExistenceService _applicationExistenceService;
     private readonly ApplicationValidationService _applicationValidationService;
     private readonly IApplicationRepository _applicationRepository;
 
     public UpdateApplicationHandler(IEventServiceFacade eventServiceFacade,
-        ILogger<CommandHandler<UpdateApplication>> logger,
+        ILogger<CommandHandlerBase<UpdateApplication>> logger,
         IApplicationExistenceService applicationExistenceService,
         ApplicationValidationService applicationValidationService,
         IApplicationRepository applicationRepository) : base(eventServiceFacade, logger)
