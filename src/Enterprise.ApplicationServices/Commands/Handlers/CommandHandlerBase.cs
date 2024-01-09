@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers;
 
-public abstract class CommandHandlerBase<T> : ApplicationService, IHandleCommand<T> where T : ICommand
+public abstract class CommandHandlerBase<T> : ApplicationServiceBase, IHandleCommand<T> where T : ICommand
 {
     private readonly ILogger<CommandHandlerBase<T>> _logger;
 

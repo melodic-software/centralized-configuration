@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 
-public abstract class QueryHandlerBase<TQuery, TResult> : ApplicationService, IHandleQuery<TResult>,
+public abstract class QueryHandlerBase<TQuery, TResult> : ApplicationServiceBase, IHandleQuery<TResult>,
     IHandleQuery<TQuery, TResult>
     where TQuery : IQuery
 {

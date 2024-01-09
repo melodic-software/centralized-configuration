@@ -4,14 +4,14 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices;
 
-public abstract class ApplicationService : IApplicationService
+public abstract class ApplicationServiceBase : IApplicationService
 {
     private readonly HashSet<Guid> _processedEventIds = new();
-    private readonly ILogger<ApplicationService> _logger;
+    private readonly ILogger<ApplicationServiceBase> _logger;
 
     protected IEventServiceFacade EventService { get; }
 
-    protected ApplicationService(IEventServiceFacade eventService, ILogger<ApplicationService> logger)
+    protected ApplicationServiceBase(IEventServiceFacade eventService, ILogger<ApplicationServiceBase> logger)
     {
         EventService = eventService;
         _logger = logger;
