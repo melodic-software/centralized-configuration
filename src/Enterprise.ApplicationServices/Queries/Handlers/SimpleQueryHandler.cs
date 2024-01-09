@@ -41,22 +41,4 @@ public class SimpleQueryHandler<TQuery, TResult> : QueryHandlerBase<TQuery, TRes
 
         return result;
     }
-
-    private void Validate(IQuery query)
-    {
-        Type genericArgumentType = typeof(TQuery);
-        Type queryType = query.GetType();
-
-        bool queryCanBeHandled = queryType == genericArgumentType;
-
-        if (queryCanBeHandled)
-            return;
-
-        Type queryHandlerType = GetType();
-
-        throw new Exception(QueryCannotBeHandled(queryType, queryHandlerType));
-    }
-
-    private static string QueryCannotBeHandled(Type queryType, Type queryHandlerType) =>
-        $"A query of type \"{queryType.FullName}\" cannot be handled by \"{queryHandlerType.FullName}\"";
 }

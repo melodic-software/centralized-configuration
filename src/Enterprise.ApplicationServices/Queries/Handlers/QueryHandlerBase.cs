@@ -15,17 +15,16 @@ public abstract class QueryHandlerBase<TQuery, TResult> : ApplicationServiceBase
 
     public async Task<TResult> HandleAsync(IQuery query, CancellationToken cancellationToken)
     {
-        Validate(query);
-
-        // This is a dynamic dispatch.
+        ValidateType(query);
+        
         TResult result = await HandleAsync((dynamic)query, cancellationToken);
-
+        
         return result;
     }
 
     public abstract Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
 
-    private void Validate(IQuery query)
+    private void ValidateType(IQuery query)
     {
         Type genericArgumentType = typeof(TQuery);
         Type queryType = query.GetType();

@@ -11,6 +11,3 @@ public interface IHandleQuery<in TQuery, TResult> : IApplicationService where TQ
 {
     Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
 }
-
-// TODO: do the same type of dynamic dependency registration
-// get all IHandleQuery<TQuery, TResult> and register them as MediatR IRequestHandler<TQuery, Result<TResult>>
