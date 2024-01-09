@@ -1,27 +1,37 @@
 ﻿using Configuration.Domain.Applications;
 using Configuration.Domain.Applications.Events;
-using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Exceptions;
+using Microsoft.Extensions.Logging;
 
 namespace Configuration.ApplicationServices.Applications.CreateApplication;
 
-public sealed class CreateApplicationHandler(
-    IRaiseEvents eventRaiser,
-    IEventCallbackService eventCallbackService,
-    ApplicationValidationService applicationValidationService,
-    IApplicationExistenceService applicationExistenceService,
-    IApplicationRepository applicationRepository)
-    : CommandHandler<CreateApplication>(eventRaiser, eventCallbackService)
+public sealed class CreateApplicationHandler : CommandHandler<CreateApplication>
 {
+    private readonly ApplicationValidationService _applicationValidationService;
+    private readonly IApplicationExistenceService _applicationExistenceService;
+    private readonly IApplicationRepository _applicationRepository;
+
+    public CreateApplicationHandler(IRaiseEvents eventRaiser,
+        IEventCallbackService eventCallbackService,
+        ILogger<CommandHandler<CreateApplication>> logger,
+        ApplicationValidationService applicationValidationService,
+        IApplicationExistenceService applicationExistenceService,
+        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService, logger)
+    {
+        _applicationValidationService = applicationValidationService;
+        _applicationExistenceService = applicationExistenceService;
+        _applicationRepository = applicationRepository;
+    }
+
     public override async Task HandleAsync(CreateApplication command)
     {
         Application application = Application.New(command.Id, command.Name, command.AbbreviatedName, command.Description, command.IsActive);
 
-        List<ValidationFailure> validationFailures = await applicationValidationService.ValidateNewAsync(application, applicationExistenceService);
+        List<ValidationFailure> validationFailures = await _applicationValidationService.ValidateNewAsync(application, _applicationExistenceService);
 
         if (validationFailures.Any())
         {
@@ -32,7 +42,7 @@ public sealed class CreateApplicationHandler(
             try
             {
                 // TODO: Replace with "Add" method.
-                await applicationRepository.Save(application);
+                await _applicationRepository.Save(application);
 
                 // TODO: Use IUnitOfWork to persist the changes.
 

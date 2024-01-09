@@ -13,12 +13,26 @@ namespace Enterprise.API.Controllers.Formatters.Output.Custom;
 /// This should be registered last so that all dynamically added output formatters can be referenced.
 /// If there are no formatters than can handle the media type, a 406 response is generated.
 /// </summary>
-/// <param name="formatters"></param>
-/// <param name="versioningParameterName"></param>
-public class MediaTypeVersionDelegatingFormatter(IList<IOutputFormatter> formatters, string versioningParameterName) : IOutputFormatter
+public class MediaTypeVersionDelegatingFormatter : IOutputFormatter
 {
-    private readonly IList<IOutputFormatter> _formatters = formatters ?? throw new ArgumentNullException(nameof(formatters));
+    private readonly IList<IOutputFormatter> _formatters;
     private readonly ConcurrentDictionary<StringSegment, IOutputFormatter> _formatterCache = new();
+    private readonly string _versioningParameterName;
+
+    /// <summary>
+    /// The API can return a 406 status code if the MvcOptions property ReturnHttpNotAcceptable is set to true, and a media type version strategy is used.
+    /// When enabled, this can cause problems with generated Swagger documentation. Consider setting it to false and relying on this formatter to handle the 406 responses.
+    /// This output formatter compensates by removing any versioning parameter and delegating the modified context to the existing formatters.
+    /// This should be registered last so that all dynamically added output formatters can be referenced.
+    /// If there are no formatters than can handle the media type, a 406 response is generated.
+    /// </summary>
+    /// <param name="formatters"></param>
+    /// <param name="versioningParameterName"></param>
+    public MediaTypeVersionDelegatingFormatter(IList<IOutputFormatter> formatters, string versioningParameterName)
+    {
+        _versioningParameterName = versioningParameterName;
+        _formatters = formatters ?? throw new ArgumentNullException(nameof(formatters));
+    }
 
     public bool CanWriteResult(OutputFormatterCanWriteContext context)
     {
@@ -60,7 +74,7 @@ public class MediaTypeVersionDelegatingFormatter(IList<IOutputFormatter> formatt
         foreach (MediaTypeHeaderValue headerValue in acceptHeader)
         {
             NameValueHeaderValue? versionParameter = headerValue.Parameters
-                .FirstOrDefault(x => x.Name == versioningParameterName);
+                .FirstOrDefault(x => x.Name == _versioningParameterName);
 
             if (versionParameter != null)
                 headerValue.Parameters.Remove(versionParameter);

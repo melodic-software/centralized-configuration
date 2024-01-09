@@ -12,19 +12,32 @@ namespace Enterprise.ApplicationServices.Queries.Handlers;
 /// </summary>
 /// <typeparam name="TQuery"></typeparam>
 /// <typeparam name="TResult"></typeparam>
-/// <param name="eventRaiser"></param>
-/// <param name="eventCallbackService"></param>
-/// <param name="queryLogic"></param>
-public class SimpleQueryHandler<TQuery, TResult>(
-    IRaiseEvents eventRaiser,
-    IEventCallbackService eventCallbackService,
-    IQueryLogic<TQuery, TResult> queryLogic)
-    : QueryHandler<TQuery, TResult>(eventRaiser, eventCallbackService)
+public class SimpleQueryHandler<TQuery, TResult> : QueryHandler<TQuery, TResult>
     where TQuery : IQuery
 {
+    private readonly IQueryLogic<TQuery, TResult> _queryLogic;
+
+    /// <summary>
+    /// Most query handler implementations end up being pretty thin...
+    /// Some pragmatic approaches involve writing the data access code directly in the handler, but this violates onion architecture.
+    /// One solution is to use a prebuilt handler implementation which requires a query logic implementation.
+    /// We can move that out to an infrastructure layer, and simplify the creation and registration of query handlers.
+    /// </summary>
+    /// <typeparam name="TQuery"></typeparam>
+    /// <typeparam name="TResult"></typeparam>
+    /// <param name="eventRaiser"></param>
+    /// <param name="eventCallbackService"></param>
+    /// <param name="queryLogic"></param>
+    public SimpleQueryHandler(IRaiseEvents eventRaiser,
+        IEventCallbackService eventCallbackService,
+        IQueryLogic<TQuery, TResult> queryLogic) : base(eventRaiser, eventCallbackService)
+    {
+        _queryLogic = queryLogic;
+    }
+
     public override async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken)
     {
-        TResult result = await queryLogic.ExecuteAsync(query, cancellationToken);
+        TResult result = await _queryLogic.ExecuteAsync(query, cancellationToken);
 
         return result;
     }

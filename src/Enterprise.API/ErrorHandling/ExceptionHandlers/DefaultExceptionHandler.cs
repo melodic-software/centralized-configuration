@@ -7,11 +7,18 @@ using System.Net;
 namespace Enterprise.API.ErrorHandling.ExceptionHandlers;
 // https://anthonygiretti.com/2023/06/14/asp-net-core-8-improved-exception-handling-with-iexceptionhandler/
 
-internal class DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger) : IExceptionHandler
+internal class DefaultExceptionHandler : IExceptionHandler
 {
+    private readonly ILogger<DefaultExceptionHandler> _logger;
+
+    public DefaultExceptionHandler(ILogger<DefaultExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
+
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-            logger.LogError(exception, "An unexpected error occurred.");
+            _logger.LogError(exception, "An unexpected error occurred.");
 
             ProblemDetails problemDetails = new ProblemDetails
             {

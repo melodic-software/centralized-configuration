@@ -1,7 +1,7 @@
 ﻿using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Queries.Model;
 
-namespace Enterprise.ApplicationServices.Queries.Handlers.Generic;
+namespace Enterprise.ApplicationServices.Queries.Handlers;
 
 public interface IHandleQuery<TResult>
 {

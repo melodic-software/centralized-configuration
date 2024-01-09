@@ -18,8 +18,8 @@ using Configuration.API.Client.DTOs.Input.V1;
 using Configuration.API.Client.DTOs.Output.V1;
 using Configuration.ApplicationServices.Applications.GetApplications;
 using Configuration.ApplicationServices.Applications.Shared;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
+using Enterprise.ApplicationServices.Queries.Handlers;
 
 namespace Configuration.API.Controllers.Applications.V1.Extensions;
 

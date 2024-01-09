@@ -1,5 +1,5 @@
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
+using Enterprise.ApplicationServices.Queries.Handlers;
 using FluentAssertions;
 using FluentValidation;
 using NetArchTest.Rules;

@@ -2,7 +2,12 @@
 
 namespace Enterprise.Exceptions;
 
-public class ValidationException(IEnumerable<ValidationError> validationErrors) : Exception
+public class ValidationException : Exception
 {
-    public IEnumerable<ValidationError> ValidationErrors { get; } = validationErrors;
+    public ValidationException(IEnumerable<ValidationError> validationErrors)
+    {
+        ValidationErrors = validationErrors;
+    }
+
+    public IEnumerable<ValidationError> ValidationErrors { get; }
 }

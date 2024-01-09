@@ -5,11 +5,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.API.ErrorHandling.ExceptionHandlers;
 
-public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
+public class GlobalExceptionHandler : IExceptionHandler
 {
+    private readonly ILogger<GlobalExceptionHandler> _logger;
+
+    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
+
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
+        _logger.LogError(exception, "Exception occurred: {Message}", exception.Message);
 
         ProblemDetails problemDetails = new ProblemDetails
         {

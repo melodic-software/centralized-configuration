@@ -5,11 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enterprise.Applications.DotNet.Events;
 
-public class EventHandlerResolver(IServiceProvider serviceProvider) : IResolveEventHandlers
+public class EventHandlerResolver : IResolveEventHandlers
 {
+    private readonly IServiceProvider _serviceProvider;
+
+    public EventHandlerResolver(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
     public Task<IEnumerable<IHandleEvent<T>>> ResolveAsync<T>(T @event) where T : IEvent
     {
-        IEnumerable<IHandleEvent<T>> handlers = serviceProvider.GetServices<IHandleEvent<T>>();
+        IEnumerable<IHandleEvent<T>> handlers = _serviceProvider.GetServices<IHandleEvent<T>>();
         return Task.FromResult(handlers);
     }
 }

@@ -5,15 +5,20 @@ using Enterprise.Events.Services.Raising;
 
 namespace Configuration.ApplicationServices.Applications.GetApplicationByUniqueName;
 
-public sealed class GetApplicationByUniqueNameHandler(
-    IRaiseEvents eventRaiser,
-    IEventCallbackService eventCallbackService,
-    IApplicationRepository applicationRepository)
-    : QueryHandler<GetApplicationByUniqueName, ApplicationResult?>(eventRaiser, eventCallbackService)
+public sealed class GetApplicationByUniqueNameHandler : QueryHandler<GetApplicationByUniqueName, ApplicationResult?>
 {
+    private readonly IApplicationRepository _applicationRepository;
+
+    public GetApplicationByUniqueNameHandler(IRaiseEvents eventRaiser,
+        IEventCallbackService eventCallbackService,
+        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService)
+    {
+        _applicationRepository = applicationRepository;
+    }
+
     public override async Task<ApplicationResult?> HandleAsync(GetApplicationByUniqueName query, CancellationToken cancellationToken)
     {
-        ApplicationResult? application = await applicationRepository.GetByUniqueNameAsync(query.UniqueName, cancellationToken);
+        ApplicationResult? application = await _applicationRepository.GetByUniqueNameAsync(query.UniqueName, cancellationToken);
 
         return application;
     }

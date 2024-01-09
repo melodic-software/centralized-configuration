@@ -4,13 +4,18 @@ using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
 namespace Enterprise.ApplicationServices.Abstractions;
 
-public abstract class ApplicationService(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
-    : IApplicationService
+public abstract class ApplicationService : IApplicationService
 {
     private readonly HashSet<Guid> _processedEventIds = new();
 
-    protected readonly IRaiseEvents EventRaiser = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
-    protected readonly IEventCallbackService EventCallbackService = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
+    protected readonly IRaiseEvents EventRaiser;
+    protected readonly IEventCallbackService EventCallbackService;
+
+    protected ApplicationService(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
+    {
+        EventRaiser = eventRaiser ?? throw new ArgumentNullException(nameof(eventRaiser));
+        EventCallbackService = eventCallbackService ?? throw new ArgumentNullException(nameof(eventCallbackService));
+    }
 
     public void ClearCallbacks()
     {

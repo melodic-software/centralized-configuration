@@ -6,8 +6,15 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Enterprise.API.Swagger.OperationFilters;
 
-public class SetDefaultVersionParamValueFilter(List<string> allVersionNames) : IOperationFilter
+public class SetDefaultVersionParamValueFilter : IOperationFilter
 {
+    private readonly List<string> _allVersionNames;
+
+    public SetDefaultVersionParamValueFilter(List<string> allVersionNames)
+    {
+        _allVersionNames = allVersionNames;
+    }
+
     private const string DocumentVersionRegexPattern = @"^v\d+$";
 
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
@@ -21,7 +28,7 @@ public class SetDefaultVersionParamValueFilter(List<string> allVersionNames) : I
             return;
             
         List<OpenApiParameter> versionParameters = operation.Parameters
-            .Where(p => allVersionNames.Any(x => p.Name.Equals(x, StringComparison.OrdinalIgnoreCase)))
+            .Where(p => _allVersionNames.Any(x => p.Name.Equals(x, StringComparison.OrdinalIgnoreCase)))
             .ToList();
 
         foreach (OpenApiParameter versionParameter in versionParameters)

@@ -6,15 +6,20 @@ using ValidationException = Enterprise.Exceptions.ValidationException;
 
 namespace Enterprise.ApplicationServices.Decorators.CommandHandlers;
 
-public class FluentValidationDecorator<T>(
-    IHandleCommand<T> commandHandler,
-    IEnumerable<IValidator<T>> validators)
-    : CommandHandlerDecorator<T>(commandHandler)
+public class FluentValidationDecorator<T> : CommandHandlerDecorator<T>
     where T : ICommand
 {
+    private readonly IEnumerable<IValidator<T>> _validators;
+
+    public FluentValidationDecorator(IHandleCommand<T> commandHandler,
+        IEnumerable<IValidator<T>> validators) : base(commandHandler)
+    {
+        _validators = validators;
+    }
+
     public override async Task HandleAsync(T command)
     {
-        if (!validators.Any())
+        if (!_validators.Any())
         {
             await DecoratedHandler.HandleAsync((dynamic)command);
             return;
@@ -22,7 +27,7 @@ public class FluentValidationDecorator<T>(
 
         IValidationContext context = new ValidationContext<T>(command);
 
-        List<ValidationError> validationErrors = validators
+        List<ValidationError> validationErrors = _validators
             .Select(validator => validator.Validate(context))
             .Where(validationResult => validationResult.Errors.Any())
             .SelectMany(validationResult => validationResult.Errors)

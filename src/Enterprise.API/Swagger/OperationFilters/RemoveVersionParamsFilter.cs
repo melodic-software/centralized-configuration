@@ -5,8 +5,17 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Enterprise.API.Swagger.OperationFilters;
 
-public class RemoveVersionParamsFilter(bool mediaTypeVersioningEnabled, List<string> allVersionNames) : IOperationFilter
+public class RemoveVersionParamsFilter : IOperationFilter
 {
+    private readonly bool _mediaTypeVersioningEnabled;
+    private readonly List<string> _allVersionNames;
+
+    public RemoveVersionParamsFilter(bool mediaTypeVersioningEnabled, List<string> allVersionNames)
+    {
+        _mediaTypeVersioningEnabled = mediaTypeVersioningEnabled;
+        _allVersionNames = allVersionNames;
+    }
+
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
         bool isUrlVersioned = context.ApiDescription.ActionDescriptor.EndpointMetadata.Any(x =>
@@ -20,12 +29,12 @@ public class RemoveVersionParamsFilter(bool mediaTypeVersioningEnabled, List<str
         });
 
         List<OpenApiParameter> versionParameters = operation.Parameters
-            .Where(p => allVersionNames.Any(x => p.Name.Equals(x, StringComparison.OrdinalIgnoreCase)))
+            .Where(p => _allVersionNames.Any(x => p.Name.Equals(x, StringComparison.OrdinalIgnoreCase)))
             .ToList();
 
         // URI and media type versioning is embedded in the operation and does not require request parameters
         // We want to remove ALL the supported versioning parameters if either URL or media type versioning are used
-        if (mediaTypeVersioningEnabled || isUrlVersioned)
+        if (_mediaTypeVersioningEnabled || isUrlVersioned)
         {
             foreach (OpenApiParameter versionParameter in versionParameters)
                 operation.Parameters.Remove(versionParameter);

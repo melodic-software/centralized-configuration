@@ -9,11 +9,23 @@ namespace Enterprise.API.Middleware;
 /// This can trigger custom middleware an additional time, causing confusion.
 /// 
 /// </summary>
-/// <param name="next"></param>
-/// <param name="logger"></param>
-public class IgnoreFaviconMiddleware(RequestDelegate next, ILogger<RootRedirectMiddleware> logger)
+public class IgnoreFaviconMiddleware
 {
-    private readonly ILogger<RootRedirectMiddleware> _logger = logger;
+    private readonly ILogger<RootRedirectMiddleware> _logger;
+    private readonly RequestDelegate _next;
+
+    /// <summary>
+    /// Most browsers default to requesting a favicon whenever the user visits a new website.
+    /// This can trigger custom middleware an additional time, causing confusion.
+    /// 
+    /// </summary>
+    /// <param name="next"></param>
+    /// <param name="logger"></param>
+    public IgnoreFaviconMiddleware(RequestDelegate next, ILogger<RootRedirectMiddleware> logger)
+    {
+        _next = next;
+        _logger = logger;
+    }
 
     public async Task InvokeAsync(HttpContext context)
     {
@@ -25,6 +37,6 @@ public class IgnoreFaviconMiddleware(RequestDelegate next, ILogger<RootRedirectM
             return;
         }
 
-        await next.Invoke(context);
+        await _next.Invoke(context);
     }
 }

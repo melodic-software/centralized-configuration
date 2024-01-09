@@ -5,10 +5,17 @@ using Microsoft.Extensions.Options;
 
 namespace Enterprise.API.Controllers.Formatters.Input;
 
-public class InputFormatterConfigurer(List<IInputFormatter> inputFormatters) : IConfigureOptions<MvcOptions>
+public class InputFormatterConfigurer : IConfigureOptions<MvcOptions>
 {
+    private readonly List<IInputFormatter> _inputFormatters;
+
     public InputFormatterConfigurer() : this(new())
     {
+    }
+
+    public InputFormatterConfigurer(List<IInputFormatter> inputFormatters)
+    {
+        _inputFormatters = inputFormatters;
     }
 
     public void Configure(MvcOptions options)
@@ -20,7 +27,7 @@ public class InputFormatterConfigurer(List<IInputFormatter> inputFormatters) : I
         options.InputFormatters.Insert(0, GetJsonPatchInputFormatter());
 
         // Add custom (application specific) input formatters.
-        foreach (IInputFormatter inputFormatter in inputFormatters)
+        foreach (IInputFormatter inputFormatter in _inputFormatters)
             options.InputFormatters.Add(inputFormatter);
     }
 

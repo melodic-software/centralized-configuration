@@ -1,15 +1,17 @@
 ﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 
-public abstract class QueryHandler<TQuery, TResult>(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService)
-    : ApplicationService(eventRaiser, eventCallbackService), IHandleQuery<TResult>, IHandleQuery<TQuery, TResult>
+public abstract class QueryHandler<TQuery, TResult> : ApplicationService, IHandleQuery<TResult>, IHandleQuery<TQuery, TResult>
     where TQuery : IQuery
 {
+    protected QueryHandler(IRaiseEvents eventRaiser, IEventCallbackService eventCallbackService) : base(eventRaiser, eventCallbackService)
+    {
+    }
+
     public async Task<TResult> HandleAsync(IQuery query, CancellationToken cancellationToken)
     {
         Validate(query);

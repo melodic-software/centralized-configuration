@@ -8,36 +8,47 @@ namespace Enterprise.Events.Services.Raising.Callbacks.Facade;
 /// <summary>
 /// This is a simple facade service that aggregates the registration and raising of event callbacks.
 /// </summary>
-public class EventCallbackService(IRegisterEventCallbacks callbackRegistrar, IRaiseEventCallbacks callbackRaiser)
-    : IEventCallbackService
+public class EventCallbackService : IEventCallbackService
 {
+    private readonly IRegisterEventCallbacks _callbackRegistrar;
+    private readonly IRaiseEventCallbacks _callbackRaiser;
+
+    /// <summary>
+    /// This is a simple facade service that aggregates the registration and raising of event callbacks.
+    /// </summary>
+    public EventCallbackService(IRegisterEventCallbacks callbackRegistrar, IRaiseEventCallbacks callbackRaiser)
+    {
+        _callbackRegistrar = callbackRegistrar;
+        _callbackRaiser = callbackRaiser;
+    }
+
     public Dictionary<Type, IList> GetRegisteredCallbacks()
     {
-        return callbackRegistrar.GetRegisteredCallbacks();
+        return _callbackRegistrar.GetRegisteredCallbacks();
     }
 
     public void RegisterEventCallback<TEvent>(Action<TEvent> eventCallback) where TEvent : IEvent
     {
-        callbackRegistrar.RegisterEventCallback(eventCallback);
+        _callbackRegistrar.RegisterEventCallback(eventCallback);
     }
 
     public void ClearRegisteredCallbacks()
     {
-        callbackRegistrar.ClearRegisteredCallbacks();
+        _callbackRegistrar.ClearRegisteredCallbacks();
     }
 
     public void RaiseCallbacks(IEnumerable<IEvent> events)
     {
-        callbackRaiser.RaiseCallbacks(events);
+        _callbackRaiser.RaiseCallbacks(events);
     }
 
     public void RaiseCallbacks<TEvent>(TEvent @event) where TEvent : IEvent
     {
-        callbackRaiser.RaiseCallbacks((dynamic)@event, callbackRegistrar);
+        _callbackRaiser.RaiseCallbacks((dynamic)@event, _callbackRegistrar);
     }
 
     public void RaiseCallbacks<TEvent>(TEvent @event, IRegisterEventCallbacks callbackRegistrar) where TEvent : IEvent
     {
-        callbackRaiser.RaiseCallbacks((dynamic)@event, callbackRegistrar);
+        _callbackRaiser.RaiseCallbacks((dynamic)@event, callbackRegistrar);
     }
 }

@@ -3,10 +3,15 @@ using Enterprise.Events.Model;
 
 namespace Enterprise.ApplicationServices.Commands.Handlers.Generic;
 
-public abstract class CommandHandlerDecorator<T>(IHandleCommand<T> commandHandler) : IHandleCommand<T>
+public abstract class CommandHandlerDecorator<T> : IHandleCommand<T>
     where T : ICommand
 {
-    protected IHandleCommand<T> DecoratedHandler { get; } = commandHandler;
+    protected CommandHandlerDecorator(IHandleCommand<T> commandHandler)
+    {
+        DecoratedHandler = commandHandler;
+    }
+
+    protected IHandleCommand<T> DecoratedHandler { get; }
 
     public abstract Task HandleAsync(T command);
     

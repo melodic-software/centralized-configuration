@@ -1,9 +1,7 @@
-﻿using Enterprise.ApplicationServices.Abstractions;
-using Enterprise.ApplicationServices.Commands.Handlers.Generic;
+﻿using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.ApplicationServices.Commands.Model;
 using Enterprise.ApplicationServices.Decorators.CommandHandlers;
 using Enterprise.ApplicationServices.Queries.Handlers;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.ApplicationServices.Queries.Model;
 using Enterprise.DI.DotNet.Extensions;
 using Enterprise.Events.Services.Raising;

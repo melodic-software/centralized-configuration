@@ -2,4 +2,9 @@
 
 namespace Configuration.Domain.Applications;
 
-public class ApplicationNotFoundException(string message) : NotFoundException(message);
+public class ApplicationNotFoundException : NotFoundException
+{
+    public ApplicationNotFoundException(string message) : base(message)
+    {
+    }
+}

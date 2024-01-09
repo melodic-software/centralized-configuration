@@ -1,7 +1,13 @@
 ﻿namespace Enterprise.API.ErrorHandling.Model;
 
-public class ErrorDetailsDto(int statusCode, string message)
+public class ErrorDetailsDto
 {
-    public int StatusCode { get; } = statusCode;
-    public string Message { get; } = message;
+    public ErrorDetailsDto(int statusCode, string message)
+    {
+        StatusCode = statusCode;
+        Message = message;
+    }
+
+    public int StatusCode { get; }
+    public string Message { get; }
 }

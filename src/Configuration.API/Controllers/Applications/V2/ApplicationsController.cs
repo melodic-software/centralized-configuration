@@ -5,7 +5,7 @@ using Configuration.API.Routing;
 using Configuration.ApplicationServices.Applications.GetApplicationById;
 using Configuration.ApplicationServices.Applications.Shared;
 using Enterprise.API.Controllers.Abstract;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
+using Enterprise.ApplicationServices.Queries.Handlers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Configuration.API.Controllers.Applications.V2;
@@ -20,8 +20,15 @@ namespace Configuration.API.Controllers.Applications.V2;
 [ApiController]
 [ApiVersion("2.0")]
 [ControllerName("Applications")]
-public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
+public class ApplicationsControllerV2 : CustomControllerBase
 {
+    private readonly IMapper _mapper;
+
+    public ApplicationsControllerV2(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
     /// <summary>
     /// Get an application by ID.
     /// </summary>
@@ -66,7 +73,7 @@ public class ApplicationsControllerV2(IMapper mapper) : CustomControllerBase
             return NotFound();
 
         // normally we'd use auto mapper here to map from the query object to the specific API model (v2) contract
-        ApplicationDto result = mapper.Map<ApplicationDto>(application);
+        ApplicationDto result = _mapper.Map<ApplicationDto>(application);
 
         return Ok(result);
     }

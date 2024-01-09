@@ -5,11 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enterprise.Applications.DotNet.Commands;
 
-public class CommandHandlerResolver(IServiceProvider serviceProvider) : IResolveCommandHandler
+public class CommandHandlerResolver : IResolveCommandHandler
 {
+    private readonly IServiceProvider _serviceProvider;
+
+    public CommandHandlerResolver(IServiceProvider serviceProvider)
+    {
+        _serviceProvider = serviceProvider;
+    }
+
     public IHandleCommand<T> GetHandlerFor<T>(T command) where T : ICommand
     {
-        IHandleCommand<T> commandHandler = serviceProvider.GetRequiredService<CommandHandler<T>>();
+        IHandleCommand<T> commandHandler = _serviceProvider.GetRequiredService<CommandHandler<T>>();
 
         return commandHandler;
     }

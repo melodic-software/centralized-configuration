@@ -9,8 +9,15 @@ using System.Text.Json;
 
 namespace Enterprise.API.Controllers.Formatters.Output;
 
-public class OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters) : IConfigureOptions<MvcOptions>
+public class OutputFormatterConfigurer : IConfigureOptions<MvcOptions>
 {
+    private readonly List<IOutputFormatter> _outputFormatters;
+
+    public OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters)
+    {
+        _outputFormatters = outputFormatters;
+    }
+
     public void Configure(MvcOptions options)
     {
         List<IOutputFormatter> initialFormatters = options.OutputFormatters.ToList();
@@ -59,7 +66,7 @@ public class OutputFormatterConfigurer(List<IOutputFormatter> outputFormatters) 
         // Adds output formatters here.
 
         // Add custom (application specific) output formatters.
-        foreach (IOutputFormatter outputFormatter in outputFormatters)
+        foreach (IOutputFormatter outputFormatter in _outputFormatters)
             options.OutputFormatters.Add(outputFormatter);
     }
 

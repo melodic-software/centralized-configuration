@@ -104,4 +104,29 @@ public class GlobalErrorHandler
     }
 }
 
-internal record ExceptionDetails(int Status, string Type, string Title, string Detail, IEnumerable<object>? Errors);
+internal record ExceptionDetails
+{
+    public ExceptionDetails(int Status, string Type, string Title, string Detail, IEnumerable<object>? Errors)
+    {
+        this.Status = Status;
+        this.Type = Type;
+        this.Title = Title;
+        this.Detail = Detail;
+        this.Errors = Errors;
+    }
+
+    public int Status { get; init; }
+    public string Type { get; init; }
+    public string Title { get; init; }
+    public string Detail { get; init; }
+    public IEnumerable<object>? Errors { get; init; }
+
+    public void Deconstruct(out int Status, out string Type, out string Title, out string Detail, out IEnumerable<object>? Errors)
+    {
+        Status = this.Status;
+        Type = this.Type;
+        Title = this.Title;
+        Detail = this.Detail;
+        Errors = this.Errors;
+    }
+}

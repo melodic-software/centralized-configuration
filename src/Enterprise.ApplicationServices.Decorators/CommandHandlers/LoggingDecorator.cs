@@ -4,19 +4,24 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.ApplicationServices.Decorators.CommandHandlers;
 
-public class LoggingDecorator<T>(
-    IHandleCommand<T> commandHandler,
-    ILogger<LoggingDecorator<T>> logger)
-    : CommandHandlerDecorator<T>(commandHandler)
+public class LoggingDecorator<T> : CommandHandlerDecorator<T>
     where T : ICommand
 {
+    private readonly ILogger<LoggingDecorator<T>> _logger;
+
+    public LoggingDecorator(IHandleCommand<T> commandHandler,
+        ILogger<LoggingDecorator<T>> logger) : base(commandHandler)
+    {
+        _logger = logger;
+    }
+
     public override async Task HandleAsync(T command)
     {
         Type commandType = typeof(T);
         string commandTypeName = commandType.Name;
 
-        logger.LogInformation("Executing command {Command}.", commandTypeName);
+        _logger.LogInformation("Executing command {Command}.", commandTypeName);
         await DecoratedHandler.HandleAsync((dynamic)command);
-        logger.LogInformation("Command {Command} processed successfully.", commandTypeName);
+        _logger.LogInformation("Command {Command} processed successfully.", commandTypeName);
     }
 }

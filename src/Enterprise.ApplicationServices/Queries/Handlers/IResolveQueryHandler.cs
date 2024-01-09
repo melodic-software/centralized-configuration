@@ -1,5 +1,4 @@
-﻿using Enterprise.ApplicationServices.Queries.Handlers.Generic;
-using Enterprise.ApplicationServices.Queries.Model;
+﻿using Enterprise.ApplicationServices.Queries.Model;
 
 namespace Enterprise.ApplicationServices.Queries.Handlers;
 

@@ -3,8 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Enterprise.EntityFramework.Contexts;
 
-public abstract class DbContextBase(DbContextOptions options) : DbContext(options)
+public abstract class DbContextBase : DbContext
 {
+    protected DbContextBase(DbContextOptions options) : base(options)
+    {
+    }
+
     public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
         try

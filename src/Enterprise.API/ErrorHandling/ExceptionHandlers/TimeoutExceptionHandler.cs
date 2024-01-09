@@ -5,11 +5,18 @@ using Microsoft.Extensions.Logging;
 
 namespace Enterprise.API.ErrorHandling.ExceptionHandlers;
 
-public class TimeOutExceptionHandler(ILogger<TimeOutExceptionHandler> logger) : IExceptionHandler
+public class TimeOutExceptionHandler : IExceptionHandler
 {
+    private readonly ILogger<TimeOutExceptionHandler> _logger;
+
+    public TimeOutExceptionHandler(ILogger<TimeOutExceptionHandler> logger)
+    {
+        _logger = logger;
+    }
+
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-            logger.LogError(exception, "A timeout occurred.");
+            _logger.LogError(exception, "A timeout occurred.");
 
             if (exception is not TimeoutException)
                 return false;

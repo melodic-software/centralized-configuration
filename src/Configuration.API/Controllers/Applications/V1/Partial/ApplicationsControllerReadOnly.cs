@@ -13,7 +13,7 @@ using Enterprise.API.Constants;
 using Enterprise.API.ContentNegotiation.Constants;
 using Enterprise.API.Controllers.Extensions;
 using Enterprise.API.Results;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
+using Enterprise.ApplicationServices.Queries.Handlers;
 using Enterprise.Reflection.Properties.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;

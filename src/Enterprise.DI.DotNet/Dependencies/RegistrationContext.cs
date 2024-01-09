@@ -7,8 +7,19 @@ namespace Enterprise.DI.DotNet.Dependencies;
 /// Provides a context for fluent service registration, allowing for easy addition of services and decorators.
 /// </summary>
 /// <typeparam name="TService">The type of service to be registered.</typeparam>
-public class RegistrationContext<TService>(IServiceCollection services) where TService : class
+public class RegistrationContext<TService> where TService : class
 {
+    private readonly IServiceCollection _services;
+
+    /// <summary>
+    /// Provides a context for fluent service registration, allowing for easy addition of services and decorators.
+    /// </summary>
+    /// <typeparam name="TService">The type of service to be registered.</typeparam>
+    public RegistrationContext(IServiceCollection services)
+    {
+        _services = services;
+    }
+
     /// <summary>
     /// Registers a singleton service of the specified implementation type.
     /// </summary>
@@ -51,7 +62,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
         Type serviceType = typeof(TService);
         Type implementationType = typeof(TImplementation);
         ServiceDescriptor serviceDescriptor = new ServiceDescriptor(serviceType, implementationType, serviceLifetime);
-        services.Add(serviceDescriptor);
+        _services.Add(serviceDescriptor);
         return this;
     }
 
@@ -65,7 +76,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
     {
         Type serviceType = typeof(TService);
         ServiceDescriptor serviceDescriptor = new ServiceDescriptor(serviceType, implementationFactory, serviceLifetime);
-        services.Add(serviceDescriptor);
+        _services.Add(serviceDescriptor);
         return this;
     }
 
@@ -76,7 +87,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
     /// <returns>The updated RegistrationContext instance for fluent chaining.</returns>
     public RegistrationContext<TService> Add(ServiceDescriptor serviceDescriptor)
     {
-        services.Add(serviceDescriptor);
+        _services.Add(serviceDescriptor);
         return this;
     }
 
@@ -106,7 +117,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
     public RegistrationContext<TService> WithDecorator<TDecorator>(Func<IServiceProvider, TService, TDecorator> decoratorFactory) where TDecorator : class, TService
     {
         Type serviceType = typeof(TService);
-        ServiceDescriptor? originalServiceDescriptor = services.FirstOrDefault(d => d.ServiceType == serviceType);
+        ServiceDescriptor? originalServiceDescriptor = _services.FirstOrDefault(d => d.ServiceType == serviceType);
 
         if (originalServiceDescriptor == null)
             throw new InvalidOperationException($"The service of type {serviceType.Name} has not been registered and cannot be decorated.");
@@ -120,7 +131,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
         }
 
         ServiceDescriptor decoratorDescriptor = ServiceDescriptor.Describe(serviceType, ImplementationFactory, lifetime);
-        services.Replace(decoratorDescriptor);
+        _services.Replace(decoratorDescriptor);
 
         return this;
     }
@@ -136,7 +147,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
 
     private ServiceDescriptor GetServiceDescriptor()
     {
-        ServiceDescriptor? serviceDescriptor = services.FirstOrDefault(d => d.ServiceType == typeof(TService));
+        ServiceDescriptor? serviceDescriptor = _services.FirstOrDefault(d => d.ServiceType == typeof(TService));
         if (serviceDescriptor == null)
             throw new InvalidOperationException($"The service of type {typeof(TService).Name} has not been registered.");
 
@@ -157,7 +168,7 @@ public class RegistrationContext<TService>(IServiceCollection services) where TS
 
     private void ReplaceServiceDescriptor(ServiceDescriptor originalDescriptor, Func<IServiceProvider, TService> decoratedFactory)
     {
-        services.Replace(ServiceDescriptor.Describe(
+        _services.Replace(ServiceDescriptor.Describe(
             typeof(TService),
             decoratedFactory,
             originalDescriptor.Lifetime)

@@ -5,7 +5,7 @@ using Configuration.API.Tests.UnitTests.Services;
 using Configuration.ApplicationServices.Applications.GetApplicationById;
 using Configuration.ApplicationServices.Applications.Shared;
 using Configuration.AutoMapper.Profiles.Queries.V2;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
+using Enterprise.ApplicationServices.Queries.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;

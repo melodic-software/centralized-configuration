@@ -8,10 +8,16 @@ using System.Data.SqlClient;
 
 namespace Configuration.Dapper.Queries.Execution
 {
-    public class GetApplicationByIdLogic(string? connectionString, ILogger<GetApplicationByIdLogic> logger) : IQueryLogic<GetApplicationById, ApplicationResult?>
+    public class GetApplicationByIdLogic : IQueryLogic<GetApplicationById, ApplicationResult?>
     {
-        private readonly IDbConnection _db = new SqlConnection(connectionString);
-        private readonly ILogger<GetApplicationByIdLogic> _logger = logger;
+        private readonly IDbConnection _db;
+        private readonly ILogger<GetApplicationByIdLogic> _logger;
+
+        public GetApplicationByIdLogic(string? connectionString, ILogger<GetApplicationByIdLogic> logger)
+        {
+            _db = new SqlConnection(connectionString);
+            _logger = logger;
+        }
 
         public async Task<ApplicationResult?> ExecuteAsync(GetApplicationById query, CancellationToken cancellationToken)
         {

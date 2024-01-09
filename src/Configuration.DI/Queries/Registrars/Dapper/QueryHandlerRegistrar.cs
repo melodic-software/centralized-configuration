@@ -4,7 +4,6 @@ using Configuration.ApplicationServices.Applications.GetApplications;
 using Configuration.ApplicationServices.Applications.Shared;
 using Configuration.Dapper.Queries.Execution;
 using Enterprise.ApplicationServices.Queries.Handlers;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.Core.Queries.Sorting;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;

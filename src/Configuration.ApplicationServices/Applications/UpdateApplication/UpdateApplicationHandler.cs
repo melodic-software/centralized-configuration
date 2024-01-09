@@ -1,27 +1,37 @@
 ﻿using Configuration.Domain.Applications;
 using Configuration.Domain.Applications.Events;
-using Enterprise.ApplicationServices.Abstractions;
 using Enterprise.ApplicationServices.Commands.Handlers.Generic;
 using Enterprise.DomainDrivenDesign.Events;
 using Enterprise.Events.Services.Raising;
 using Enterprise.Events.Services.Raising.Callbacks.Facade.Abstractions;
+using Microsoft.Extensions.Logging;
 using ApplicationId = Configuration.Domain.Applications.ApplicationId;
 
 namespace Configuration.ApplicationServices.Applications.UpdateApplication;
 
-public sealed class UpdateApplicationHandler(
-    IRaiseEvents eventRaiser,
-    IEventCallbackService eventCallbackService,
-    IApplicationExistenceService applicationExistenceService,
-    ApplicationValidationService applicationValidationService,
-    IApplicationRepository applicationRepository)
-    : CommandHandler<UpdateApplication>(eventRaiser, eventCallbackService)
+public sealed class UpdateApplicationHandler : CommandHandler<UpdateApplication>
 {
+    private readonly IApplicationExistenceService _applicationExistenceService;
+    private readonly ApplicationValidationService _applicationValidationService;
+    private readonly IApplicationRepository _applicationRepository;
+
+    public UpdateApplicationHandler(IRaiseEvents eventRaiser,
+        IEventCallbackService eventCallbackService,
+        ILogger<CommandHandler<UpdateApplication>> logger,
+        IApplicationExistenceService applicationExistenceService,
+        ApplicationValidationService applicationValidationService,
+        IApplicationRepository applicationRepository) : base(eventRaiser, eventCallbackService, logger)
+    {
+        _applicationExistenceService = applicationExistenceService;
+        _applicationValidationService = applicationValidationService;
+        _applicationRepository = applicationRepository;
+    }
+
     public override async Task HandleAsync(UpdateApplication command)
     {
         ApplicationId applicationId = new ApplicationId(command.Id);
 
-        bool applicationExists = await applicationExistenceService.ApplicationExistsAsync(applicationId);
+        bool applicationExists = await _applicationExistenceService.ApplicationExistsAsync(applicationId);
 
         if (!applicationExists)
         {
@@ -31,7 +41,7 @@ public sealed class UpdateApplicationHandler(
             return;
         }
 
-        Application? application = await applicationRepository.GetByIdAsync(applicationId);
+        Application? application = await _applicationRepository.GetByIdAsync(applicationId);
 
         if (application == null)
         {
@@ -43,7 +53,7 @@ public sealed class UpdateApplicationHandler(
 
         application.Update(command.Name, command.AbbreviatedName, command.Description, command.IsActive);
 
-        List<ValidationFailure> validationFailures = applicationValidationService.Validate(application);
+        List<ValidationFailure> validationFailures = _applicationValidationService.Validate(application);
 
         if (validationFailures.Any())
         {
@@ -51,7 +61,7 @@ public sealed class UpdateApplicationHandler(
             return;
         }
 
-        await applicationRepository.Save(application);
+        await _applicationRepository.Save(application);
 
         ApplicationUpdated applicationUpdated = new ApplicationUpdated(
             application.Id.Value,

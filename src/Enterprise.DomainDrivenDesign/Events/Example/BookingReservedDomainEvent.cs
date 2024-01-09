@@ -2,7 +2,12 @@
 
 namespace Enterprise.DomainDrivenDesign.Events.Example;
 
-public class BookingReservedDomainEvent(Guid bookingId) : DomainEvent
+public class BookingReservedDomainEvent : DomainEvent
 {
-    public Guid BookingId { get; } = bookingId;
+    public BookingReservedDomainEvent(Guid bookingId)
+    {
+        BookingId = bookingId;
+    }
+
+    public Guid BookingId { get; }
 }

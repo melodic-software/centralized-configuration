@@ -1,5 +1,4 @@
 ﻿using Enterprise.ApplicationServices.Queries.Handlers;
-using Enterprise.ApplicationServices.Queries.Handlers.Generic;
 using Enterprise.ApplicationServices.Queries.Model;
 using Microsoft.Extensions.DependencyInjection;
 
